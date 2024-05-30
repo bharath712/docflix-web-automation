@@ -26,11 +26,15 @@
 
 Cypress.Commands.add('UncaughtException', () => {
 
+
     cy.on('uncaught:exception', err => {
 
         console.log('Cypress detected uncaught exception: ', err);
         return false;
 
     });
+
+    cy.clearAllLocalStorage()
+
 
 })

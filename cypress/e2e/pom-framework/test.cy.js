@@ -8,7 +8,6 @@ describe('Testing', () => {
             return false;
 
         })
-        cy.visit('/');
 
     });
 
@@ -16,7 +15,30 @@ describe('Testing', () => {
 
     it('Enter Now button click', () => {
 
-        cy.contains('ENTER NOW').first().click();
+        let videoName;
 
-    })
+        cy.visit('/');
+
+        cy.get('.LandingPage_scroll-down__7fnM1.LandingPage_scroll-down-desktop__-tIX1').trigger('mousedown');
+        cy.get('h2').contains('Watch now, Only on Docflix').should('be.visible');
+
+        // cy.get('.ComingSoonSection_card__RqfPP')
+        //     .should('be.greaterThan', 5)
+
+        cy.get('.ComingSoonSection_card__RqfPP').each(($ele, index, $list) => {
+
+            cy.log($ele.text());
+            if ($ele.text() === '5W1H') {
+
+                cy.wrap($ele).should('be.visible');
+
+            }
+
+        });
+
+        cy.get('h2').contains('Our Experts');
+        cy.get('.styles_speakersWrapper__PWtPC');
+
+    });
+
 });

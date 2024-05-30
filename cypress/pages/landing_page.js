@@ -1,5 +1,5 @@
 
-class homepage {
+class HomePage {
 
     carouselTitleText = 'OTT for doctors where';
     carouselSubtitleText = 'Art meets Science!';
@@ -19,9 +19,9 @@ class homepage {
         this.elements.carouselTitle().should('have.text', this.carouselTitleText);
         this.elements.carouselSubTitle().should('have.text', this.carouselSubtitleText);
         this.elements.cauroselDescription().should('have.text', this.carouselDescriptionText);
-        this.elements.EnterNowButton().click();
+        this.elements.EnterNowButton().should('be.visible').click();
     }
 
 }
 
-export default homepage;
+export default HomePage;
