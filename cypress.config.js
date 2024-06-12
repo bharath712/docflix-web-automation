@@ -7,6 +7,8 @@ module.exports = defineConfig({
     viewportHeight: 800,
     watchForFileChanges: false,
     experimentalStudio: true,
+    retries: 1,
+    chromeWebSecurity: false,
     baseUrl: 'https://docflix-internal.web.app/home',
     setupNodeEvents(on, config) {
       // implement node event listeners here

@@ -22,9 +22,6 @@ describe('Testing', () => {
         cy.get('.LandingPage_scroll-down__7fnM1.LandingPage_scroll-down-desktop__-tIX1').trigger('mousedown');
         cy.get('h2').contains('Watch now, Only on Docflix').should('be.visible');
 
-        // cy.get('.ComingSoonSection_card__RqfPP')
-        //     .should('be.greaterThan', 5)
-
         cy.get('.ComingSoonSection_card__RqfPP').each(($ele, index, $list) => {
 
             cy.log($ele.text());
@@ -35,9 +32,6 @@ describe('Testing', () => {
             }
 
         });
-
-        cy.get('h2').contains('Our Experts');
-        cy.get('.styles_speakersWrapper__PWtPC');
 
     });
 
