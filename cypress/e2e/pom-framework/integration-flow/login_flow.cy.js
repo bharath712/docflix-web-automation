@@ -1,23 +1,8 @@
-
-import HomePage from "../../pages/landing_page";
-import LoginPage from "../../pages/login_page";
-
-const hp = new HomePage();
-const lp = new LoginPage();
-
-describe('Check login with Mobile number and OTP', () => {
-    beforeEach(() => {
-
-        cy.UncaughtException();
-        cy.viewport('macbook-13');
-        cy.visit('/');
-
-    });
-
-    it('Mobile Number Screen and OTP', () => {
+describe('Login with Mobile Number and OTP', () => {
+    it('Login with Mobile Number and OTP', () => {
 
         console.log('Test');
-        hp.clickEnterNowButton();
+        homePage.clickEnterNowButton();
         lp.enterMobileNumber();
 
         cy.get('.undefined').contains('Send OTP', { timeout: 10000 }).should('be.visible').click();
@@ -32,5 +17,4 @@ describe('Check login with Mobile number and OTP', () => {
         cy.get('.undefined').click();
 
     });
-
 });

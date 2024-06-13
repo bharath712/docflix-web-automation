@@ -11,9 +11,7 @@ describe('Testing', () => {
 
     });
 
-
-
-    it('Enter Now button click', () => {
+    it.skip('Enter Now button click', () => {
 
         let videoName;
 

@@ -4,8 +4,6 @@ class HomePage {
     carouselTitleText = 'OTT for doctors where';
     carouselSubtitleText = 'Art meets Science!';
     carouselDescriptionText = 'A new age OTT platform with a wide range of scientific content tailored for your various practice needs.';
-    declarationText = 'By proceeding you agree to the Terms of use and Privacy Policy.';
-    registerNowText = "Don’t have an account? Register now.";
     whyDocflixSubHeading = 'Docflix is based on 3 strong pillars, most important for scientific content:';
 
     elements = {
@@ -15,6 +13,9 @@ class HomePage {
         carouselSubTitle: () => cy.get('.LandingPage_heading__Sr4bj').first(),
         cauroselDescription: () => cy.get('.LandingPage_carouselContent__JzfNj').first(),
         enterNowButton: () => cy.contains('ENTER NOW').first(),
+
+        // Scroll button Web Element
+        scrollButton: () => cy.get('.LandingPage_scroll-down-desktop__dZNGe'),
 
         // Watch Now Only on Docflix Web Elements
         watchNowOnlyOnDocflixHeading: () => cy.get('h2').contains('Watch now, Only on Docflix'),
@@ -29,14 +30,6 @@ class HomePage {
         speakerAboutElement: () => cy.get('.styles_header__76AtR'),
         speakerCrossIcon: () => cy.get('img[alt="close"]'),
 
-        //Login with Mobile Number Page Web Elements
-        startWatchingHeading: () => cy.get('h1').contains('Start Watching'),
-        mobileNumberTitle: () => cy.get('.Login_input-group__VFlHU'),
-        crossIconButton: () => cy.get('[alt="close"]'),
-        submitButton: () => cy.get('[class= "btn undefined"]'),
-        termsAndConditionText: () => cy.get('.Login_terms__tqMq-'),
-        registerNowLink: () => cy.get('.Login_sinupbtn-container__nYIlB'),
-
         //  WHY DOCFLIX
         whyDocflixHeading: () => cy.get('h2').contains('Why Docflix?'),
         whyDocflixSubHeading: () => cy.get('[class="LandingPage_subHeading__jNs+p"]', { force: true }),
@@ -49,7 +42,12 @@ class HomePage {
         this.elements.carouselTitle().should('have.text', this.carouselTitleText);
         this.elements.carouselSubTitle().should('have.text', this.carouselSubtitleText);
         this.elements.cauroselDescription().should('have.text', this.carouselDescriptionText);
-        this.elements.enterNowButton().should('be.visible').click();
+    }
+
+    validateScrollButtonClick() {
+
+        this.elements.scrollButton().should('be.visible').click();
+
     }
 
     validateWatchNowSection() {
@@ -61,7 +59,7 @@ class HomePage {
 
     }
 
-    validateOurExperts() {
+    validateOurExpertsSection() {
 
         this.elements.ourExpertHeading().should('have.text', 'Our Experts');
         this.elements.speakersWebElement().should('have.length', 12)
@@ -79,27 +77,6 @@ class HomePage {
         cy.log('Validating Why Docflix Section is Visible and Functioning')
         this.elements.whyDocflixHeading().should('be.visible');
         this.elements.whyDocflixSubHeading().should('have.text', this.whyDocflixSubHeading);
-    }
-
-    verifyLoginPage() {
-
-        cy.log('Verifying Login Screen is opening and visible')
-        this.elements.startWatchingHeading().should('be.visible');
-        this.elements.mobileNumberTitle().should('be.visible');
-        this.elements.submitButton().should('be.visible');
-        this.elements.termsAndConditionText().invoke('text').then(text => {
-
-            expect(text).to.equal(this.declarationText);
-
-        })
-        this.elements.registerNowLink().invoke('text').then(text => {
-
-            expect(text).to.equal(this.registerNowText);
-
-        })
-
-        this.elements.crossIconButton().should('be.visible').click();
-
     }
 
 }

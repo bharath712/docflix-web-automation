@@ -7,6 +7,7 @@ class Footer {
     instagramDocflixUrl = 'https://www.instagram.com/docflix_mankind/?hl=en'
     xDocflixUrl = 'https://x.com/i/flow/login?redirect_after_login=%2FDocflix_Mankind'
     copyRightText = '© Mankind Pharma 2024';
+
     element = {
 
         docflixLogoLink: () => cy.get('[alt="Docflix"]'),
@@ -17,6 +18,19 @@ class Footer {
         xDocflixLink: () => cy.get('[title="Twitter"]'),
         copyRightText: () => cy.get('.FooterNew_desc__SQu5R'),
         privacyPolicyLink: () => cy.get('a').contains('Privacy Policy')
+
+    }
+
+    verifyFooterSection() {
+
+        this.element.docflixLogoLink().last().should('be.visible');
+        this.element.mankindLogoLink().should('be.visible')
+        this.element.facebookDocflixLink().should('be.visible')
+        this.element.linkedInDocflixLink().should('be.visible')
+        this.element.instagramDocflixLink().should('be.visible')
+        this.element.xDocflixLink().should('be.visible')
+        this.element.copyRightText().should('be.visible')
+        this.element.privacyPolicyLink().should('be.visible')
 
     }
 
