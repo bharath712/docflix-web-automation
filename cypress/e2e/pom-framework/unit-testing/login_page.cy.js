@@ -14,7 +14,7 @@ describe('Check login with Mobile number and OTP', () => {
 
     });
 
-    it.only('Verify Login with Mobile Number Page', () => {
+    it('Verify Login with Mobile Number Page', () => {
 
         loginPage.verifyLoginPage();
 
