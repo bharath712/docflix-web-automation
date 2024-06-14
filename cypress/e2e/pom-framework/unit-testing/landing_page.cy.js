@@ -24,6 +24,12 @@ describe('e2e Testing on Landing page', () => {
 
     });
 
+    it('Verify the Scroll Animation and click on Enter Now button', () => {
+
+        homePage.validateScrollButtonClick();
+
+    });
+
     it('Verify Watch Now Only on Docflix Section on the Landing Page', () => {
 
         homePage.validateWatchNowSection();

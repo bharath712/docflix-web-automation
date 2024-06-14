@@ -1,4 +1,4 @@
-
+import { enterNowButton } from "../support/helper";
 class HomePage {
 
     carouselTitleText = 'OTT for doctors where';
@@ -42,6 +42,8 @@ class HomePage {
         this.elements.carouselTitle().should('have.text', this.carouselTitleText);
         this.elements.carouselSubTitle().should('have.text', this.carouselSubtitleText);
         this.elements.cauroselDescription().should('have.text', this.carouselDescriptionText);
+        enterNowButton().click();
+
     }
 
     validateScrollButtonClick() {

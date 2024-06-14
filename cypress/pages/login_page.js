@@ -22,7 +22,7 @@ class LoginPage {
     verifyLoginPage() {
 
         cy.log('Verifying Login Screen is opening and visible');
-        enterNowButton().click();
+
         this.elements.startWatchingHeading().should('be.visible');
         this.elements.mobileNumberTitle().should('be.visible');
         this.elements.submitButton().should('be.visible');
