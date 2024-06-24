@@ -1,3 +1,5 @@
+import { enterNowButton, enterMobileNumber, clickOnLoginSubmitButton, clickOnOTPSubmitButton, clickOnSendOTPButton, clickOnTermsAndCondition, enterOtp1, enterOtp2, enterOtp3, enterOtp4 } from "../../../support/helper";
+
 describe('Testing', () => {
 
     beforeEach('Uncaught Exception', () => {
@@ -9,28 +11,16 @@ describe('Testing', () => {
 
         })
 
+        cy.visit('https://erp.atriina.com/login#login');
+
+
     });
 
-    it.skip('Enter Now button click', () => {
+    it('Login in ERP for checkin', () => {
 
-        let videoName;
+        cy.visit('https://erp.atriina.com/login#login');
 
-        cy.visit('/');
-
-        cy.get('.LandingPage_scroll-down__7fnM1.LandingPage_scroll-down-desktop__-tIX1').trigger('mousedown');
-        cy.get('h2').contains('Watch now, Only on Docflix').should('be.visible');
-
-        cy.get('.ComingSoonSection_card__RqfPP').each(($ele, index, $list) => {
-
-            cy.log($ele.text());
-            if ($ele.text() === '5W1H') {
-
-                cy.wrap($ele).should('be.visible');
-
-            }
-
-            cy.log('Bharath Battini');
-        });
+      
 
     });
 

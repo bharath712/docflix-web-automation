@@ -5,7 +5,6 @@ class LoginPage {
     registerNowText = "Don’t have an account? Register now.";
 
     elements = {
-        //Landing Page Web Element
 
         //Login with Mobile Number Page Web Elements
         startWatchingHeading: () => cy.get('h1').contains('Start Watching'),
@@ -17,6 +16,7 @@ class LoginPage {
         enterMobileNumberField: () => cy.get('#phone'),
         clickSubmitButton: () => cy.contains('Submit'),
         registerNowHeading: () => cy.get('h1').contains('REGISTER NOW'),
+        
     }
 
     verifyLoginPage() {
@@ -56,8 +56,6 @@ class LoginPage {
         this.elements.registerNowLink().children().click();
         this.elements.registerNowHeading().should('be.visible');
     }
-
-
 
 }
 

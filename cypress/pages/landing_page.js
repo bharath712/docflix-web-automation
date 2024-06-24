@@ -33,7 +33,8 @@ class HomePage {
         //  WHY DOCFLIX
         whyDocflixHeading: () => cy.get('h2').contains('Why Docflix?'),
         whyDocflixSubHeading: () => cy.get('[class="LandingPage_subHeading__jNs+p"]', { force: true }),
-        whyDocflixCard: () => cy.get('AboutCard_container__2+16P')
+        whyDocflixCard: () => cy.get('[class="AboutCard_container__2+16P"]')
+
 
     }
 
@@ -79,6 +80,8 @@ class HomePage {
         cy.log('Validating Why Docflix Section is Visible and Functioning')
         this.elements.whyDocflixHeading().should('be.visible');
         this.elements.whyDocflixSubHeading().should('have.text', this.whyDocflixSubHeading);
+        this.elements.whyDocflixCard().children().should('have.length', 3);
+
     }
 
 }

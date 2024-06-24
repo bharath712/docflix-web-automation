@@ -1,5 +1,5 @@
 import HomePage from "../../../pages/landing_page";
-import Footer from "../../../pages/footer";
+import Footer from "../../../pages/footer_section";
 import LoginPage from "../../../pages/login_page";
 
 const homePage = new HomePage();
