@@ -1,12 +1,16 @@
 
 class HomePage {
 
+    mobileNumber = '9991004781';
+    OTP = '4781';
+
     elements = {
 
         enterNowButton: () => cy.contains('ENTER NOW').first(),
-        enterMobileNumber: () => cy.get('#phone').type('9991004781'),
+        enterMobileNumber: () => cy.get('#phone').type(mobileNumber),
         clickOnLoginSubmitButton: () => cy.contains('Submit'),
         clickOnSendOTPButton: () => cy.contains('Send OTP'),
+
         enterOtp1: () => cy.get('[name="digit-1"]').type('4'),
         enterOtp2: () => cy.get('[name="digit-2"]').type('7'),
         enterOtp3: () => cy.get('[name="digit-3"]').type('8'),

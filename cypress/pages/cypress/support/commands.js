@@ -23,38 +23,3 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
-Cypress.Commands.add('UncaughtException', () => {
-
-
-    cy.on('uncaught:exception', err => {
-
-        console.log('Cypress detected uncaught exception: ', err);
-        return false;
-
-    });
-
-})
-
-Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
-
-    cy.wait(5000);
-    cy.contains('ENTER NOW').first().click();
-
-    cy.get('#phone').type(mobileNumber);
-    cy.contains('Submit').click();
-    cy.wait(5000);
-
-    cy.contains('Send OTP').click();
-    cy.wait(5000);
-
-    for (let i = 0; i < OTP.length; i++) {
-
-        cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i))
-
-    }
-
-    cy.get('[type="checkbox"]').check();
-    cy.contains('Submit').click();
-
-})
