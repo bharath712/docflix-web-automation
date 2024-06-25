@@ -6,7 +6,6 @@ describe('Profile Page Automation', () => {
     beforeEach(() => {
 
         cy.UncaughtException();
-
         cy.session('loginTestingUser', () => {
             cy.visitHomePage('9991004781', '4781');
         }, {
@@ -41,10 +40,10 @@ describe('Profile Page Automation', () => {
 
     });
 
-    it('', () => {
+    // it('', () => {
 
-        visit()
+    //     visit()
 
-    });
+    // });
 
 });

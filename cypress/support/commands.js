@@ -38,19 +38,27 @@ Cypress.Commands.add('UncaughtException', () => {
 
 Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
-    cy.wait(5000);
+    cy.visit('/');
+
+    cy.get('.OTPForm_cancel-btn__yo6gD').then(($cancel) => {
+
+        if ($cancel.text().includes('Cancel')) {
+
+            cy.wrap($cancel).click();
+        }
+
+    })
+
     cy.contains('ENTER NOW').first().click();
 
     cy.get('#phone').type(mobileNumber);
     cy.contains('Submit').click();
-    cy.wait(5000);
 
     cy.contains('Send OTP').click();
-    cy.wait(5000);
 
     for (let i = 0; i < OTP.length; i++) {
 
-        cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i))
+        cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i));
 
     }
 
