@@ -4,5 +4,7 @@ const urlpath = {
     videosUrl: '/videos',
     academyUrl: '/academy',
     webinarUrl: '/webinar',
-
+    myNotesUrl:'/notes',
+    myWatchListUrl:'/myPlaylist',
+    
 }
