@@ -38,12 +38,7 @@ describe('Profile Page Automation', () => {
         cy.get('.NavHeader_menuIcon__ENDAx').click();
 
 
+
     });
-
-    // it('', () => {
-
-    //     visit()
-
-    // });
 
 });

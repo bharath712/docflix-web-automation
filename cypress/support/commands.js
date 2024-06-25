@@ -23,7 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
+import 'cypress-if';
 Cypress.Commands.add('UncaughtException', () => {
 
 
@@ -40,14 +40,16 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     cy.visit('/');
 
-    cy.get('.OTPForm_cancel-btn__yo6gD').then(($cancel) => {
+    // cy.get('.OTPForm_cancel-btn__yo6gD').then(($cancel) => {
 
-        if ($cancel.text().includes('Cancel')) {
+    //     if ($cancel.text().includes('Cancel')) {
+    //         cy.wrap($cancel).click();
 
-            cy.wrap($cancel).click();
-        }
+    //     }
 
-    })
+    // })
+
+    // cy.get('.OTPForm_cancel-btn__yo6gD', { timeout: 5000 }).if('undefined').click().else().log('Cancel button not Found')
 
     cy.contains('ENTER NOW').first().click();
 
