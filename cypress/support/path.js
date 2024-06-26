@@ -4,7 +4,8 @@ const urlpath = {
     videosUrl: '/videos',
     academyUrl: '/academy',
     webinarUrl: '/webinar',
-    myNotesUrl:'/notes',
-    myWatchListUrl:'/myPlaylist',
-    
+    myNotesUrl: '/notes',
+    myWatchListUrl: '/myPlaylist',
+
 }
+export default urlpath;

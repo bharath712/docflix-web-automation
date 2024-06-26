@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-if';
+import { enterNowButton } from './helper';
 Cypress.Commands.add('UncaughtException', () => {
 
 
@@ -40,18 +41,26 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     cy.visit('/');
 
-    // cy.get('.OTPForm_cancel-btn__yo6gD').then(($cancel) => {
+    const cancelButton = '.OTPForm_cancel-btn__yo6gD';
+    const enterNowButton = 'ENTER NOW';
 
-    //     if ($cancel.text().includes('Cancel')) {
-    //         cy.wrap($cancel).click();
 
-    //     }
+    cy.get('.OTPForm_actionBtns__PESZh').then(($body) => {
 
-    // })
+        if ($body.length > 0) {
+            // If the button is present, click it
+            cy.get(cancelButton).click();
+            cy.contains(enterNowButton).first().click();
+        } else {
+            // If the button is not present, click the alternative element
+            cy.contains(enterNowButton).first().click();
+        }
+
+    })
 
     // cy.get('.OTPForm_cancel-btn__yo6gD', { timeout: 5000 }).if('undefined').click().else().log('Cancel button not Found')
 
-    cy.contains('ENTER NOW').first().click();
+    // cy.contains('ENTER NOW').first().click();
 
     cy.get('#phone').type(mobileNumber);
     cy.contains('Submit').click();
@@ -60,7 +69,7 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     for (let i = 0; i < OTP.length; i++) {
 
-        cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i));
+        cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i), { log: true });
 
     }
 

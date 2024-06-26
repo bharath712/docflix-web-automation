@@ -1,4 +1,4 @@
-import urlpath from '../screenshot'
+import urlpath from '../support/path';
 
 class HeaderSection {
 
@@ -14,9 +14,9 @@ class HeaderSection {
     clickOnHeaderLinks() {
 
         this.elements.clickOnHomeLink().click().url().should('include', urlpath.homeUrl);
-        this.elements.clickOnVideosLink().click().should('include', urlpath.videosUrl);
-        this.elements.clickOnAcademyLink().click().should('include', urlpath.academyUrl);
-        this.elements.clickOnWebinareLink().click().should('include', urlpath.webinarUrl);
+        this.elements.clickOnVideosLink().click().url().should('include', urlpath.videosUrl);
+        this.elements.clickOnAcademyLink().click().url().should('include', urlpath.academyUrl);
+        this.elements.clickOnWebinareLink().click().url().should('include', urlpath.webinarUrl);
 
     }
 

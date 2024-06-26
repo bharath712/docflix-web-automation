@@ -1,20 +1,27 @@
 import HeaderSection from '../../../pages/header_section';
-import HomePage from '../../../pages/home_page'
 
-const headerSection = new HeaderSection
-const homePage = new HomePage();
+const headerSection = new HeaderSection();
+
 describe('Homepage Unit Testing', () => {
 
     beforeEach(() => {
 
         cy.UncaughtException();
-        cy.visit('/');
+        cy.session('LoginSession', () => {
+
+            cy.visitHomePage('9991004781', '4781');
+
+        })
+
+
     });
 
     it('Login to Homepage', () => {
-
-        homePage.visitHomePage();
+        cy.visit('/');
         headerSection.clickOnHeaderLinks();
+        cy.visit('/');
+        cy.get('.SpecialityRow_tagsContainer__lVEfX').children().last().prev().click();
 
     });
+
 });
