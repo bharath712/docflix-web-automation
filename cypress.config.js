@@ -12,6 +12,7 @@ module.exports = defineConfig({
     experimentalStudio: true,
     retries: 1,
     chromeWebSecurity: false,
+    
     baseUrl: 'https://docflix-internal.web.app/home',
     env: {
 

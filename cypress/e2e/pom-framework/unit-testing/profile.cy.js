@@ -1,6 +1,7 @@
 import HomePage from "../../../pages/home_page";
-
+import Profile from "../../../pages/profile";
 const homePage = new HomePage();
+const profile = new Profile();
 describe('Profile Page Automation', () => {
 
     beforeEach(() => {
@@ -16,7 +17,8 @@ describe('Profile Page Automation', () => {
 
     it('Click on Profile and Click on Pages', () => {
         cy.visit('/');
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
+      profile.clickOnHamburgerBtn();
+        //cy.get('.NavHeader_menuIcon__ENDAx').click({force:true});
         cy.get('.NavHeader_header__CWSsF').first().click();
 
         cy.get('.NavHeader_routesSection__YMCdd').children().eq(0).click();

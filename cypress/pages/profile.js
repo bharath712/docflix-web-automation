@@ -15,6 +15,15 @@ class Profile{
         closeBtn:()=>cy.get('.NavHeader_loginBtn__V4a7e').contains('Close'),
         logOutBtn:()=>cy.get('.NavHeader_loginBtn__V4a7e').contains('Log out')
             }
+
+    clickOnHamburgerBtn(){
+        this.elements.profileHamburger().should('be.visible').click();
+        cy.url().should('include','https://docflix-internal.web.app/home');
+    }
+
+    clickOnHomeBtn(){
+        //this.elements.
+    }
 }
 
 export default Profile;
