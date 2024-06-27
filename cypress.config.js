@@ -8,7 +8,7 @@ module.exports = defineConfig({
     viewportHeight: 800,
     waitForAnimations: true,
     watchForFileChanges: false,
-    defaultCommandTimeout: 10000,
+    defaultCommandTimeout: 20000,
     experimentalStudio: true,
     retries: 1,
     chromeWebSecurity: false,

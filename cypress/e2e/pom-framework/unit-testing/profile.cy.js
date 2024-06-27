@@ -17,29 +17,10 @@ describe('Profile Page Automation', () => {
 
     it('Click on Profile and Click on Pages', () => {
         cy.visit('/');
-      profile.clickOnHamburgerBtn();
-        //cy.get('.NavHeader_menuIcon__ENDAx').click({force:true});
-        cy.get('.NavHeader_header__CWSsF').first().click();
-
-        cy.get('.NavHeader_routesSection__YMCdd').children().eq(0).click();
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
-
-        cy.get('.NavHeader_routesSection__YMCdd').children().eq(1).click();
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
-
-        cy.get('.NavHeader_routesSection__YMCdd').children().eq(2).click();
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
-
-        cy.get('.NavHeader_routesSection__YMCdd').children().eq(3).click();
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
-
-        cy.get('.NavHeader_routesSection__YMCdd').children().eq(4).click();
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
-
-        cy.get('.NavHeader_routesSection__YMCdd').children().eq(5).click();
-        cy.get('.NavHeader_menuIcon__ENDAx').click();
-
-
+        profile.clickOnHamburgerBtn();
+        profile.clickOnEachMenuCard();
+        profile.clickOnHamburgerBtn();
+        profile.clickonEditProfileBtn();
 
     });
 

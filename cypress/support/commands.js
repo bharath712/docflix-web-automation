@@ -41,26 +41,26 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     cy.visit('/');
 
-    const cancelButton = '.OTPForm_cancel-btn__yo6gD';
+    const cancelButton = cy.get('button').contains('Cancel');
+
     const enterNowButton = 'ENTER NOW';
 
+    debugger;
 
-    cy.get('.OTPForm_actionBtns__PESZh').then(($body) => {
+    cancelButton.then(($body) => {
 
         if ($body.length > 0) {
             // If the button is present, click it
-            cy.get(cancelButton).click();
+            cancelButton.click();
             cy.contains(enterNowButton).first().click();
-        } else {
+
+        }
+        else {
             // If the button is not present, click the alternative element
             cy.contains(enterNowButton).first().click();
         }
 
     })
-
-    // cy.get('.OTPForm_cancel-btn__yo6gD', { timeout: 5000 }).if('undefined').click().else().log('Cancel button not Found')
-
-    // cy.contains('ENTER NOW').first().click();
 
     cy.get('#phone').type(mobileNumber);
     cy.contains('Submit').click();
