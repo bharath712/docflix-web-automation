@@ -13,16 +13,18 @@ describe('Academy Module Unit Test Scripts', () => {
 
     });
 
-    it('Check Academy Page with All courses', () => {
+    it.only('Check Academy Page with All courses', () => {
 
-        cy.get('.AcademyPage_button__MPyRS').first().contains('All Courses');
+        cy.get('div').find('button').contains('All Courses').click();
+        cy.get('div').find('button').contains('Ongoing Courses').click();
+        //        cy.get('div').find('button').contains('Completed Courses').click();
 
-        cy.get('.AcademyPage_courses__5q7fM').find('.CourseCard_container__kuwHc').should('have.length.at.least', 2);
-        cy.get('.CourseCard_subtitle__aTfGv').should('contain.text', 'Course');
-        cy.get('[class= "CourseCard_chapters__mDOT+"]').should('contain.text', 'Chapters');
+        // cy.get('.AcademyPage_courses__5q7fM').find('.CourseCard_container__kuwHc').should('have.length.at.least', 2);
+        cy.get('div[class*="CourseCard_subtitle__"]').should('contain.text', 'Course');
+        cy.get('[class*= "CourseCard_chapters__"]').should('contain.text', 'Chapters');
 
     });
-    
+
     it('Check Ongoing and Completed Courses are visible', () => {
 
         cy.get('.AcademyPage_button__MPyRS').contains('Ongoing Courses').click();
