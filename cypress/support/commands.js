@@ -41,11 +41,11 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     cy.visit('/');
 
-    const cancelButton = '.OTPForm_cancel-btn__yo6gD';
+    const cancelButton = '.btn.OTPForm_cancel-btn__kfo9r';
     const enterNowButton = 'ENTER NOW';
 
 
-    cy.get('.OTPForm_actionBtns__PESZh').then(($body) => {
+    cy.get('.btn.OTPForm_cancel-btn__kfo9r').then(($body) => {
 
         if ($body.length > 0) {
             // If the button is present, click it
