@@ -24,7 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-if';
-import { enterNowButton } from './helper';
 Cypress.Commands.add('UncaughtException', () => {
 
 
@@ -41,21 +40,23 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     cy.visit('/');
 
-    const cancelButton = cy.get('button').contains('Cancel');
+    let cancelButton = cy.get('button.btn.OTPForm_cancel-btn__yo6gD');
 
-    const enterNowButton = 'ENTER NOW';
-
-    debugger;
+    let enterNowButton = 'ENTER NOW';
 
     cancelButton.then(($body) => {
 
+
+        console.log($body.length);
         if ($body.length > 0) {
             // If the button is present, click it
+            console.log('Inside If block')
             cancelButton.click();
             cy.contains(enterNowButton).first().click();
 
         }
-        else {
+        else if ($body.length = 0) {
+            console.log('Else block')
             // If the button is not present, click the alternative element
             cy.contains(enterNowButton).first().click();
         }

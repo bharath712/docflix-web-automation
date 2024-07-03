@@ -8,12 +8,12 @@ module.exports = defineConfig({
     viewportHeight: 800,
     waitForAnimations: true,
     watchForFileChanges: false,
-    defaultCommandTimeout: 20000,
+    defaultCommandTimeout: 10000,
     experimentalStudio: true,
     retries: 1,
     chromeWebSecurity: false,
-    
-    baseUrl: 'https://docflix-internal.web.app/home',
+
+    baseUrl: 'https://docflix-internal.web.app',
     env: {
 
       MOBILENUMBER: '9991004781',
