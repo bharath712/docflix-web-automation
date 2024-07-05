@@ -11,7 +11,6 @@ describe('e2e Testing on Landing page', () => {
     beforeEach(() => {
 
         cy.UncaughtException();
-        cy.viewport('macbook-13');
         cy.visit('/');
 
     });

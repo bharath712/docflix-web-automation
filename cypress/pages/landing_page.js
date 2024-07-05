@@ -33,8 +33,13 @@ class HomePage {
         //  WHY DOCFLIX
         whyDocflixHeading: () => cy.get('h2').contains('Why Docflix?'),
         whyDocflixSubHeading: () => cy.get('[class="LandingPage_subHeading__jNs+p"]', { force: true }),
-        whyDocflixCard: () => cy.get('[class="AboutCard_container__2+16P"]')
-
+        whyDocflixCard: () => cy.get('[class="AboutCard_container__2+16P"]'),
+        StoryHeader:()=> cy.get('div.AboutCard_heading__7UMwS').eq(0),
+        reliabilityHeader:()=> cy.get('div.AboutCard_heading__7UMwS').eq(1),
+        convenienceHeader:()=> cy.get('div.AboutCard_heading__7UMwS').eq(2),
+        storyDesc:()=> cy.get('[class="AboutCard_content__WFEu-"]').eq(0),
+        reliabiltyDesc:()=> cy.get('[class="AboutCard_content__WFEu-"]').eq(1),
+        convenienceDesc:()=>cy.get('[class="AboutCard_content__WFEu-"]').eq(2)
 
     }
 
@@ -81,6 +86,18 @@ class HomePage {
         this.elements.whyDocflixHeading().should('be.visible');
         this.elements.whyDocflixSubHeading().should('have.text', this.whyDocflixSubHeading);
         this.elements.whyDocflixCard().children().should('have.length', 3);
+
+        this.elements.StoryHeader().should('be.visible').and('have.text','Story');
+        this.elements.storyDesc().should('be.visible').and('have.text','Gaining knowledge is a continuous journey. Why not turn the journey into an experience by means of simplified story telling, where science gets conveyed artistically to you.')
+        
+        this.elements.reliabilityHeader().should('be.visible').and('have.text','Reliability')
+        this.elements.reliabiltyDesc().should('be.visible').and('have.text','Senior Cardiologists of India sharing their mind space, content from trusted publishing partners. What can be more reliable?')
+
+        this.elements.convenienceHeader().should('be.visible').and('have.text','Convenience')
+        this.elements.convenienceDesc().should('be.visible').and ('have.text','What better format than videos to consume the content delivered with AI driven personalization.')
+
+
+
 
     }
 
