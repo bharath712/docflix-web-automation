@@ -16,11 +16,19 @@ describe('Profile Page Automation', () => {
     });
 
     it('Click on Profile and Click on Pages', () => {
+
         cy.visit('/');
         profile.clickOnHamburgerBtn();
         profile.clickOnEachMenuCard();
+
+        cy.visit('/');
         profile.clickOnHamburgerBtn();
         profile.clickonEditProfileBtn();
+        profile.editProfileFields();
+
+        cy.visit('/');
+        profile.clickOnHamburgerBtn();
+        // profile.clickOnLogoutButton();
 
     });
 
