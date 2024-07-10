@@ -12,23 +12,36 @@ describe('Profile Page Automation', () => {
         }, {
             cacheAcrossSpecs: true
         })
+        cy.visit('/');
 
     });
 
     it('Click on Profile and Click on Pages', () => {
 
-        cy.visit('/');
         profile.clickOnHamburgerBtn();
         profile.clickOnEachMenuCard();
 
-        cy.visit('/');
+
+
+    });
+
+    it('Click on Edit Profile Button', () => {
         profile.clickOnHamburgerBtn();
         profile.clickonEditProfileBtn();
         profile.editProfileFields();
+    });
 
-        cy.visit('/');
+    it('Click on Close Button on Profile', () => {
+
         profile.clickOnHamburgerBtn();
-        // profile.clickOnLogoutButton();
+        profile.clickOnCloseButton();
+
+    });
+
+    it('Click on Logout in Profile', () => {
+
+        profile.clickOnHamburgerBtn();
+        profile.clickOnLogoutButton();
 
     });
 

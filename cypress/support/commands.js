@@ -23,7 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import 'cypress-if';
 Cypress.Commands.add('UncaughtException', () => {
 
 
@@ -40,28 +39,37 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
     cy.visit('/');
 
-    let cancelButton = cy.get('button.btn.OTPForm_cancel-btn__yo6gD');
+    let ele = {
 
-    let enterNowButton = 'ENTER NOW';
+        cancelButton: '.btn.OTPForm_cancel-btn__yo6gD',
+        enterNowButton: 'ENTER NOW',
+        phoneNumberElement: '#phone',
+        SubmitButton: 'Submit',
+        SendOTPButton: 'Send OTP',
+        mobileNumber: '9991004781',
+        OTP: '4781',
+        checkBox: '[type = "checkbox"]'
+    }
 
-    cancelButton.then(($body) => {
+    cy.get('button').each(($element) => {
+
+        cy.log($element.attr('class'));
+
+        if ($element.attr('class') == 'btn OTPForm_cancel-btn__yo6gD' || $element.attr('class') == 'btn UserFeedback_btn__+pF7n') {
 
 
-        console.log($body.length);
-        if ($body.length > 0) {
-            // If the button is present, click it
-            console.log('Inside If block')
-            cancelButton.click();
-            cy.contains(enterNowButton).first().click();
+            cy.get(ele.cancelButton).click();
+            cy.contains(ele.enterNowButton).first().click();
+            return false;
 
         }
-        else if ($body.length = 0) {
-            console.log('Else block')
-            // If the button is not present, click the alternative element
-            cy.contains(enterNowButton).first().click();
+        else if ($element.attr('class') == 'btn') {
+
+            cy.contains(ele.enterNowButton).first().click();
+            return false;
         }
 
-    })
+    });
 
     cy.get('#phone').type(mobileNumber);
     cy.contains('Submit').click();
@@ -77,4 +85,6 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
     cy.get('[type="checkbox"]').check();
     cy.contains('Submit').click();
 
-})
+});
+
+

@@ -65,7 +65,7 @@ class RegistrationPage {
     elements = {
 
         //Register Now click on Login with Mobile Number
-        registerNowLink: () => cy.get('.Login_sinupbtn-container__nYIlB'),
+        registerNowLink: () => cy.get('.Login_sinupbtn-container__nYIlB').find('span').contains('Register Now.'),
 
 
         //Headings Web Element on REGISTER NOW Page

@@ -84,7 +84,7 @@ describe('Validate the Register Now Page is visible and clickable', () => {
 
     })
 
-    describe.only('Validate the mobile number field and submit', () => {
+    describe('Validate the mobile number field and submit', () => {
         //  registerNow.verifyRegisterNowPage();
 
         it('Empty string in mobile number and submit', () => {
