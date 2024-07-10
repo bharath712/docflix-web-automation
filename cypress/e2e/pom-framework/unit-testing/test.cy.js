@@ -1,15 +1,8 @@
-import { enterNowButton, enterMobileNumber, clickOnLoginSubmitButton, clickOnOTPSubmitButton, clickOnSendOTPButton, clickOnTermsAndCondition, enterOtp1, enterOtp2, enterOtp3, enterOtp4 } from "../../../support/helper";
-
 describe('Testing', () => {
 
     beforeEach('Uncaught Exception', () => {
 
-        cy.on('uncaught:exception', err => {
-
-            cy.log('Uncaught Exception is', err);
-            return false;
-
-        })
+        cy.UncaughtException();
 
         cy.visit('/');
 
@@ -17,40 +10,56 @@ describe('Testing', () => {
 
     it('Login in ERP for checkin', () => {
 
+        let ele = {
 
-        const cancelButton = '.btn.OTPForm_cancel-btn__yo6gD';
-        const enterNowButton = cy.get('button[class="btn"]').contains('ENTER NOW').first();
+            cancelButton: '.btn.OTPForm_cancel-btn__yo6gD',
+            enterNowButton: 'ENTER NOW',
+            phoneNumberElement: '#phone',
+            SubmitButton: 'Submit',
+            SendOTPButton: 'Send OTP',
+            mobileNumber: '9991004781',
+            OTP: '4781',
+            checkBox: '[type = "checkbox"]'
+        }
+
+        cy.get('button').each(($element) => {
+
+            cy.log($element.attr('class'));
+
+            if ($element.attr('class') == 'btn OTPForm_cancel-btn__yo6gD' || $element.attr('class') == 'btn UserFeedback_btn__+pF7n') {
 
 
-        enterNowButton.then(($body) => {
+                cy.get(ele.cancelButton).click();
+                cy.contains(ele.enterNowButton).first().click();
+                return false;
 
-            if ($body.length = 0) {
-                // If the button is present, click it
-                cy.get(cancelButton).click().should('be.visible');
-                enterNowButton.click().should('be.visible');
-            } else {
-                // If the button is not present, click the alternative element
-                enterNowButton.click().should('be.visible');
+            }
+            else if ($element.attr('class') == 'btn') {
+
+                cy.contains(ele.enterNowButton).first().click();
+                return false;
             }
 
-        })
+        });
 
-        cy.get('#phone').type('9991004781');
-        cy.contains('Submit').click();
 
-        const OTP = '4781';
-        cy.contains('Send OTP').click();
+        cy.get(ele.phoneNumberElement).type('9991004781');
+        cy.contains(ele.SubmitButton).click();
 
-        for (let i = 0; i < OTP.length; i++) {
+        cy.contains(ele.SendOTPButton).click();
 
-            cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i), { log: true });
+        let OTP = '4781';
+
+        for (let i = 0; i < ele.OTP.length; i++) {
+
+            cy.get(`[name="digit-${i + 1}"]`).type(ele.OTP.charAt(i), { log: true });
 
         }
 
-        cy.get('[type="checkbox"]').check();
-        cy.contains('Submit').click();
-
-
+        cy.get(ele.checkBox).check();
+        cy.contains(ele.SubmitButton).click();
     });
 
 });
+
+

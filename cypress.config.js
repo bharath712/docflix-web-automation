@@ -10,10 +10,10 @@ module.exports = defineConfig({
     watchForFileChanges: false,
     defaultCommandTimeout: 10000,
     experimentalStudio: true,
-    retries: 1,
+    //retries: 1,
     chromeWebSecurity: false,
 
-    baseUrl: 'https://docflix-internal.web.app',
+    baseUrl: 'https://docflix-internal.web.app/',
     env: {
 
       MOBILENUMBER: '9991004781',

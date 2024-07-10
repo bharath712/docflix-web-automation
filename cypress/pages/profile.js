@@ -34,7 +34,7 @@ class Profile {
         lableEmail: () => cy.get('label[for="email"]').contains('Email'),
         emailField: () => cy.get('#email'),
         scoreInfoButton: () => cy.get('.NavHeader_infoImg__DTpiN'),
-        cancelButtonOnProfile: () => cy.get('[class="NavHeader_FooterbtnWrapper__ArFZ+"]').children().contains('Close'),
+        closeButtonOnProfile: () => cy.get('[class="NavHeader_FooterbtnWrapper__ArFZ+"]').children().contains('Close'),
         logoutButtonOnProfile: () => cy.get('[class="NavHeader_FooterbtnWrapper__ArFZ+"]').children().contains('Log out')
 
     }
@@ -95,6 +95,11 @@ class Profile {
         //Email
         this.elements.lableEmail().should('be.visible').and('have.text', 'Email')
 
+    }
+
+    clickOnCloseButton() {
+
+        this.elements.closeButtonOnProfile().should('be.visible').click();
     }
 
     clickOnLogoutButton() {
