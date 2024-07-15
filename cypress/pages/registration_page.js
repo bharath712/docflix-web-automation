@@ -57,9 +57,21 @@ class RegistrationPage {
     errorCityFields = {
         emptyCityField: 'City is required',
         invalidCityName: 'No result found.',
-        minLengthCity: 'City is required',
+        citySubmitErr: 'City is required',
+        validCityName: 'Please select your  Profession',
+        ValidSpeciality: 'Please select your Speciality'
 
     }
+
+    errorProfessionDD = {
+        emptyProfessionField: 'Please select your  Profession',
+        emptySpecialityField: 'Please select your Speciality'
+    }
+
+    errorSpecialityDD = {
+        emptySpecialityField: 'Please select your Speciality'
+    }
+
 
 
     elements = {
@@ -81,6 +93,8 @@ class RegistrationPage {
         mobileNumberField: () => cy.get('#phone'),
         phoneNumberCountry: () => cy.get('[name="phoneNumberCountry"]'),
         cityFiled: () => cy.get('#city'),
+        professionDropdown: () => cy.get('#profession'),
+        specialityDropdown: () => cy.get('#speciality'),
         joinButton: () => cy.get('.JoinModal_submit-btn__QFSER').contains('JOIN'),
 
         //Error message
@@ -172,23 +186,85 @@ class RegistrationPage {
         this.elements.firstNameField().type('onkar');
         this.elements.lastNameField().type('kokitkar');
         this.elements.emailField().type('ok@gmail.com')
-        this.elements.mobileNumberField.type('9898989800'),
+        this.elements.mobileNumberField().type('9898989800'),
             this.elements.cityFiled().clear();
         this.elements.cityFiled().should('be.visible').and('be.empty')
 
         if (city != '') {
             this.elements.cityFiled().type(city)
         }
+        cy.get('div[role="option"]').eq(2).click();
+        cy.wait(2000)
         this.elements.joinButton().should('be.visible').click();
         this.elements.errorMesssage().should('have.text', errorMsg);
         this.elements.firstNameField().clear();
         this.elements.lastNameField().clear();
         this.elements.emailField().clear();
         this.elements.mobileNumberField().clear();
+
+    }
+    ValidateProfessionField(profession, errorMsg) {
+        this.elements.firstNameField().type('onkar');
+        this.elements.lastNameField().type('kokitkar');
+        this.elements.emailField().type('ok@gmail.com')
+        this.elements.mobileNumberField().type('9898989800'),
+            this.elements.cityFiled().type('Mumb')
+        cy.get('div[role="option"]').eq(1).click();
+        cy.wait(1000)
+
+        cy.get('#profession').children().then(($select) => {
+
+            let professionLength = $select.length;
+            for (let i = professionLength - 1; i > 0; i--) {
+                cy.get('#profession').select(i);
+                this.elements.professionDropdown().contains('Doctor')
+            }
+
+            this.elements.joinButton().should('be.visible').click();
+            this.elements.errorMesssage().should('have.text', errorMsg);
+
+        })
+
+    }
+    ValidateSpecialityField() {
+        this.elements.firstNameField().type('onkar');
+        this.elements.lastNameField().type('kokitkar');
+        this.elements.emailField().type('ok@gmail.com')
+        this.elements.mobileNumberField().type('9898989800'),
+            this.elements.cityFiled().type('Mumb')
+        cy.get('div[role="option"]').eq(1).click();
+        cy.wait(1000)
+        cy.get('#profession').children().then(($select) => {
+
+            let professionLength = $select.length;
+            for (let i = professionLength - 1; i > 0; i--) {
+                cy.get('#profession').select(i);
+                this.elements.professionDropdown().contains('Doctor')
+            }
+
+
+
+        })
+        cy.get('#speciality').children().then(($select) => {
+
+            let specialityLength = $select.length;
+            for (let i = specialityLength - 1; i > 22; i--) {
+                cy.get('#speciality').select(i);
+
+            }
+
+            cy.wait(500)
+             this.elements.joinButton().should('be.visible').click();
+           // this.elements.errorMesssage().should('have.text', errorMsg);
+
+        })
+
+
+
+
     }
 
-
-
 }
+
 
 export default RegistrationPage;
