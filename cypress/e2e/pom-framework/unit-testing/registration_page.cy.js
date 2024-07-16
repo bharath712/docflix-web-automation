@@ -15,12 +15,16 @@ describe('Validate the Register Now Page is visible and clickable', () => {
         registerNow.gotoRegisterNowPage();
 
     });
+  
+     describe('Validate Positive and Negative Test Cases mobile number field and submit', () => {
 
-    it('Verify the Register Now field heading name', () => {
+          it('Verify the Register Now field heading name', () => {
 
         registerNow.verifyRegisterNowPage();
 
     })
+});  
+
     describe('Validate Positive and Negative Test cases of First Name', () => {
 
 
@@ -83,8 +87,7 @@ describe('Validate the Register Now Page is visible and clickable', () => {
 
     })
 
-    describe('Validate Positive and Negative Test Cases mobile number field and submit', () => {
-        //  registerNow.verifyRegisterNowPage();
+    describe('Validate the mobile number field and submit', () => {
 
         it('Empty string in mobile number and submit', () => {
             registerNow.validateMobileNumberField('', registerNow.errorMobileNumberField.emptyMobileNumberField)
@@ -128,4 +131,3 @@ describe('Validate the Register Now Page is visible and clickable', () => {
             registerNow.ValidateSpecialityField('', registerNow)
         })
     })
-});
