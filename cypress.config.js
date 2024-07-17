@@ -2,7 +2,15 @@ const { defineConfig } = require("cypress");
 
 
 module.exports = defineConfig({
-
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    charts: true,
+    reportPageTitle: 'Custom Title',
+    inlineAssets: true,
+    saveAllAttempts: false,
+    videoOnFailOnly: true,
+    embeddedScreenshots: true,
+  },
   e2e: {
     viewportWidth: 1280,
     viewportHeight: 800,
@@ -10,6 +18,7 @@ module.exports = defineConfig({
     watchForFileChanges: false,
     defaultCommandTimeout: 10000,
     experimentalStudio: true,
+    video: true,
     //retries: 1,
     chromeWebSecurity: false,
 
@@ -22,19 +31,7 @@ module.exports = defineConfig({
     },
     setupNodeEvents(on, config) {
 
-      on('after:run', (results) => {
-        if (results) {
-          // results will be undefined in interactive mode
-          console.log(
-            results.totalPassed,
-            'out of',
-            results.totalTests,
-            'passed'
-          )
-        }
-
-      })
-      // implement node event listeners here
+      require('cypress-mochawesome-reporter/plugin')(on);
 
     },
   },

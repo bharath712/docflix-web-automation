@@ -77,7 +77,7 @@ class RegistrationPage {
     elements = {
 
         //Register Now click on Login with Mobile Number
-        registerNowLink: () => cy.get('.Login_sinupbtn-container__nYIlB').find('span').contains('Register Now.'),
+        registerNowLink: () => cy.get('[class*=Login_sinupbtn-container]').find('span').contains('Register now.'),
 
 
         //Headings Web Element on REGISTER NOW Page
@@ -92,7 +92,7 @@ class RegistrationPage {
         emailField: () => cy.get('#email'),
         mobileNumberField: () => cy.get('#phone'),
         phoneNumberCountry: () => cy.get('[name="phoneNumberCountry"]'),
-        cityFiled: () => cy.get('#city'),
+        cityField: () => cy.get('#city'),
         professionDropdown: () => cy.get('#profession'),
         specialityDropdown: () => cy.get('#speciality'),
         joinButton: () => cy.get('.JoinModal_submit-btn__QFSER').contains('JOIN'),
@@ -118,7 +118,7 @@ class RegistrationPage {
     gotoRegisterNowPage() {
 
         enterNowButton().click();
-        this.elements.registerNowLink().children().click();
+        this.elements.registerNowLink().click();
 
     }
 
@@ -187,11 +187,11 @@ class RegistrationPage {
         this.elements.lastNameField().type('kokitkar');
         this.elements.emailField().type('ok@gmail.com')
         this.elements.mobileNumberField().type('9898989800'),
-            this.elements.cityFiled().clear();
-        this.elements.cityFiled().should('be.visible').and('be.empty')
+            this.elements.cityField().clear();
+        this.elements.cityField().should('be.visible').and('be.empty')
 
         if (city != '') {
-            this.elements.cityFiled().type(city)
+            this.elements.cityField().type(city)
         }
         cy.get('div[role="option"]').eq(2).click();
         cy.wait(2000)
@@ -208,7 +208,7 @@ class RegistrationPage {
         this.elements.lastNameField().type('kokitkar');
         this.elements.emailField().type('ok@gmail.com')
         this.elements.mobileNumberField().type('9898989800'),
-            this.elements.cityFiled().type('Mumb')
+            this.elements.cityField().type('Mumb')
         cy.get('div[role="option"]').eq(1).click();
         cy.wait(1000)
 
@@ -231,7 +231,7 @@ class RegistrationPage {
         this.elements.lastNameField().type('kokitkar');
         this.elements.emailField().type('ok@gmail.com')
         this.elements.mobileNumberField().type('9898989800'),
-            this.elements.cityFiled().type('Mumb')
+            this.elements.cityField().type('Mumb')
         cy.get('div[role="option"]').eq(1).click();
         cy.wait(1000)
         cy.get('#profession').children().then(($select) => {
@@ -254,8 +254,8 @@ class RegistrationPage {
             }
 
             cy.wait(500)
-             this.elements.joinButton().should('be.visible').click();
-           // this.elements.errorMesssage().should('have.text', errorMsg);
+            this.elements.joinButton().should('be.visible').click();
+            // this.elements.errorMesssage().should('have.text', errorMsg);
 
         })
 

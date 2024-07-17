@@ -15,15 +15,15 @@ describe('Validate the Register Now Page is visible and clickable', () => {
         registerNow.gotoRegisterNowPage();
 
     });
-  
-     describe('Validate Positive and Negative Test Cases mobile number field and submit', () => {
 
-          it('Verify the Register Now field heading name', () => {
+    describe('Validate Positive and Negative Test Cases mobile number field and submit', () => {
 
-        registerNow.verifyRegisterNowPage();
+        it('Verify the Register Now field heading name', () => {
 
-    })
-});  
+            registerNow.verifyRegisterNowPage();
+
+        })
+    });
 
     describe('Validate Positive and Negative Test cases of First Name', () => {
 
@@ -131,3 +131,4 @@ describe('Validate the Register Now Page is visible and clickable', () => {
             registerNow.ValidateSpecialityField('', registerNow)
         })
     })
+});
