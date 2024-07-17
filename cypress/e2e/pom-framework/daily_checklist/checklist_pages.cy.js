@@ -1,3 +1,7 @@
+import Profile from '../../../pages/profile'
+
+let profile = new Profile();
+
 describe('All Pages Check', () => {
 
     beforeEach(() => {
@@ -55,5 +59,13 @@ describe('All Pages Check', () => {
         cy.get('h2').contains('Our Experts');
 
     });
+
+    it('Logout', () => {
+
+        cy.visit('/');
+        profile.elements.profileHamburger().click();
+        profile.elements.logOutBtn().click();
+
+    })
 
 });

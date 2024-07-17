@@ -1,5 +1,5 @@
 export const enterNowButton = () => cy.contains('ENTER NOW').first();
-export const enterMobileNumber = () => cy.get('#phone').type('9991004781');
+export const enterMobileNumber = () => cy.get('#phone');
 export const clickOnLoginSubmitButton = () => cy.contains('Submit');
 export const clickOnSendOTPButton = () => cy.contains('Send OTP');
 export const enterOtp1 = () => cy.get('name="digit-1"').type('4');

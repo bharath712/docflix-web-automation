@@ -27,7 +27,7 @@ describe('Check the Registration is working and Check with Random Profession and
         elements.cityField().type(city);
         cy.get('div[role="option"]', { timeout: 3000 }).eq(getRandomNumber(0, 4)).click();
 
-        elements.professionDropdown().select().then(($dropdownVal) => {
+        elements.professionDropdown().select(getRandomNumber(1, 4)).then(($dropdownVal) => {
 
             let professionName = $dropdownVal.val();
             cy.log(professionName, 'Profession Name');
