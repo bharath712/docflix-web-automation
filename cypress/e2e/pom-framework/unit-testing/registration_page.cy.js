@@ -1,6 +1,5 @@
 
-//import { it } from "mocha";
-//import { describe } from "mocha";
+
 import RegistrationPage from "../../../pages/registration_page";
 
 const registerNow = new RegistrationPage();
@@ -16,12 +15,16 @@ describe('Validate the Register Now Page is visible and clickable', () => {
         registerNow.gotoRegisterNowPage();
 
     });
+  
+     describe('Validate Positive and Negative Test Cases mobile number field and submit', () => {
 
-    it('Verify the Register Now field heading name', () => {
+          it('Verify the Register Now field heading name', () => {
 
         registerNow.verifyRegisterNowPage();
 
     })
+});  
+
     describe('Validate Positive and Negative Test cases of First Name', () => {
 
 
@@ -85,7 +88,6 @@ describe('Validate the Register Now Page is visible and clickable', () => {
     })
 
     describe('Validate the mobile number field and submit', () => {
-        //  registerNow.verifyRegisterNowPage();
 
         it('Empty string in mobile number and submit', () => {
             registerNow.validateMobileNumberField('', registerNow.errorMobileNumberField.emptyMobileNumberField)
@@ -100,4 +102,32 @@ describe('Validate the Register Now Page is visible and clickable', () => {
             registerNow.validateMobileNumberField('9898989898', registerNow.errorMobileNumberField.validMobileNumber)
         })
     })
-});
+
+    describe('Validate Positive and Negative Test Cases of city field and submit', () => {
+
+        it('Empty string in city field and submit', () => {
+            registerNow.validCityField('', registerNow.errorCityFields.emptyCityField)
+        })
+        it('Enter wrong city name in city field and submit', () => {
+            registerNow.validCityField('ohdhdh', registerNow.errorCityFields.invalidCityName)
+        })
+        it('Enter valid city name and submit', () => {
+            registerNow.validCityField('Mum', registerNow.errorCityFields.validCityName)
+        })
+    })
+
+    describe('Validate Positive And Negative Test Cases Of Profession Field And Submit', () => {
+
+        it('Without profession submit the form', () => {
+            registerNow.ValidateProfessionField('', registerNow.errorProfessionDD.emptyProfessionField)
+        })
+        it('Select profession and submit', () => {
+            registerNow.ValidateProfessionField('', registerNow.errorProfessionDD.emptySpecialityField)
+        })
+    })
+
+    describe('Validate Positive And Negative Test Cases Of Speciality Field And Submit', () => {
+        it.only('Select speciality and submit', () => {
+            registerNow.ValidateSpecialityField('', registerNow)
+        })
+    })
