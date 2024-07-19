@@ -23,6 +23,8 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import Profile from '../pages/profile'
+
 Cypress.Commands.add('UncaughtException', () => {
 
 
@@ -87,4 +89,13 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
 });
 
+Cypress.Commands.add('LogoutFromDocflix', () => {
+
+    let profile = new Profile();
+
+    profile.elements.profileHamburger().click();
+    profile.elements.logOutBtn().click();
+
+
+});
 
