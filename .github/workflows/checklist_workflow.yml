@@ -28,4 +28,9 @@ jobs:
           name: html-report
           path: cypress/reports/html/index.html
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+         publish_dir: cypress/reports/html
+    
 
