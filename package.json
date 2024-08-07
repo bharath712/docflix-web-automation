@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/bharathbattini/cypress_pom_framework#readme",
   "dependencies": {
-    "cypress": "^13.10.0"
+    "cypress": "^13.10.0",
+    "cypress-plugin-api": "^2.11.2",
+    "neat-csv": "^5.2.0"
   },
   "devDependencies": {
     "cypress-if": "^1.12.1",
