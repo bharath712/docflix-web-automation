@@ -6,37 +6,48 @@ class HomePage {
 
     elements = {
 
-        enterNowButton: () => cy.contains('ENTER NOW').first(),
-        enterMobileNumber: () => cy.get('#phone').type(mobileNumber),
-        clickOnLoginSubmitButton: () => cy.contains('Submit'),
-        clickOnSendOTPButton: () => cy.contains('Send OTP'),
-
-        enterOtp1: () => cy.get('[name="digit-1"]').type('4'),
-        enterOtp2: () => cy.get('[name="digit-2"]').type('7'),
-        enterOtp3: () => cy.get('[name="digit-3"]').type('8'),
-        enterOtp4: () => cy.get('[name="digit-4"]').type('1'),
-        clickOnTermsAndCondition: () => cy.get('[type="checkbox"]').check(),
-        clickOnOTPSubmitButton: () => cy.contains('Submit'),
+        headingName: () => cy.get('[class*=AnimatedHeader_mainHeader__]'),
+        carouselLeft: () => cy.get('[class*=HomeCarouselVideo_carouselBtn__]').first(),
+        carouselRight: () => cy.get('[class*=HomeCarouselVideo_carouselBtn__]').last(),
+        carouselDotButton: () => cy.get('[class*=HomeCarouselVideo_carouselDot__]')
     }
 
-    visitHomePage() {
+    clickOntheCarousel() {
 
-        cy.wait(10000);
-        this.elements.enterNowButton().click();
-        this.elements.enterMobileNumber();
-        this.elements.clickOnLoginSubmitButton().click();
-        cy.wait(3000);
-        this.elements.clickOnSendOTPButton().click();
-        cy.wait(3000);
-        this.elements.enterOtp1();
-        this.elements.enterOtp2();
-        this.elements.enterOtp3();
-        this.elements.enterOtp4();
-        this.elements.clickOnTermsAndCondition();
-        this.elements.clickOnOTPSubmitButton().click();
+        this.elements.carouselRight().click();
+        this.elements.carouselLeft().click();
 
     }
 
+    checkAllTheHeadingNames() {
+
+        this.elements.headingName().should('have.length', 8);
+
+    }
+
+    checkTheOurExpertHeader() {
+
+        this.elements.headingName().contains('Our Experts');
+    }
+
+    checkTheDocumentariesHeader() {
+
+        this.elements.headingName().contains('Documentaries');
+    }
+
+    checkTheContinueWatchingHeader() {
+
+        this.elements.headingName().contains('Continue Watching');
+    }
+
+    checkTheTrendingShowsHeader() {
+
+        this.elements.headingName().contains('Trending Shows');
+    }
+    checkTheRecentlyAddedHeader() {
+
+        this.elements.headingName().contains('Recently Added');
+    }
 }
 
 export default HomePage;
