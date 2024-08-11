@@ -1,4 +1,4 @@
-class Footer {
+class FooterSection {
 
     mankindUrl = 'https://www.mankindpharma.com/';
     docflixHomeUrl = 'https://docflix-internal.web.app/'
@@ -73,4 +73,4 @@ class Footer {
     }
 
 }
-export default Footer;
+export default FooterSection;

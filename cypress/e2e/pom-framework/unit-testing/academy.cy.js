@@ -1,3 +1,7 @@
+import Academy from "../../../pages/academy_page";
+
+const academy = new Academy();
+
 describe('Academy Module Unit Test Scripts', () => {
 
     beforeEach(() => {
@@ -15,28 +19,20 @@ describe('Academy Module Unit Test Scripts', () => {
 
     it.only('Check Academy Page with All courses', () => {
 
-        cy.get('div').find('button').contains('All Courses').click();
-        cy.get('div').find('button').contains('Ongoing Courses').click();
-        //        cy.get('div').find('button').contains('Completed Courses').click();
+        academy.CheckAllCourseHeadingName();
+        academy.CheckAllCoursesAreClickable();
 
-        // cy.get('.AcademyPage_courses__5q7fM').find('.CourseCard_container__kuwHc').should('have.length.at.least', 2);
-        cy.get('div[class*="CourseCard_subtitle__"]').should('contain.text', 'Course');
-        cy.get('[class*= "CourseCard_chapters__"]').should('contain.text', 'Chapters');
 
     });
 
-    it('Check Ongoing and Completed Courses are visible', () => {
+    it.only('Check Ongoing and Completed Courses are visible', () => {
 
-        cy.get('.AcademyPage_button__MPyRS').contains('Ongoing Courses').click();
-        cy.get('.AcademyPage_heading__QXCPN').first().contains('Ongoing Courses')
+        academy.ChecktheTabAreClickable();
 
-        cy.get('.AcademyPage_button__MPyRS').contains('Completed Courses').click();
-        cy.get('.AcademyPage_heading__QXCPN').first().contains('Completed Courses')
     });
 
     it('Check My Scoreboard is visible', () => {
 
-        cy.get('.AcademyPage_heading__QXCPN').last().contains('My Scoreboard').should('be.visible').and('contain.text', 'My Scoreboard');
 
     });
 

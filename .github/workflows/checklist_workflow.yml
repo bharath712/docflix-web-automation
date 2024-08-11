@@ -1,5 +1,7 @@
 name: Checklist workflow
-on: push
+on: 
+  schedule:
+    - cron: '23 3 * * *'
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
