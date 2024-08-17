@@ -48,6 +48,12 @@ class HomePage {
 
         this.elements.headingName().contains('Recently Added');
     }
+
+    checkTheHeadingsonHomePage(headingName) {
+
+        this.elements.headingName().contains(headingName);
+
+    }
 }
 
 export default HomePage;

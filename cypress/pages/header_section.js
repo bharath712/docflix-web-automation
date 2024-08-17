@@ -7,7 +7,7 @@ class HeaderSection {
         clickOnHomeLink: () => cy.get('a[href="/"]').contains('Home'),
         clickOnVideosLink: () => cy.get('a[href="/videos"]').contains('Videos'),
         clickOnAcademyLink: () => cy.get('a[href="/academy"]').contains('Academy'),
-        clickOnWebinareLink: () => cy.get('a[href="/webinar"]').contains('Webinar'),
+        clickOnWebinarLink: () => cy.get('a[href="/webinar"]').contains('Webinar'),
 
     }
 
@@ -16,7 +16,7 @@ class HeaderSection {
         this.elements.clickOnHomeLink().click().url().should('include', urlpath.homeUrl);
         this.elements.clickOnVideosLink().click().url().should('include', urlpath.videosUrl);
         this.elements.clickOnAcademyLink().click().url().should('include', urlpath.academyUrl);
-        this.elements.clickOnWebinareLink().click().url().should('include', urlpath.webinarUrl);
+        this.elements.clickOnWebinarLink().click().url().should('include', urlpath.webinarUrl);
 
     }
 

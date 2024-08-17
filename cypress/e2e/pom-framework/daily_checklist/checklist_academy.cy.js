@@ -9,6 +9,7 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
     beforeEach(() => {
 
         cy.UncaughtException();
+
         cy.session('loginWithMobileNumber', () => {
             cy.visitHomePage('9991004781', '4781');
         }, {
@@ -16,7 +17,6 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
         })
 
         cy.visit('/academy');
-
 
     });
 
@@ -35,7 +35,7 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
 
     });
 
-    it.skip('Logout from the Application', () => {
+    it('Logout from the Application', () => {
 
         cy.LogoutFromDocflix();
 

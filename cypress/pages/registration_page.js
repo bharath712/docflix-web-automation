@@ -95,7 +95,7 @@ class RegistrationPage {
         cityField: () => cy.get('#city'),
         professionDropdown: () => cy.get('#profession'),
         specialityDropdown: () => cy.get('#speciality'),
-        joinButton: () => cy.get('.JoinModal_submit-btn__QFSER').contains('JOIN'),
+        joinButton: () => cy.get('button').contains('JOIN'),
 
         //Error message
         errorMesssage: () => cy.get('.error'),
