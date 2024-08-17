@@ -3,7 +3,7 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
     beforeEach(() => {
 
         cy.UncaughtException();
-        cy.session('loginWithMobileNumber', () => {
+        cy.session('loginWithMobOTP', () => {
             cy.visitHomePage('9991004781', '4781');
         }, {
             cacheAcrossSpecs: true

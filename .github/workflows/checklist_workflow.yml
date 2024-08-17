@@ -1,7 +1,11 @@
 name: Checklist workflow
-on: 
+
+on:
+  push: # Trigger the workflow when code is pushed
+    branches:
+      - main
   schedule:
-    - cron: '23 3 * * *'
+    - cron: "23 3 * * *"
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
@@ -30,5 +34,4 @@ jobs:
           name: html-report
           path: cypress/reports/html/index.html
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-    
 
