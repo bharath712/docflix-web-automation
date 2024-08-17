@@ -1,7 +1,7 @@
 import { enterNowButton, enterMobileNumber, clickOnLoginSubmitButton, clickOnSendOTPButton, } from "../../../support/helper";
 let MobileNumber = '8898782353';
 
-describe('Check the Login Page is working and OTP is getting', () => {
+describe.only('Check the Login Page is working and OTP is getting', () => {
 
     beforeEach('Handling Exceptions and visiting the baseURL', () => {
 

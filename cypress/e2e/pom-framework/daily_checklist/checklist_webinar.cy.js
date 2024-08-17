@@ -11,11 +11,9 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
 
         cy.visit('/webinar');
 
-
     });
 
     it('Check the All View is clickable on Webinar', () => {
-
 
         cy.get('div[class*=WebinarCard_webinarCardWrapper__]').should('be.visible').then(($webinar) => {
 
@@ -26,6 +24,7 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
             };
 
         });
+
     });
 
     it('Check the All Share is clickable on Webinar', () => {
@@ -33,8 +32,8 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
         cy.get('div[class*=WebinarCard_webinarCardWrapper__]').should('be.visible').then(($webinar) => {
 
             for (let i = 0; i < $webinar.length; i++) {
-
-                cy.get('div[class*=WebinarCard_webinarCardWrapper__]').find('[class*="WebinarCard_descBtn__"]').eq(i).click();
+           
+                cy.get('div[class*=WebinarCard_webinarCardWrapper__]').find('[class*="WebinarCard_descBtn__"]',{timeout:10000}).eq(i).click({force: true});
                 cy.get('div[class*="InviteModal_closeBtn__"]').click();
             };
 

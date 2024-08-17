@@ -10,7 +10,7 @@ module.exports = defineConfig({
     saveAllAttempts: false,
     videoOnFailOnly: true,
     embeddedScreenshots: true,
-    overwrite: false,
+    overwrite: true,
     html: true,
     json: true
   },
@@ -24,8 +24,8 @@ module.exports = defineConfig({
     video: true,
     retries: 1,
     chromeWebSecurity: false,
-    //baseUrl: 'https://docflix-internal.web.app',
-    baseUrl: 'https://docflix.com',
+    baseUrl: 'https://docflix-internal.web.app',
+    // baseUrl: 'https://docflix.com',
     env: {
 
       MOBILENUMBER: '9991004781',

@@ -60,7 +60,7 @@ describe('Homepage Unit Testing', () => {
 
     it('Check the Recently Added Heading is Visible', () => {
 
-        HP.checkTheRecentlyAddedHeader();
+        HP.checkTheRecentlyAddedHeader('Recently Added');
 
     });
 
@@ -69,5 +69,7 @@ describe('Homepage Unit Testing', () => {
         FS.validateFooterSection();
 
     });
+
+    HP.checkTheHeadingsonHomePage('Our Experts')
 
 });

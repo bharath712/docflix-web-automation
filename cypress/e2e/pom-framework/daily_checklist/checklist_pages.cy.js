@@ -7,7 +7,7 @@ describe('All Pages Check', () => {
     beforeEach(() => {
 
         cy.UncaughtException();
-        cy.session('loginWithMobileNumber', () => {
+        cy.session('loginwithMN', () => {
             cy.visitHomePage('9991004781', '4781');
         }, {
             cacheAcrossSpecs: true
@@ -66,6 +66,6 @@ describe('All Pages Check', () => {
         profile.elements.profileHamburger().click();
         profile.elements.logOutBtn().click();
 
-    })
+    });
 
 });
