@@ -1,8 +1,8 @@
-import HomePage from "../../../pages/landing_page";
+import LandingPage from "../../../pages/landing_page";
 import Footer from "../../../pages/footer_section";
 import LoginPage from "../../../pages/login_page";
 
-const homePage = new HomePage();
+const homePage = new LandingPage();
 const loginPage = new LoginPage();
 const footerSection = new Footer();
 

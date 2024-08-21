@@ -6,21 +6,21 @@ class Profile {
     elements = {
 
         profileHamburger: () => cy.get('[class*=NavHeader_menuIcon__]'),
-        editProfileBtn: () => cy.get('.btn.NavHeader_editBtn__tecsy'),
+        editProfileBtn: () => cy.get('[class*=NavHeader_editBtn__]'),
         menuCard: () => cy.get('div[class="NavHeader_routeBox__+9Cjc"]'),
-        homeBtn: () => cy.get('.NavHeader_routesSection__YMCdd').children().eq(0),
-        myNotesBtn: () => cy.get('.NavHeader_routesSection__YMCdd').children().eq(1),
-        myWatchlistBtn: () => cy.get('.NavHeader_routesSection__YMCdd').children().eq(2),
-        trendingShowsBtn: () => cy.get('.NavHeader_routesSection__YMCdd').children().eq(3),
-        academyBtn: () => cy.get('.NavHeader_routesSection__YMCdd').children().eq(4),
-        webinarBtn: () => cy.get('.NavHeader_routesSection__YMCdd').children().eq(5),
-        youScoreToolTipBtn: () => cy.get('.NavHeader_infoImg__DTpiN'),
-        youScoreBackBtn: () => cy.get('.NavHeader_backImg__1rtHq'),
-        feedbackBtn: () => cy.get('.NavHeader_txt__XwCv1').contains('Feedback'),
+        homeBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(0),
+        myNotesBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(1),
+        myWatchlistBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(2),
+        trendingShowsBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(3),
+        academyBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(4),
+        webinarBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(5),
+        youScoreToolTipBtn: () => cy.get('[class*=NavHeader_infoImg__]'),
+        youScoreBackBtn: () => cy.get('[class*=NavHeader_backImg__]'),
+        feedbackBtn: () => cy.get('[class*=NavHeader_txt__]').contains('Feedback'),
         closeBtn: () => cy.get('.btn').contains('Close'),
         logOutBtn: () => cy.get('.btn').contains('Log out'),
-        myProfile: () => cy.get('div.EditProfile_heading__S7HGI').contains('My Profile'),
-        profileCrossBtn: () => cy.get('.EditProfile_closeBtn__E7QCU'),
+        myProfile: () => cy.get('[class*=EditProfile_heading__]').contains('My Profile'),
+        profileCrossBtn: () => cy.get('[class*=EditProfile_closeBtn__]'),
         lableFirstName: () => cy.get('label[for="firstName"]'),
         firstNameField: () => cy.get('#firstName'),
         lableLastname: () => cy.get('label[for="lastName"]'),
@@ -34,8 +34,8 @@ class Profile {
         lableEmail: () => cy.get('label[for="email"]').contains('Email'),
         emailField: () => cy.get('#email'),
         scoreInfoButton: () => cy.get('.NavHeader_infoImg__DTpiN'),
-        closeButtonOnProfile: () => cy.get('[class="NavHeader_FooterbtnWrapper__ArFZ+"]').children().contains('Close'),
-        logoutButtonOnProfile: () => cy.get('[class="NavHeader_FooterbtnWrapper__ArFZ+"]').children().contains('Log out')
+        closeButtonOnProfile: () => cy.get('[class*=NavHeader_FooterbtnWrapper__]').children().contains('Close'),
+        logoutButtonOnProfile: () => cy.get('[class*=NavHeader_FooterbtnWrapper__]').children().contains('Log out')
 
     }
 

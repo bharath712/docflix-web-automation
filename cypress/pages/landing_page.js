@@ -1,5 +1,5 @@
 import { enterNowButton } from "../support/helper";
-class HomePage {
+class LandingPage {
 
     carouselTitleText = 'OTT for doctors where';
     carouselSubtitleText = 'Art meets Science!';
@@ -9,9 +9,9 @@ class HomePage {
     elements = {
 
         // Carousel Web Elements
-        carouselTitle: () => cy.get('.LandingPage_mainTitle__heOwQ').first(),
-        carouselSubTitle: () => cy.get('.LandingPage_heading__Sr4bj').first(),
-        cauroselDescription: () => cy.get('.LandingPage_carouselContent__JzfNj').first(),
+        carouselTitle: () => cy.get('[class*=LandingPage_mainTitle__]').first(),
+        carouselSubTitle: () => cy.get('[class*=LandingPage_heading__]').first(),
+        cauroselDescription: () => cy.get('[class*=LandingPage_carouselContent__]').first(),
         enterNowButton: () => cy.contains('ENTER NOW').first(),
 
         // Scroll button Web Element
@@ -103,4 +103,4 @@ class HomePage {
 
 }
 
-export default HomePage;
+export default LandingPage;
