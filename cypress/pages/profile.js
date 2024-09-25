@@ -62,7 +62,7 @@ class Profile {
 
     clickonEditProfileBtn() {
         this.elements.editProfileBtn().should('be.visible').click()
-            .url().should('include', Cypress.env('baseUrl'));
+            .url().should('include','https://docflix.com');
         this.elements.myProfile().should('be.visible').and('have.text', 'My Profile');
         this.elements.profileCrossBtn().should('be.visible').click();
     }
