@@ -1,4 +1,4 @@
-import { enterNowButton, enterMobileNumber, clickOnLoginSubmitButton, clickOnSendOTPButton, } from "../../../support/helper";
+import { enterNowButton, overlaypopupmodel, enterMobileNumber, clickOnLoginSubmitButton, clickOnSendOTPButton, } from "../../../support/helper";
 let MobileNumber = '8898782353';
 
 describe.only('Check the Login Page is working and OTP is getting', () => {
@@ -12,6 +12,7 @@ describe.only('Check the Login Page is working and OTP is getting', () => {
 
     it('Check the Website is opening and login with mobile number is visible', () => {
 
+        overlaypopupmodel().click();
         enterNowButton().click();
         enterMobileNumber().type(MobileNumber);
         clickOnLoginSubmitButton().click();

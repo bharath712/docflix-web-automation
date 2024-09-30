@@ -19,6 +19,7 @@ class Profile {
         feedbackBtn: () => cy.get('[class*=NavHeader_txt__]').contains('Feedback'),
         closeBtn: () => cy.get('.btn').contains('Close'),
         logOutBtn: () => cy.get('.btn').contains('Log out'),
+        announcementCloseBtn: () => cy.get('[class*=AnouncementBar_closeBtn__]'),
         myProfile: () => cy.get('[class*=EditProfile_heading__]').contains('My Profile'),
         profileCrossBtn: () => cy.get('[class*=EditProfile_closeBtn__]'),
         lableFirstName: () => cy.get('label[for="firstName"]'),
@@ -63,6 +64,7 @@ class Profile {
     clickonEditProfileBtn() {
         this.elements.editProfileBtn().should('be.visible').click()
             .url().should('include','https://docflix.com');
+        this.elements.announcementCloseBtn().should('be.visible').click();
         this.elements.myProfile().should('be.visible').and('have.text', 'My Profile');
         this.elements.profileCrossBtn().should('be.visible').click();
     }

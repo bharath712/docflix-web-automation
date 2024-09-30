@@ -1,4 +1,4 @@
-import { enterNowButton } from "../support/helper";
+import { enterNowButton, overlaypopupmodel } from "../support/helper";
 class RegistrationPage {
 
     //Field Names value on REGISTER NOW
@@ -106,6 +106,7 @@ class RegistrationPage {
 
     verifyRegisterNowPage() {
 
+        overlaypopupmodel().click({ force: true});
         enterNowButton().click({ force: true });
         this.elements.registerNowLink().children().click({ force: true });
         this.elements.registerNowHeading().should('be.visible').and('have.text', 'REGISTER NOW');

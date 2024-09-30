@@ -1,6 +1,6 @@
 
 import LoginPage from "../../../pages/login_page";
-import { enterNowButton } from "../../../support/helper";
+import { enterNowButton, overlaypopupmodel } from "../../../support/helper";
 
 const loginPage = new LoginPage();
 
@@ -16,7 +16,8 @@ describe('Check login with Mobile number and OTP', () => {
     });
 
     it('Verify Login with Mobile Number Page', () => {
-        
+
+        overlaypopupmodel().click();
         enterNowButton().click();
         loginPage.verifyLoginPage();
 
