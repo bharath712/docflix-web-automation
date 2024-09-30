@@ -17,7 +17,7 @@ describe('Check login with Mobile number and OTP', () => {
 
     it('Verify Login with Mobile Number Page', () => {
 
-        overlaypopupmodel().click();
+        // overlaypopupmodel().click();
         enterNowButton().click();
         loginPage.verifyLoginPage();
 

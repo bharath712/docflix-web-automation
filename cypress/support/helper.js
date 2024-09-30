@@ -1,4 +1,4 @@
-export const overlaypopupmodel = () => cy.contains('No thanks');
+// export const overlaypopupmodel = () => cy.contains('No thanks');
 export const enterNowButton = () => cy.contains('ENTER NOW');
 export const enterMobileNumber = () => cy.get('#phone');
 export const clickOnLoginSubmitButton = () => cy.contains('Submit');
