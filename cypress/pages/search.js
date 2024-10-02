@@ -23,6 +23,9 @@ class Search {
         searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg'),
         bestShowTitleText: () => cy.get('div[class*="NewSearchModal_showsTitle__"]').contains('Best Shows'),
         bestShowsGridView: () => cy.get('div[class*="NewSearchModal_showsContainer__"]'),
+        SearchVideos: () => cy.xpath("//input[@placeholder='Search Videos...']"),
+        SearchButtonSubmit: () => cy.xpath("//form//*[name()='svg']"),
+        VerifySearchName: () => cy.xpath("//div[contains(@class, 'NewHits_card')]")
 
     }
 
@@ -56,11 +59,11 @@ class Search {
     searchThroughShowName() {
         showName.forEach(show => {
             // Open the search input and search for each show
-            cy.get('[class*=NavHeader_userLinks__]').children('svg').click(); // 1. Click on search button
-            cy.xpath("//input[@placeholder='Search Videos...']").clear().type(show); // 2. Enter the show name
-            cy.xpath("//form//*[name()='svg']").click(); // 3. Click search button to submit
+            this.elements.searchInput().click(); // 1. Click on search button
+            this.elements.SearchVideos().clear().type(show); // 2. Enter the show name
+            this.elements.SearchButtonSubmit().click(); // 3. Click search button to submit
             // Wait for search results and verify that the correct show name is displayed
-            cy.xpath("//div[contains(@class, 'NewHits_card')]").should('contain', show); // 4. Verify the show name is in the search results
+            this.elements.VerifySearchName().should('contain', show); // 4. Verify the show name is in the search results
         });
     
 
