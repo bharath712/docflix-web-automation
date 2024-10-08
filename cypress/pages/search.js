@@ -1,3 +1,6 @@
+import Papa from 'papaparse'; // Import Papa Parse for CSV parsing
+
+
 class Search {
 
     // constructor() {
@@ -54,10 +57,31 @@ class Search {
     }
 
     
+  // Function to read and parse the CSV file using Papa Parse
+  readCsvFile() {
+    return new Promise((resolve, reject) => {
+        // Read the CSV file from the fixtures folder
+        cy.readFile('cypress/fixtures/shows.csv').then((csvData) => {
+            // Parse the CSV file using Papa Parse
+            Papa.parse(csvData, {
+                header: true, // First row of the CSV is the header
+                complete: (result) => {
+                    if (result.errors.length) {
+                        reject(result.errors); // Reject the promise if there are errors
+                    } else {
+                        // Map through the CSV rows and extract the 'showName' field
+                        const showNames = result.data.map((row) => row.showName);
+                        resolve(showNames); // Resolve with the list of show names
+                    }
+                }
+            });
+        });
+    });
+}
 
     
-    searchThroughShowName() {
-        showName.forEach(show => {
+    searchThroughShowName(showNames) {
+        showNames.forEach(show => {
             // Open the search input and search for each show
             this.elements.searchInput().click(); // 1. Click on search button
             this.elements.SearchVideos().clear().type(show); // 2. Enter the show name
@@ -65,14 +89,20 @@ class Search {
             // Wait for search results and verify that the correct show name is displayed
             this.elements.VerifySearchName().should('contain', show); // 4. Verify the show name is in the search results
         });
-    
-
-        
-    it('should search and verify all shows from the list', () => {
-            searchThroughShowName(); // Call the function to execute the searches and verifications
-        });
     }
-    
 }
+    
 
+describe('Search and Verify Show Names', () => {
+    const search = new Search();
+    it('should search and verify all shows from the CSV file', () => {
+           // Call the readCsvFile method to get the show names, then search and verify
+        search.readCsvFile().then((showNames) => {
+            search.searchThroughShowName(showNames); // Pass the show names to search and verify
+        }).catch((error) => {
+            cy.log('Error parsing CSV:', error); // Log any parsing errors
+        });
+    });
+});
+    
 export default Search;
