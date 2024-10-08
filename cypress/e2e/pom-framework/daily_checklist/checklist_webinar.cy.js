@@ -13,6 +13,21 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
 
     });
 
+    it('Check the All Attend is clickable on Webinar', () => {
+
+        cy.get('div[class*=WebinarCard_webinarCardWrapper__]').should('be.visible').then(($webinar) => {
+
+            for (let i = 0; i < $webinar.length; i++) {
+
+                cy.get('div[class*=WebinarCard_webinarCardWrapper__]').find('button').eq(i).contains('Attend').click();
+                cy.go('back');
+            };
+
+        });
+
+    });
+
+
     it('Check the All View is clickable on Webinar', () => {
 
         cy.get('div[class*=WebinarCard_webinarCardWrapper__]').should('be.visible').then(($webinar) => {
