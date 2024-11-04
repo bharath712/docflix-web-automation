@@ -1,5 +1,5 @@
 import { enterNowButton, enterMobileNumber, clickOnLoginSubmitButton, clickOnSendOTPButton, } from "../../../support/helper";
-let MobileNumber = '8898782353';
+let MobileNumber = '8879044053';
 
 describe.only('Check the Login Page is working and OTP is getting', () => {
 

@@ -1,8 +1,8 @@
 import RegistrationPage from "../../../pages/registration_page";
-let firstName = 'Bharath';
-let lastName = 'Battini';
-let MobileNumber = '8898782353';
-let email = 'bharath.bathini@atriina.com';
+let firstName = 'Jayanta';
+let lastName = 'Ghosh';
+let MobileNumber = '8879044053';
+let email = 'jayanta.ghosh@atriina.com';
 let city = 'Mum'
 
 const RP = new RegistrationPage();
