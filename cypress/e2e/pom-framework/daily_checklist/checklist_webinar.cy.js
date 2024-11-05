@@ -18,7 +18,7 @@ describe('Dynamic locators for Upcoming and Past tabs on Webinar page', () => {
             .click({ force: true });
     };
 
-    it.only('Check buttons on the Upcoming tab (Attend, Share, Speakers)', () => {
+    it('Check buttons on the Upcoming tab (Attend, Share, Speakers)', () => {
         cy.get('div[id^="upcoming"]').should('be.visible').click();
 
         cy.get('div[class*=WebinarCard_webinarCardWrapper__]', { timeout: 15000 }).should('exist').each(($el, index) => {
@@ -33,12 +33,13 @@ describe('Dynamic locators for Upcoming and Past tabs on Webinar page', () => {
                 cy.go('back'); // Go back to keep the loop working on same page
             });
 
-            debugger;
+            
             // Verify Speakers button is present and click it
             cy.get('@webinarCard').then(($webinar) => {
                  cy.wrap($webinar)
-                    .find('div[class*="WebinarCard_speakers__"]', { timeout: 10000 })
+                    .find('div[class*="WebinarCard_showAll__"]', { timeout: 10000 })
                     .should('exist')
+                    // .scrollIntoView()
                     .should('be.visible')
                     .click({force:true});
                                         
@@ -74,8 +75,9 @@ describe('Dynamic locators for Upcoming and Past tabs on Webinar page', () => {
             // Verify Speakers button is present and click it
             cy.get('@webinarCard').then(($webinar) => {
                 cy.wrap($webinar)
-                    .find('div[class*="WebinarCard_speakers__"]', { timeout: 10000 })
+                    .find('div[class*="WebinarCard_showAll__"]', { timeout: 10000 })
                     .should('exist')
+                    .scrollIntoView()
                     .should('be.visible')
                     .click({ force: true });
 
