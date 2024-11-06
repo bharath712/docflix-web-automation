@@ -62,12 +62,28 @@ class Profile {
     }
 
     clickonEditProfileBtn() {
-        this.elements.editProfileBtn().should('be.visible').click()
-            .url().should('include','https://docflix.com');
-        this.elements.announcementCloseBtn().should('be.visible').click();
+        // Check and click on edit profile button
+        this.elements.editProfileBtn().should('be.visible').click();
+    
+        // Verify URL
+        cy.url().should('include', 'https://docflix.com');
+    
+        // Check if announcement close button exists and is visible before clicking
+        cy.get('body').then($body => {
+            if ($body.find('[class*=AnouncementBar_closeBtn__]').length > 0) {
+                this.elements.announcementCloseBtn().should('be.visible').click();
+            }
+        });
+    
+        // Check for My Profile visibility and text
         this.elements.myProfile().should('be.visible').and('have.text', 'My Profile');
+    
+        // Close profile modal
         this.elements.profileCrossBtn().should('be.visible').click();
     }
+    
+
+
 
     editProfileFields() {
         this.elements.editProfileBtn().should('be.visible').click();
