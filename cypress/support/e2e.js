@@ -23,15 +23,15 @@ import 'neat-csv';
 /// <reference types="cypress" />
 
 // Alternatively you can use CommonJS syntax:
-// require('./commands')
+require('./commands')
 
-// const app = window.top;
-// if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
-//     const style = app.document.createElement('style');
-//     style.innerHTML =
-//         '.command-name-request, .command-name-xhr { display: none }';
-//     style.setAttribute('data-hide-command-log-request', '');
+const app = window.top;
+if (!app.document.head.querySelector('[data-hide-command-log-request]')) {
+    const style = app.document.createElement('style');
+    style.innerHTML =
+        '.command-name-request, .command-name-xhr { display: none }';
+    style.setAttribute('data-hide-command-log-request', '');
 
-//     app.document.head.appendChild(style);
-// }
+    app.document.head.appendChild(style);
+}
 
