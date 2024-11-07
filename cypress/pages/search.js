@@ -39,22 +39,29 @@ class Search {
     }
 
     clickOnEachBestShows() {
-
+        // Ensure the title is visible before proceeding
         this.elements.bestShowTitleText().should('be.visible');
-        let listOfBestShows = this.elements.bestShowsGridView().children();
-
-        listOfBestShows.then(($shows) => {
-
-            let showLength = $shows.length;
-
-            for (let i = 1; i <= showLength; i++) {
-                cy.wrap($shows).eq(i).click({ timeout: 30000 });
+    
+        // Alias the best shows grid view and re-fetch children as needed
+        this.elements.bestShowsGridView().children().as('bestShows');
+    
+        // Get the list length within the loop to avoid detachment
+        cy.get('@bestShows').then(($shows) => {
+            const showLength = $shows.length;
+    
+            for (let i = 0; i < showLength; i++) {
+                // Re-fetch the list and check visibility of each show item before clicking
+                cy.get('@bestShows').eq(i).should('exist').click({ timeout: 30000 });
+    
+                // Wait to allow any UI updates after each click
                 cy.wait(3000);
+    
+                // Execute the search button click action
                 this.clickOnSearchButton();
             }
-
         });
     }
+    
 
     
   // Function to read and parse the CSV file using Papa Parse
