@@ -27,6 +27,7 @@ describe('Check the Registration is working and Check with Random Profession and
         elements.cityField().type(city);
         cy.get('div[role="option"]', { timeout: 3000 }).eq(getRandomNumber(0, 4)).click();
 
+
         elements.professionDropdown().select(getRandomNumber(1, 4)).then(($dropdownVal) => {
 
             let professionName = $dropdownVal.val();
@@ -36,8 +37,59 @@ describe('Check the Registration is working and Check with Random Profession and
                 elements.joinButton().click();
             }
             else if (professionName === 'Mankind Employee') {
-                cy.get('#employeeCode').type(12345678);
-                elements.specialityDropdown().select(getRandomNumber(1, 27));
+            cy.get('#employeeCode').type(12345678);
+            
+            // Click on the speciality input field to open the dropdown options
+            elements.specialityDropdown().click();
+
+            // Select a random option by getting the dropdown list items and picking one
+            cy.get('[class*="CustomDropDown_dropDownitem__"]') // Replace with the actual class or selector for the dropdown options
+                .then(($options) => {
+                    const optionsCount = $options.length;
+                    const randomOptionIndex = getRandomNumber(0, optionsCount - 1);
+
+                    // Click on a randomly chosen option
+                    cy.wrap($options[randomOptionIndex]).click();
+                });
+                
+                // Click the join button after selecting an option
+                elements.joinButton().click(); 
+
+                }
+
+            else if (professionName === 'Doctor'){
+
+                // Click on the speciality input field to open the dropdown options
+            elements.specialityDropdown().click();
+
+            // Select a random option by getting the dropdown list items and picking one
+            cy.get('[class*="CustomDropDown_dropDownitem__"]') // Replace with the actual class or selector for the dropdown options
+                .then(($options) => {
+                    const optionsCount = $options.length;
+                    const randomOptionIndex = getRandomNumber(0, optionsCount - 1);
+
+                    // Click on a randomly chosen option
+                    cy.wrap($options[randomOptionIndex]).click();
+                });
+                
+                // Click the join button after selecting an option
+                elements.joinButton().click(); 
+            }
+
+            else if (professionName === 'Student'){
+
+                elements.specialityDropdown().Click()
+
+                // Select a random option by getting the dropdown list items and picking one
+                cy.get('[class*="CustomDropDown_dropDownitem__"]') // Replace with the actual class or selector for the dropdown options
+                .then(($options) => {
+                    const optionsCount = $options.length;
+                    const randomOptionIndex = getRandomNumber(0, optionsCount - 1);
+
+                    // Click on a randomly chosen option
+                    cy.wrap($options[randomOptionIndex]).click();
+                });
+
                 elements.joinButton().click();
             }
             else {
