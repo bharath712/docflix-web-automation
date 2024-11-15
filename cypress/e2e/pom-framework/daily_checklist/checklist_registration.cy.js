@@ -78,7 +78,7 @@ describe('Check the Registration is working and Check with Random Profession and
 
             else if (professionName === 'Student'){
 
-                elements.specialityDropdown().Click()
+                elements.specialityDropdown().click()
 
                 // Select a random option by getting the dropdown list items and picking one
                 cy.get('[class*="CustomDropDown_dropDownitem__"]') // Replace with the actual class or selector for the dropdown options
