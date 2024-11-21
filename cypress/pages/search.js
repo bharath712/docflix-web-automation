@@ -1,4 +1,6 @@
 import Papa from 'papaparse'; // Import Papa Parse for CSV parsing
+import fs from 'fs';
+require('cypress-xpath');
 
 
 class Search {
@@ -28,7 +30,10 @@ class Search {
         bestShowsGridView: () => cy.get('div[class*="NewSearchModal_showsContainer__"]'),
         SearchVideos: () => cy.xpath("//input[@placeholder='Search Videos...']"),
         SearchButtonSubmit: () => cy.xpath("//form//*[name()='svg']"),
-        VerifySearchName: () => cy.xpath("//div[contains(@class, 'NewHits_card')]")
+        VerifySearchName: () => cy.xpath("//div[contains(@class, 'NewHits_card')]"),
+        VerificationcodeInput: () => cy.get("#privateCodeAcademy"),
+        SubmitVerificationcodeInput: () => cy.get("[class*='btn PrivateVideoVerificationModal_submit-btn__']"),
+        CancelSearchbutton: () => cy.xpath("//img[@class='cursor-pointer NewSearchModal_close__wFadY']")
 
     }
 
@@ -56,50 +61,77 @@ class Search {
                 // Wait to allow any UI updates after each click
                 cy.wait(3000);
     
+                // Check for the presence of the verification code box
+                cy.get('body').then(($body) => {
+                    if ($body.find("#privateCodeAcademy").length > 0) {
+                        // Input the verification code if the box is present
+                        this.elements.VerificationcodeInput().should('be.visible').type('Dydroboon'); 
+    
+                        // Click the submit button
+                        this.elements.SubmitVerificationcodeInput().should('be.visible').click();
+    
+                        // Wait for the process to complete
+                        cy.wait(2000);
+                    } else {
+                        cy.log('Verification code box not found, proceeding...');
+                    }
+                });
+    
                 // Execute the search button click action
                 this.clickOnSearchButton();
             }
         });
     }
-    
 
-    
-  // Function to read and parse the CSV file using Papa Parse
-  readCsvFile() {
-    return new Promise((resolve, reject) => {
-        // Read the CSV file from the fixtures folder
-        cy.readFile('cypress/fixtures/shows.csv').then((csvData) => {
-            // Parse the CSV file using Papa Parse
-            Papa.parse(csvData, {
-                header: true, // First row of the CSV is the header
-                complete: (result) => {
-                    if (result.errors.length) {
-                        reject(result.errors); // Reject the promise if there are errors
-                    } else {
-                        // Map through the CSV rows and extract the 'showName' field
-                        const showNames = result.data.map((row) => row.showName);
-                        resolve(showNames); // Resolve with the list of show names
-                    }
-                }
-            });
-        });
-    });
-}
-
-    
     searchThroughShowName(showNames) {
         showNames.forEach(show => {
+
+            cy.log(`Searching for show: ${show}`);
+            // Perform the search
             // Open the search input and search for each show
             this.elements.searchInput().click(); // 1. Click on search button
             this.elements.SearchVideos().clear().type(show); // 2. Enter the show name
-            this.elements.SearchButtonSubmit().click(); // 3. Click search button to submit
+            this.elements.SearchButtonSubmit().then((elements) => {
+                cy.log(`Number of elements matched: ${elements.length}`);
+                cy.wrap(elements[1]).click();  // Clicks the first match (search)
+            });
+            
+            
             // Wait for search results and verify that the correct show name is displayed
             this.elements.VerifySearchName().should('contain', show); // 4. Verify the show name is in the search results
+            this.elements.CancelSearchbutton().click(); //5. Verify the Cancel button in the search section
         });
     }
-}
     
+    
+}   
+
+    const readCsvFile = (csvFileName) => {
+        // Call the Cypress task 'readCsvFile' and pass the file name as an argument
+        return cy.task('readCsvFile', csvFileName).then((csvContent) => {
+            // Return a new Promise to process the CSV content
+            return new Promise((resolve, reject) => {
+                // Use the Papa.parse library to parse the CSV content
+                Papa.parse(csvContent, {
+                    header: true, // Specify that the CSV file contains a header row
+                    delimiter: ',', // Explicitly specify the delimiter (comma in this case)
+                    complete: (result) => {
+                        // Callback function executed when parsing is complete
+                        if (result.errors.length) {
+                            // If there are any parsing errors, reject the promise
+                            reject(result.errors);
+                        } else {
+                            // Otherwise, resolve the promise with an array of 'showName' values
+                            resolve(result.data.map((row) => row.showName)); //Extract show names
+                        }
+                    },
+                });
+            });
+        });
+    };
+
+        
 
 
     
-export default Search;
+export { Search, readCsvFile };

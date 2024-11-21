@@ -1,4 +1,8 @@
-import Search from "../../../pages/search";
+import {Search, readCsvFile} from "../../../pages/search";
+// import readCsvFile from '../../../pages/search'; // Adjust path to match your project structure
+// import Search from '../pageObjects/search'; // Adjust path to match your project structure
+
+
 const search = new Search();
 
 describe('Check the Search Page is visible and Check the All buttons and Data is correct', () => {
@@ -23,39 +27,36 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
 
         // overlaypopupmodel().click();
         search.clickOnSearchButton()
-        search.clickOnEachBestShows()
-        // search.searchThroughShowName()
-
-        describe('Search and Verify Show Names', () => {
-            const search = new Search();
-            it('should search and verify all shows from the CSV file', () => {
-                   // Call the readCsvFile method to get the show names, then search and verify
-                search.readCsvFile().then((showNames) => {
-                    search.searchThroughShowName(showNames); // Pass the show names to search and verify
-                }).catch((error) => {
-                    cy.log('Error parsing CSV:', error); // Log any parsing errors
-                });
-            });
-        });
-
 
     });
 
+    it('Check the Search is getting verified for Best shows', ()=> {
+        search.clickOnSearchButton()
+        search.clickOnEachBestShows()
+    });
+
+    describe('Search and Verify Show Names', () => {
     
+        it('should search and verify all shows from the CSV file', () => {
+            // Read the CSV file and get the list of show names
+            readCsvFile('shows.csv')
+                .then((showNames) => {
+                    if (!Array.isArray(showNames) || !showNames.length) {
+                        throw new Error('No shows found in the CSV file.');
+                    }
+                    cy.log(`Show names loaded: ${showNames}`);
 
-
-
-    // describe('Search and Verify Show Names', () => {
-    //     const search = new Search();
-    //     it('should search and verify all shows from the CSV file', () => {
-    //            // Call the readCsvFile method to get the show names, then search and verify
-    //         search.readCsvFile().then((showNames) => {
-    //             search.searchThroughShowName(showNames); // Pass the show names to search and verify
-    //         }).catch((error) => {
-    //             cy.log('Error parsing CSV:', error); // Log any parsing errors
-    //         });
-    //     });
-    // });
-
+                    const search = new Search(); // Instantiate the Search class
+    
+                    // Call the searchThroughShowName method to execute searches
+                    search.searchThroughShowName(showNames);
+                })
+                // .catch((error) => {
+                //     cy.log('Error while processing CSV:', JSON.stringify(error));
+                //     throw new Error('Test Failed due to CSV error.');
+                // });
+        });
+    });
+    
 
 });
