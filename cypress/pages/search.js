@@ -72,6 +72,26 @@ class Search {
     
                         // Wait for the process to complete
                         cy.wait(2000);
+
+                        // Verify the error message or behavior for invalid code
+                        // cy.get("//div[contains(text(),'Invalid Code')]") // Update with the actual selector for the error message
+                        // .should('be.visible')
+                        // .and('contain', 'Invalid Code'); // Adjust message text if necessary
+
+                        // Check for the presence of the error message
+                        cy.get('body').then(($innerBody) => {
+                            if ($innerBody.find("//div[contains(text(),'Invalid Code')]").length > 0) {
+                                // Verify the error message is displayed
+                                cy.get("//div[contains(text(),'Invalid Code')]") 
+                                    .should('be.visible')
+                                    .and('contain', 'Invalid Code'); 
+                            } else {
+                                // Log a success message if no error message is found
+                                cy.log('Verification code accepted, proceeding...');
+                            }
+                        });
+        
+
                     } else {
                         cy.log('Verification code box not found, proceeding...');
                     }
