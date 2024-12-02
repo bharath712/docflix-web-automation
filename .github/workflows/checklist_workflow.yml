@@ -14,22 +14,24 @@ jobs:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v6
         with:
-          spec: cypress/e2e/pom-framework/daily_checklist
+          spec: cypress/e2e/pom-framework/daily_checklist/checklist_search.cy.js
 
       # after the test run completes store videos and any screenshots
       - uses: actions/upload-artifact@v4
         # add the line below to store screenshots only on failures
-        # if: failure()
+        if: always()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: cypress-videos
           path: cypress/videos
           if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: html-report
           path: cypress/reports/html/index.html
