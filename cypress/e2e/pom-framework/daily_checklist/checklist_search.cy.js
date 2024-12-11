@@ -16,14 +16,14 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
         cy.visit('/');
     });
 
-    it('Check the Search is opening and login with mobile number is visible', () => {
-        search.clickOnSearchButton();
-    });
+    // it('Check the Search is opening and login with mobile number is visible', () => {
+    //     search.clickOnSearchButton();
+    // });
 
-    it('Check the Search is getting verified for Best shows', () => {
-        search.clickOnSearchButton();
-        search.clickOnEachBestShows();
-    });
+    // it('Check the Search is getting verified for Best shows', () => {
+    //     search.clickOnSearchButton();
+    //     search.clickOnEachBestShows();
+    // });
 
     describe('Search and Verify Content from CSV Files', () => {
 

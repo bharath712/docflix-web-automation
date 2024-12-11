@@ -11,7 +11,9 @@ class Search {
         SearchVideos: () => cy.xpath("//input[@placeholder='Search Videos...']"),
         SearchButtonSubmit: () => cy.xpath("//form//*[name()='svg']"),
         VerifySearchName: () => cy.xpath("//div[contains(@class, 'NewHits_card')]"),
-        CancelSearchbutton: () => cy.xpath("//img[@class='NewSearchModal_close__']")
+        VerificationcodeInput: () => cy.get("#privateCodeAcademy"),
+        SubmitVerificationcodeInput: () => cy.get("[class*='btn PrivateVideoVerificationModal_submit-btn__']"),
+        CancelSearchbutton: () => cy.get("img[class*='NewSearchModal_close__']")
     };
 
     clickOnSearchButton() {
@@ -51,7 +53,7 @@ class Search {
             this.elements.SearchVideos().clear().type(name);
             this.elements.SearchButtonSubmit().then((elements) => {
                 cy.log(`Number of elements matched: ${elements.length}`);
-                cy.wrap(elements[0]).click();
+                cy.wrap(elements[1]).click();
             });
 
             this.elements.VerifySearchName().should('contain', name);
