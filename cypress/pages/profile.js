@@ -22,17 +22,17 @@ class Profile {
         announcementCloseBtn: () => cy.get('[class*=AnouncementBar_closeBtn__]'),
         myProfile: () => cy.get('[class*=EditProfile_heading__]').contains('My Profile'),
         profileCrossBtn: () => cy.get('[class*=EditProfile_closeBtn__]'),
-        lableFirstName: () => cy.get('label[for="firstName"]'),
+        labelFirstName: () => cy.get('label[for="firstName"]'),
         firstNameField: () => cy.get('#firstName'),
-        lableLastname: () => cy.get('label[for="lastName"]'),
+        labelLastname: () => cy.get('label[for="lastName"]'),
         lastNameField: () => cy.get('#lastName'),
-        lableprofession: () => cy.get('label[for="profession"]').contains('Profession'),
+        labelprofession: () => cy.get('label[for="profession"]').contains('Profession'),
         professionDD: () => cy.get('#profession'),
-        lablespeciality: () => cy.get('label[for="speciality"]').contains('Speciality'),
+        labelspeciality: () => cy.get('label[for="speciality"]').contains('Speciality (Search your Speciality)'),
         specialityDD: () => cy.get('#speciality'),
-        lableCity: () => cy.get('label[for="city"]').contains('City'),
+        labelCity: () => cy.get('label[for="city"]').contains('City'),
         cityField: () => cy.get('input[role="combobox"]'),
-        lableEmail: () => cy.get('label[for="email"]').contains('Email'),
+        labelEmail: () => cy.get('label[for="email"]').contains('Email'),
         emailField: () => cy.get('#email'),
         scoreInfoButton: () => cy.get('.NavHeader_infoImg__DTpiN'),
         closeButtonOnProfile: () => cy.get('[class*=NavHeader_FooterbtnWrapper__]').children().contains('Close'),
@@ -88,30 +88,30 @@ class Profile {
     editProfileFields() {
         this.elements.editProfileBtn().should('be.visible').click();
         //First name field
-        this.elements.lableFirstName().should('be.visible').and('have.text', 'First Name');
+        this.elements.labelFirstName().should('be.visible').and('have.text', 'First Name');
         this.elements.firstNameField().should('be.visible').and(('be.enabled'));
         this.elements.firstNameField().clear().type('onkar')
         //Last name field
-        this.elements.lableLastname().should('be.visible').and('have.text', 'Last Name');
+        this.elements.labelLastname().should('be.visible').and('have.text', 'Last Name');
         this.elements.lastNameField().should('be.visible').and('be.enabled')
         this.elements.lastNameField().clear().type('kokitkar').invoke('attr', 'value').should('eq', 'kokitkar');
         //Profession
-        this.elements.lableprofession().should('be.visible').and('have.text', 'Profession')
+        this.elements.labelprofession().should('be.visible').and('have.text', 'Profession')
         this.elements.professionDD().should('be.visible').and('be.enabled')
         //  this.elements.professionDD().select(['Doctor', 'Mankind Employee', 'Student', 'Consumer']).invoke('val').should('deep.equal', ['Doctor', 'Mankind Employee', 'Student', 'Consumer']);
 
 
         //Speciality
-        this.elements.lablespeciality().should('be.visible').and('have.text', 'Speciality')
+        this.elements.labelspeciality().should('be.visible').and('have.text', 'Speciality (Search your Speciality)')
         this.elements.specialityDD().should('be.visible').and('be.enabled')
 
         //City
-        this.elements.lableCity().should('be.visible').and('have.text', 'City')
+        this.elements.labelCity().should('be.visible').and('have.text', 'City')
         this.elements.cityField().should('be.visible').and('be.enabled')
         // //     this.elements.cityField().clear().type('Mumbai{enter}').should('have.text', 'Mumbai')
 
         //Email
-        this.elements.lableEmail().should('be.visible').and('have.text', 'Email')
+        this.elements.labelEmail().should('be.visible').and('have.text', 'Email')
 
     }
 
