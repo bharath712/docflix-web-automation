@@ -42,7 +42,10 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
     cy.visit('/');
 
     let ele = {
-
+        
+        
+        
+        CancelOverlay: '#wzrk-cancel',
         cancelButton: '.btn.OTPForm_cancel-btn__yo6gD',
         enterNowButton: 'ENTER NOW',
         phoneNumberElement: '#phone',
@@ -59,6 +62,21 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
         if ($element.attr('class') == 'btn OTPForm_cancel-btn__yo6gD' || $element.attr('class') == 'btn UserFeedback_btn__+pF7n') {
 
+        // Updated function to handle the scenario
+        cy.get('body').then(($body) => {
+            // Check if the element exists in the DOM
+            if ($body.find(ele.CancelOverlay).length > 0) {
+                // If the element exists, interact with it
+                cy.get(ele.CancelOverlay)
+                    .should('be.visible')
+                    .click({ force: true });
+                cy.log('Cancel button clicked successfully.');
+            } else {
+                // If the element does not exist, log a message and continue
+                cy.log('Cancel button not found, proceeding with the test.');
+            }
+        });
+
 
             cy.get(ele.cancelButton).click();
             cy.contains(ele.enterNowButton).first().click();
@@ -66,6 +84,20 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
 
         }
         else if ($element.attr('class') == 'btn') {
+            // Updated function to handle the scenario
+            cy.get('body').then(($body) => {
+                // Check if the element exists in the DOM
+                if ($body.find(ele.CancelOverlay).length > 0) {
+                    // If the element exists, interact with it
+                    cy.get(ele.CancelOverlay)
+                        .should('be.visible')
+                        .click({ force: true });
+                    cy.log('Cancel button clicked successfully.');
+                } else {
+                    // If the element does not exist, log a message and continue
+                    cy.log('Cancel button not found, proceeding with the test.');
+                }
+            });
 
             cy.contains(ele.enterNowButton).first().click();
             return false;
