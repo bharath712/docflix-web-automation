@@ -122,6 +122,7 @@ class RegistrationPage {
         
         overlaypopupmodel().click({ force: true});
         enterNowButton().click();
+        
         this.elements.registerNowLink().click();
 
     }
