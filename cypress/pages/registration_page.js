@@ -1,4 +1,4 @@
-import { enterNowButton } from "../support/helper";
+import { enterNowButton, overlaypopupmodel } from "../support/helper";
 class RegistrationPage {
 
     //Field Names value on REGISTER NOW
@@ -87,6 +87,7 @@ class RegistrationPage {
         mobileNumberFieldHeading: () => cy.get('[for= "phoneNumber"]'),
 
         //Fields Name Web Element on Register Now Page 
+        CancelOverlay: () => cy.get('#wzrk-cancel'),
         firstNameField: () => cy.get('#firstName'),
         lastNameField: () => cy.get('#lastName'),
         emailField: () => cy.get('#email'),
@@ -106,7 +107,7 @@ class RegistrationPage {
 
     verifyRegisterNowPage() {
 
-        // overlaypopupmodel().click({ force: true});
+        overlaypopupmodel().click({ force: true});
         enterNowButton().click({ force: true });
         this.elements.registerNowLink().children().click({ force: true });
         this.elements.registerNowHeading().should('be.visible').and('have.text', 'REGISTER NOW');
@@ -118,7 +119,10 @@ class RegistrationPage {
 
     gotoRegisterNowPage() {
 
+        
+        overlaypopupmodel().click({ force: true});
         enterNowButton().click();
+        
         this.elements.registerNowLink().click();
 
     }
