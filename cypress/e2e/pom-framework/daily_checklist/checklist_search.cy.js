@@ -29,7 +29,7 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
         search.clickOnSearchButton(); // Click on the search button
     });
 
-    // Test to verify the "Best shows" section in the search functionality
+    // // Test to verify the "Best shows" section in the search functionality
     it('Check the Search is getting verified for Best shows', () => {
         search.clickOnSearchButton(); // Click on the search button
         search.clickOnEachBestShows(); // Validate each "Best Show" element
