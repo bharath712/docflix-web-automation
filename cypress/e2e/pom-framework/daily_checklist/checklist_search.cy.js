@@ -10,8 +10,11 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
         // Handle any uncaught exceptions to avoid failing tests unnecessarily
         cy.UncaughtException();
 
+        // Clear all previously saved sessions
+        // cy.session.clearAllSavedSessions();
+
         // Use Cypress session management to cache the login session across specs
-        cy.session('loginWithMobNum', () => {
+        cy.session('loginWithOTPMobilenumber', () => {
             cy.visitHomePage('9991004781', '4781'); // Replace with appropriate login credentials
         }, {
             cacheAcrossSpecs: true
