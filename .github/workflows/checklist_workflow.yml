@@ -1,39 +1,53 @@
-name: Checklist workflow
+name: Checklist Workflow
 
 on:
   push: # Trigger the workflow when code is pushed
     branches:
       - main
   schedule:
-    - cron: "23 3 * * *"
+    - cron: "23 3 * * 1-5" # Runs every weekday (Mon-Fri) at 03:23 AM UTC
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     name: Checklist Workflow
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: cypress-io/github-action@v6
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
         with:
-          browser : chrome
+          browser: chrome
           spec: cypress/e2e/pom-framework/daily_checklist
-      # after the test run completes store videos and any screenshots
-      - uses: actions/upload-artifact@v4
-        # add the line below to store screenshots only on failures
-        if: always()
+
+      # Upload Cypress Screenshots on Test Failures
+      - name: Upload Cypress Screenshots
+        uses: actions/upload-artifact@v4
+        if: always() # Ensures it runs even if tests fail
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      - uses: actions/upload-artifact@v4
+          retention-days: 15 # Retain artifacts for 30 days
+          if-no-files-found: ignore
+
+      # Upload Cypress Videos
+      - name: Upload Cypress Videos
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-videos
           path: cypress/videos
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      - uses: actions/upload-artifact@v4
+          retention-days: 15 # Retain artifacts for 30 days
+          if-no-files-found: ignore
+
+      # Upload HTML Report
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: html-report
           path: cypress/reports/html/index.html
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-
+          retention-days: 15 # Retain artifacts for 30 days
+          if-no-files-found: ignore
