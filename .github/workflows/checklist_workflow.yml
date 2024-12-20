@@ -23,7 +23,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          browser: chrome # Specify the browser to run the tests (Chrome in this case)
+          # browser: chrome # Specify the browser to run the tests (Chrome in this case)
           spec: cypress/e2e/pom-framework/daily_checklist # Path to the test specifications
           headless: true # Run tests in headless mode to reduce resource usage
           # experimentalMemoryManagement: true # Enable experimental memory management to handle large test loads
