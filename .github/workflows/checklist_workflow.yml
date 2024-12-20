@@ -26,8 +26,8 @@ jobs:
           browser: chrome # Specify the browser to run the tests (Chrome in this case)
           spec: cypress/e2e/pom-framework/daily_checklist # Path to the test specifications
           headless: true # Run tests in headless mode to reduce resource usage
-          experimentalMemoryManagement: true # Enable experimental memory management to handle large test loads
-          numTestsKeptInMemory: 5 # Limit the number of tests stored in memory to reduce crashes
+          # experimentalMemoryManagement: true # Enable experimental memory management to handle large test loads
+          # numTestsKeptInMemory: 5 # Limit the number of tests stored in memory to reduce crashes
 
       # Step 3: Upload screenshots for failed Cypress tests
       - name: Upload Cypress Screenshots
