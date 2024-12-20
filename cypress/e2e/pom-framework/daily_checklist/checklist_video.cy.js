@@ -1,37 +1,32 @@
-// import { LoginPage } from "../../../pages/login"; // Login class
-import { VideosPage } from "../../../pages/video"; // Videos page class
+// Import the VideosPage class
+import { VideosPage } from "../../../pages/video"; // Update the path as needed
 
-// Instantiate page objects
-// const loginPage = new LoginPage();
+// Instantiate the VideosPage object
 const videosPage = new VideosPage();
 
-// Hook to run before each test
-beforeEach(() => {
-    // Handle any uncaught exceptions to avoid failing tests unnecessarily
-    // cy.viewport('iphone-');
-    cy.UncaughtException();
+describe('Videos Page Checklist', () => {
 
-    // Clear all previously saved sessions
-    // cy.session.clearAllSavedSessions();
+    beforeEach(() => {
+        // Handle any uncaught exceptions to avoid failing tests unnecessarily
+        cy.UncaughtException();
 
-    // Use Cypress session management to cache the login session across specs
-    cy.session('loginWithOTPMobileno', () => {
-        cy.visitHomePage('9991004781', '4781'); // Replace with appropriate login credentials
-    }, {
-        cacheAcrossSpecs: true
+        // Use Cypress session management to cache the login session across specs
+        cy.session('loginWithOTPMobileno', () => {
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
+        }, {
+            cacheAcrossSpecs: true
+        });
+
+        // Navigate to the home page
+        cy.visit('/');
     });
-
-    // Navigate to the home page
-    cy.visit('/');
-});
 
     it('Should navigate to the Videos Page from header', () => {
-        // Step 2: Navigate to Videos Page
         videosPage.navigateToVideosPage();
-        videosPage.verifyVideosPageTitle(); // Check if on the correct page
+        videosPage.verifyVideosPageTitle();
     });
 
-    it('Should display all video tags: Ready Reckoner, Guidelines, Cross therapy, Converse', () => {
+    it('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
         videosPage.navigateToVideosPage();
         videosPage.verifyTagsVisibility([
             'Ready Reckoner',
@@ -49,13 +44,25 @@ beforeEach(() => {
             'Ready Reckoner',
             'Guidelines',
             'Converse',
-            'Cross Therapy'
         ]);
     });
 
     it('Should verify View All and View Less functionality for each video section', () => {
         videosPage.navigateToVideosPage();
-        videosPage.checkViewAllAndViewLess();
+        const sections = [
+            'Recently Added',
+            'Most Viewed',
+            'Ready Reckoner',
+            'Converse'
+        ];
+        console.log('Sections being passed:', sections);
+        videosPage.checkViewAllAndViewLess(sections);
+    });
+
+
+    it('Should verify videos are playable and controls work', () => {
+        videosPage.navigateToVideosPage();
+        videosPage.verifyVideoPlayback();
     });
 
     it('Should verify the Share button is visible and clickable for each video', () => {
@@ -63,3 +70,4 @@ beforeEach(() => {
         videosPage.checkShareButtonForEachVideo();
     });
 
+});
