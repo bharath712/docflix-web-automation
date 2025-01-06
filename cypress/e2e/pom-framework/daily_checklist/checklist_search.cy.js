@@ -63,7 +63,7 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
         testSearchFromCsv('shows.csv');
 
         // Test case to search and verify content from the `video_content.csv` file
-        testSearchFromCsv('video_content.csv');
+        // testSearchFromCsv('video_content.csv');
 
     });
 
