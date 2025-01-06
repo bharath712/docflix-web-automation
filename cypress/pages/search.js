@@ -91,7 +91,7 @@ const readCsvFile = (csvFileName) => {
                         reject(result.errors);
                     } else {
                         // Map data dynamically to handle different column names
-                        resolve(result.data.map((row) => row.showName || row.VideoTitle));
+                        resolve(result.data.map((row) => row.showName));
                     }
                 },
             });

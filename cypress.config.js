@@ -23,7 +23,7 @@ module.exports = defineConfig({
     defaultCommandTimeout: 10000,
     experimentalStudio: true,
     experimentalMemoryManagement: true,
-    numTestsKeptInMemory:1,
+    numTestsKeptInMemory:0,
     video: true,
     retries: 1,
     chromeWebSecurity: false,
