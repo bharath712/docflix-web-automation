@@ -25,15 +25,34 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
 
         academy.CheckAllCourseHeadingName();
         academy.CheckAllCoursesAreClickable();
-
     });
 
     it('Check the Tab is clickable', () => {
 
-        academy.ChecktheTabAreClickable();
+        academy.CheckTheTabsAreClickable();
 
 
     });
+
+    it('check the Text Icon is visible', () => {
+        
+        academy.CheckTheTextIconIsVisible();
+
+    });
+
+    it('Check the Description of the Course', () => {
+
+        academy.CheckTheDescriptionIsVisible();
+
+    });
+
+    it('Check the Separator is visible', () => {
+
+        academy.CheckTheSeparatorIsVisible();
+
+    });
+
+    
 
     it('Logout from the Application', () => {
 
