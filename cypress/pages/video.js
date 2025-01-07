@@ -118,54 +118,56 @@ export class VideosPage {
         cy.wrap(videoElement).then(($video) => {
             const video = $video[0];
     
-            // Wait for the video source to be dynamically assigned
-            const waitForVideoSrc = () => {
-                const videoSrc = video.src || video.getAttribute('src');
-                if (!videoSrc) {
-                    throw new Error('Video source is not assigned yet');
+            // Wait for metadata to load
+            cy.log('Waiting for video metadata to load...');
+            cy.wrap(video, { timeout: 30000 })
+                .should(() => {
+                    expect(video.readyState, 'Video should have loaded metadata').to.be.gte(HTMLMediaElement.HAVE_METADATA);
+                })
+                .then(() => {
+                    cy.log(`Video metadata loaded: readyState = ${video.readyState}`);
+                });
+    
+            // Ensure the video has a valid duration
+            cy.wrap(video).then(() => {
+                const duration = video.duration;
+                if (!isFinite(duration) || duration === 0) {
+                    throw new Error('Video duration is invalid or zero');
                 }
-                return videoSrc;
-            };
-    
-            cy.wrap(null, { timeout: 20000 }).then(() => {
-                const videoSrc = waitForVideoSrc();
-                cy.log(`Video source: ${videoSrc}`);
-                expect(videoSrc).to.be.a('string').and.not.be.empty;
+                cy.log(`Video duration is valid: ${duration}`);
             });
     
-            // Wait for the video to be ready for playback
-            cy.wrap(video, { timeout: 20000 }).should(() => {
-                expect(video.readyState).to.be.gte(HTMLMediaElement.HAVE_ENOUGH_DATA);
+            // Validate playback
+            cy.wrap(video).then(() => {
+                video.play();
+                cy.wait(2000); // Let the video play for 2 seconds
+                cy.wrap(video).should('have.prop', 'paused', false);
+    
+                video.pause();
+                cy.wrap(video).should('have.prop', 'paused', true);
             });
-    
-            cy.log('Video is ready for playback');
-    
-            // Validate video playback controls
-            // Play the video
-            video.play();
-            cy.wrap(video).should('have.prop', 'paused', false);
-    
-            // Pause the video
-            video.pause();
-            cy.wrap(video).should('have.prop', 'paused', true);
-    
-            // Validate seeking functionality
-            const initialTime = video.currentTime;
     
             // Seek forward
-            video.currentTime = Math.min(video.duration, initialTime + 10);
-            cy.wrap(video).should(() => {
-                expect(video.currentTime).to.be.greaterThan(initialTime);
+            cy.wrap(video).then(() => {
+                const seekForward = Math.min(video.duration, video.currentTime + 10);
+                video.currentTime = seekForward;
+                cy.wrap(video).should(() => {
+                    expect(video.currentTime).to.be.closeTo(seekForward, 0.5);
+                });
+                cy.log(`Video seeked forward to: ${seekForward}s`);
             });
     
             // Seek backward
-            video.currentTime = Math.max(0, initialTime - 10);
-            cy.wrap(video).should(() => {
-                expect(video.currentTime).to.be.at.least(0);
+            cy.wrap(video).then(() => {
+                const seekBackward = Math.max(0, video.currentTime - 10);
+                video.currentTime = seekBackward;
+                cy.wrap(video).should(() => {
+                    expect(video.currentTime).to.be.closeTo(seekBackward, 0.5);
+                });
+                cy.log(`Video rewinded to: ${seekBackward}s`);
             });
         });
     }
-    
     
     
     // Check Share button for each video
