@@ -9,7 +9,9 @@ class HomePage {
         headingName: () => cy.get('[class*=AnimatedHeader_mainHeader__]'),
         carouselLeft: () => cy.get('[class*=HomeCarouselVideo_carouselBtn__]').first(),
         carouselRight: () => cy.get('[class*=HomeCarouselVideo_carouselBtn__]').last(),
-        carouselDotButton: () => cy.get('[class*=HomeCarouselVideo_carouselDot__]')
+        carouselDotButton: () => cy.get('[class*=HomeCarouselVideo_carouselDot__]'),
+        Swipebutton: () => cy.get("[class*='swiper-button-next']").first(),
+        PreviousSwipebutton: () => cy.get("[class*='swiper-button-next']").last()
     }
 
     clickOntheCarousel() {
@@ -54,6 +56,50 @@ class HomePage {
         this.elements.headingName().contains(headingName);
 
     }
+
+    ClickonTheContinueWatching(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+
+    ClickonTheRecentlyAddedSwipeButton(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+    
+    ClickonTheTrendingShowsSwipeButton(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+
+    ClickOnMostViewedSeasonsSwipeButton(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+
+    ClickOnExclusiveContentSwipeButton(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+
+    ClickOnTop10ShowsSwipeButton(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+
+    ClickOnHotTopicsSwipeButton(){
+        
+        this.elements.Swipebutton().scrollIntoView().click({force:true});
+        this.elements.PreviousSwipebutton().scrollIntoView().click({force:true});
+    }
+
+
 }
 
 export default HomePage;
