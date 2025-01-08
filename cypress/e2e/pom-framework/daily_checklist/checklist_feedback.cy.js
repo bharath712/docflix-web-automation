@@ -28,27 +28,36 @@ describe('Feedback Button', () => {
     });
 
     it('Check the options are clickable', () => {
+        // Array of feedback types and corresponding messages
         const feedbackOptions = [
             { type: 'Suggestion', message: 'This is a suggestion.' },
             { type: 'Problem', message: 'This is a problem report.' },
             { type: 'Compliment', message: 'This is a compliment for your service.' },
         ];
     
+        // Iterate through each feedback type and perform the test
         feedbackOptions.forEach(({ type, message }) => {
-            cy.contains('Feedback').click(); // Open the feedback modal
-            cy.get("[class*='NavHeader_feedbackTextDesktop__']").should('contain', 'Feedback');
+            // Step 1: Open the feedback modal
+            cy.contains('Feedback').click(); // Click on the 'Feedback' button
+            cy.get("[class*='NavHeader_feedbackTextDesktop__']")
+                .should('contain', 'Feedback'); // Verify the feedback modal is open
     
-            // Select the feedback type
-            cy.get("[class*='UserFeedback_typeSelectContainer__']").contains(type).click();
+            // Step 2: Select the feedback type
+            cy.get("[class*='UserFeedback_typeSelectContainer__']")
+                .contains(type) // Find the specific feedback type (e.g., Suggestion, Problem, Compliment)
+                .click(); // Select the feedback type
     
-            // Enter the feedback message using force option
-            cy.get('#feedbackMessage').click({ force: true }).type(message, { force: true });
+            // Step 3: Enter the feedback message
+            // Use { force: true } to bypass visibility checks if the textarea is hidden
+            cy.get('#feedbackMessage')
+                .click({ force: true }) // Focus the textarea field
+                .type(message, { force: true }); // Type the feedback message
     
-            // Submit the feedback
-            cy.contains('Submit').click({force:true});
+            // Step 4: Submit the feedback
+            cy.contains('Submit').click({force:true}); // Click the 'Submit' button
     
-            // Validate that the modal is closed (or any other success criteria)
-            cy.get("[class*='UserFeedback_closeIcon__']").click({force:true});
+            // Step 5: Close the feedback modal
+            cy.get("[class*='UserFeedback_closeIcon__']").click({force:true}); // Close the feedback modal
         });
     });
     
