@@ -16,37 +16,37 @@ describe('e2e Testing on Landing page', () => {
     });
 
 
-    // it('Verify the Landing Page carousel and click on Enter Now button', () => {
+    it('Verify the Landing Page carousel and click on Enter Now button', () => {
 
-    //     homePage.validateCarouselSection();
-    //     loginPage.verifyLoginPage();
+        homePage.validateCarouselSection();
+        loginPage.verifyLoginPage();
 
-    // });
+    });
 
-    // it('Verify the Scroll Animation and click on Enter Now button', () => {
+    it('Verify the Scroll Animation and click on Enter Now button', () => {
 
-    //     homePage.validateScrollButtonClick();
+        homePage.validateScrollButtonClick();
 
-    // });
+    });
 
-    // it('Verify Watch Now Only on Docflix Section on the Landing Page', () => {
+    it('Verify Watch Now Only on Docflix Section on the Landing Page', () => {
 
-    //     homePage.validateWatchNowSection();
-    //     // loginPage.verifyContinueWatching();
+        homePage.validateWatchNowSection();
+        // loginPage.verifyContinueWatching();
 
-    // });
+    });
 
-    // it('Verify Our Experts Section on the Landing Page', () => {
+    it('Verify Our Experts Section on the Landing Page', () => {
 
-    //     homePage.validateOurExpertsSection();
+        homePage.validateOurExpertsSection();
 
-    // });
+    });
 
-    // it('Verify Why Docflix Section on the Landing Page', () => {
+    it('Verify Why Docflix Section on the Landing Page', () => {
 
-    //     homePage.validateWhyDocflixSection();
+        homePage.validateWhyDocflixSection();
 
-    // });
+    });
 
     it('Verify the Footer Section on Landing Page', () => {
 
