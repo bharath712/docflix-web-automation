@@ -7,7 +7,7 @@ class Search {
 
     // Define selectors as methods inside an `elements` object for better readability and reusability
     elements = {
-        searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg'), // Locator for the search icon
+        searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg').last(), // Locator for the search icon
         bestShowTitleText: () => cy.get('div[class*="NewSearchModal_showsTitle__"]').contains('Best Shows'), // Locator for the "Best Shows" title
         bestShowsGridView: () => cy.get('div[class*="NewSearchModal_showsContainer__"]'), // Locator for the grid of best shows
         SearchVideos: () => cy.xpath("//input[@placeholder='Search Videos...']"), // Locator for the search input box
@@ -20,7 +20,7 @@ class Search {
 
     // Method to click on the search button
     clickOnSearchButton() {
-        this.elements.searchInput().click();
+        this.elements.searchInput().click();    // Click on the search icon    
     }
 
     // Method to interact with and validate each show in the "Best Shows" section
