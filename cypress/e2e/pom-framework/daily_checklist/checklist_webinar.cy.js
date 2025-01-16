@@ -19,31 +19,44 @@ describe('Dynamic locators for Upcoming and Past tabs on Webinar page', () => {
     };
 
     it('Check buttons on the Upcoming tab (Attend, Share, Speakers)', () => {
-        // Check if the Upcoming tab exists without causing a failure if it's not present
-        cy.document().then((doc) => {
-            const upcomingTab = doc.querySelector('div[id^="upcoming"]');
-            
-            if (upcomingTab) {
-                // If the Upcoming tab exists, proceed with the test
-                cy.get('div[id^="upcoming"]').should('be.visible').click();
+        // Wait for the page to load fully
+        cy.wait(5000); // Adjust the wait time as needed based on the app's behavior
     
+        // Check if the Upcoming tab exists and is visible
+        cy.get('body').then(($body) => {
+            if ($body.find('div[id^="upcoming"]').length > 0) {
+                // Log a message for debugging
+                cy.log('Upcoming tab found, proceeding with the test.');
+    
+                // Proceed to interact with the Upcoming tab
+                cy.get('div[id^="upcoming"]')
+                    .scrollIntoView()
+                    .should('be.visible')
+                    .click()
+                    .then(() => {
+                        cy.log('Upcoming tab clicked.');
+                    });
+    
+                // Verify webinar cards are visible
                 cy.get('div[class*=WebinarCard_webinarCardWrapper__]', { timeout: 15000 })
                     .should('be.visible')
                     .each(($webinar) => {
-                        // Dynamic Share button locator for the Upcoming tab
-                        cy.wrap($webinar)
-                          .find('[class*="WebinarCard_descBtn__"]')
-                          .should('contain', 'Share')
-                          .click({ force: true });
+                        cy.log('Webinar card found.'); // Log for debugging
     
-                        // Close the modal after clicking the Share button
+                        // Locate and click the Share button
+                        cy.wrap($webinar)
+                            .find('[class*="WebinarCard_descBtn__"]')
+                            .should('contain', 'Share')
+                            .click({ force: true });
+    
+                        // Close the modal
                         cy.get('div[class*="InviteModal_closeBtn__"]')
-                          .should('be.visible')
-                          .click();
+                            .should('be.visible')
+                            .click();
                     });
             } else {
-                cy.log('Upcoming tab not found, proceeding with other checks.');
-                // Code for other checks if needed
+                // Log a message if the Upcoming tab is not found
+                cy.log('Upcoming tab not found, skipping the test.');
             }
         });
     });
@@ -89,32 +102,31 @@ describe('Dynamic locators for Upcoming and Past tabs on Webinar page', () => {
 
     // Check the Share button is clickable on both Upcoming and Past tabs
     it('Check the Share button is clickable on both tabs', () => {
-        cy.document().then((doc) => {
-            const upcomingTab = doc.querySelector('div[id^="upcoming"]');
-            
-            if (upcomingTab) {
-                // If the Upcoming tab exists, interact with it
-                cy.wrap(upcomingTab).should('be.visible').click();
-    
-                // Interact with Share button on Upcoming webinars
-                cy.get('div[class*=WebinarCard_webinarCardWrapper__]', { timeout: 15000 })
-                  .should('be.visible')
-                  .each(($webinar) => {
-                      // Check for the Share button
-                      cy.wrap($webinar)
-                        .find('[class*="WebinarCard_descBtn__"]')
-                        .should('contain', 'Share')
-                        .click({ force: true });
-    
-                      // Close the modal after clicking the Share button
-                      cy.get('div[class*="InviteModal_closeBtn__"]')
-                        .should('be.visible')
-                        .click();
-                  });
-            } else {
-                cy.log('Upcoming tab not found, skipping tests for Upcoming webinars.');
-            }
+        cy.get('div[id^="upcoming"]', { timeout: 15000 }) // Waits dynamically until the element is available
+        .should('be.visible')
+        .then(($upcomingTab) => {
+        if ($upcomingTab.length > 0) {
+            cy.wrap($upcomingTab).click();
+
+        // Interact with the Share button on Upcoming webinars
+        cy.get('div[class*=WebinarCard_webinarCardWrapper__]', { timeout: 15000 })
+         .should('be.visible')
+            .each(($webinar) => {
+          cy.wrap($webinar)
+            .find('[class*="WebinarCard_descBtn__"]')
+            .should('contain', 'Share')
+            .click({ force: true });
+
+          // Close the modal after clicking the Share button
+          cy.get('div[class*="InviteModal_closeBtn__"]')
+            .should('be.visible')
+            .click();
         });
+    } else {
+      cy.log('Upcoming tab not found, skipping tests for Upcoming webinars.');
+    }
+  });
+
         
 
 
