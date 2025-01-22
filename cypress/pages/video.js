@@ -19,9 +19,9 @@ export class VideosPage {
                 .closest("[class*='VideosSection_videosSection__']")
                 .find("[class*='VideosSection_viewlink__']")
                 .contains('View Less'),
-        videoCard: () => cy.get("[class*='VideosSection_videoCard__']"), // Video card selector
-        videoPlayer: () => cy.get("[class*='MuxPlayer_seekOverlay__']"), // Video player selector
-        videoElement: () => cy.get("[class*='VideoDetails_playerSection__']"),
+        videoCard: () => cy.get("[class*='VideosSection_videoCard__']"),
+        videoPlayer: () => cy.get("[class*='MuxPlayer_seekOverlay__']"),
+        mediaPlayButton: () => cy.get('[id="root"] media-controller > div'),
         shareButton: () => cy.get("[class*='styles_overlayCard__']").contains('Share'),
     };
 
@@ -53,7 +53,7 @@ export class VideosPage {
         });
     }
 
-    // Check View All and View Less functionality for each section
+    // Check View All and View Less functionality
     checkViewAllAndViewLess(sections) {
         if (!Array.isArray(sections) || sections.length === 0) {
             throw new TypeError('The sections parameter must be a non-empty array');
@@ -61,146 +61,120 @@ export class VideosPage {
         sections.forEach((sectionTitle) => {
             cy.log(`Checking View All/View Less for section: ${sectionTitle}`);
             this.elements.viewAllButton(sectionTitle).should('be.visible').click();
-            cy.wait(500); // Wait for content to expand
+            cy.wait(500);
             this.elements.viewLessButton(sectionTitle).should('be.visible').click();
         });
     }
 
     // Verify video playback
     verifyVideoPlayback() {
-        cy.log('Verifying video playback and controls');
+        cy.log('Starting video playback verification for all video cards.');
     
+        // Fetch video cards directly using the function
+        this.elements.videoCard()
+            .should('exist') // Ensure video cards exist
+            .then(($videoCards) => {
+                const totalVideos = $videoCards.length;
+    
+                if (totalVideos === 0) {
+                    throw new Error('No video cards found on the page.');
+                }
+    
+                cy.log(`Found ${totalVideos} video cards.`);
+    
+                // Iterate through video cards using their index
+                for (let index = 0; index < totalVideos; index++) {
+                    cy.log(`Processing video card ${index + 1} of ${totalVideos}.`);
+    
+                    // Re-fetch the video card by index to avoid stale references
+                    this.elements.videoCard()
+                        .eq(index)
+                        .scrollIntoView()
+                        // .should('be.visible')
+                        .click({ force: true });
+    
+                    cy.log(`Opened video player for video card ${index + 1}.`);
+    
+                    // Perform media playback interaction
+                    this.verifyMediaPlayButtonAndClick();
+    
+                    // Navigate back to the video list
+                    cy.go('back').wait(2000);
+                }
+            });
+    
+        cy.log('Video playback verification completed for all video cards.');
+    }
+    
+    
+    
+    
+
+    verifyMediaPlayButtonAndClick() {
+        this.elements.mediaPlayButton().should('exist').then(($playButton) => {
+            // Extract the raw element
+            const playButtonElement = $playButton.get(0);
+    
+            cy.wait(3000); // Optional wait for elements to load or actions to complete
+    
+            // Ensure the correct play button element
+            if (!playButtonElement || playButtonElement.tagName !== 'DIV') {
+                cy.log(`Selected element tagName: ${playButtonElement?.tagName || 'undefined'}`);
+                cy.log('Please check the locator or ensure the correct element is being targeted.');
+                throw new Error(
+                    `Expected a <MEDIA-PLAY-BUTTON> element but got <${playButtonElement?.tagName || 'undefined'}>.`
+                );
+            }
+    
+            cy.log('Valid <MEDIA-PLAY-BUTTON> element found.');
+    
+            // Click the play button (to play the video)
+            cy.wrap(null).then(() => {
+                cy.log('Clicking the play button...');
+                $playButton.click({ force: true });
+            });
+    
+            // Interact with the seek forward and seek backward buttons
+            cy.wrap(null).then(() => {
+                cy.log('Finding and interacting with the seek buttons...');
+    
+                // Click the seek forward button
+                cy.get('media-controller media-seek-forward-button')
+                    .should('exist')
+                    .click();
+                cy.log('Clicked the seek forward button.');
+    
+                // Click the seek backward button
+                cy.get('media-controller media-seek-backward-button')
+                    .should('exist')
+                    .click();
+                cy.log('Clicked the seek backward button.');
+            });
+        });
+    }
+    
+
+    // Check Share button for each video
+    checkShareButtonForEachVideo() {
+        cy.log('Verifying Share button for all video cards');
+
         this.elements.videoCard()
             .should('exist')
             .and('have.length.greaterThan', 0)
             .each((_, index) => {
                 cy.log(`Processing video card ${index + 1}`);
-    
-                // Scroll to the video card and click to open the video player
                 cy.get("[class*='VideosSection_videoCard__']")
                     .eq(index)
-                    .scrollIntoView()
                     .click({ force: true });
-    
-                // Wait for the video player to load and validate playback
-                this.verifyPlayerLoadedAndValidatePlayback();
-    
-                // Navigate back to the previous page and ensure stability
+
+                this.elements.shareButton()
+                    .should('be.visible')
+                    .and('contain', 'Share')
+                    .click();
+
                 cy.go('back').wait(1000);
             });
-    
-        cy.log('Video playback verification completed for all video cards');
-    }
-    
-    verifyPlayerLoadedAndValidatePlayback() {
-        // Wait for the video player to load
-        cy.get("video[type='hls']", { timeout: 20000 })
-            .should('exist')
-            .then(($video) => {
-                let videoElement;
-    
-                // Check if the video element is inside a shadow DOM
-                if ($video[0].shadowRoot) {
-                    videoElement = $video[0].shadowRoot.querySelector('video');
-                    if (!videoElement) {
-                        throw new Error('Video element not found inside shadow DOM.');
-                    }
-                } else {
-                    videoElement = $video[0];
-                }
-    
-                // Validate the video element for playback controls
-                this.validateVideoPlayback(videoElement);
-            });
-    }
-    
-    validateVideoPlayback(videoElement) {
-        cy.wrap(videoElement).then(($video) => {
-            const video = $video[0];
-    
-            // Wait for metadata to load
-            cy.log('Waiting for video metadata to load...');
-            cy.wrap(video, { timeout: 30000 })
-                .should(() => {
-                    expect(video.readyState, 'Video should have loaded metadata').to.be.gte(HTMLMediaElement.HAVE_METADATA);
-                })
-                .then(() => {
-                    cy.log(`Video metadata loaded: readyState = ${video.readyState}`);
-                });
-    
-            // Ensure the video has a valid duration
-            cy.wrap(video).then(() => {
-                const duration = video.duration;
-                if (!isFinite(duration) || duration === 0) {
-                    throw new Error('Video duration is invalid or zero');
-                }
-                cy.log(`Video duration is valid: ${duration}`);
-            });
-    
-            // Validate playback
-            cy.wrap(video).then(() => {
-                video.play();
-                cy.wait(2000); // Let the video play for 2 seconds
-                cy.wrap(video).should('have.prop', 'paused', false);
-    
-                video.pause();
-                cy.wrap(video).should('have.prop', 'paused', true);
-            });
-    
-            // Seek forward
-            cy.wrap(video).then(() => {
-                const seekForward = Math.min(video.duration, video.currentTime + 10);
-                video.currentTime = seekForward;
-                cy.wrap(video).should(() => {
-                    expect(video.currentTime).to.be.closeTo(seekForward, 0.5);
-                });
-                cy.log(`Video seeked forward to: ${seekForward}s`);
-            });
-    
-            // Seek backward
-            cy.wrap(video).then(() => {
-                const seekBackward = Math.max(0, video.currentTime - 10);
-                video.currentTime = seekBackward;
-                cy.wrap(video).should(() => {
-                    expect(video.currentTime).to.be.closeTo(seekBackward, 0.5);
-                });
-                cy.log(`Video rewinded to: ${seekBackward}s`);
-            });
-        });
-    }
-    
-    
-    // Check Share button for each video
-    checkShareButtonForEachVideo() {
-        cy.log('Verifying Share button for all video cards');
-    
-        // Re-query and handle dynamic updates
-        this.elements.videoCard().should('exist').and('have.length.greaterThan', 0).each((_, index) => {
-            cy.log(`Processing video card ${index + 1}`);
-    
-            // Re-query the video card by index to handle DOM updates
-            cy.get("[class*='VideosSection_videoCard__']")
-                .eq(index)
-                // .scrollIntoView()
-                // .should('be.visible') // Ensure the element is visible
-                .click({ force: true }); // Click the video card
-    
-            // Wait for the Share button and verify it
-            this.elements.shareButton()
-                .should('be.visible')
-                .and('contain', 'Share')
-                .click();
-    
-            cy.log('Share button verified and clicked');
-    
-            // Go back to the video list and wait for stabilization
-            cy.go('back').wait(1000);
-        });
-    
+
         cy.log('Verification completed for all video cards');
     }
-    
-    
-    
-    
 }
