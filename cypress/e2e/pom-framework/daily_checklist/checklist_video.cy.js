@@ -11,7 +11,7 @@ describe('Videos Page Checklist', () => {
         cy.UncaughtException();
 
         // Use Cypress session management to cache the login session across specs
-        cy.session('loginWithOTPMobileno', () => {
+        cy.session('VideoPageLogin', () => {
             cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
         }, {
             cacheAcrossSpecs: true
