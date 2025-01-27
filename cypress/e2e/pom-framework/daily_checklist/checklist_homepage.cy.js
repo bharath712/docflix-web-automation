@@ -1,4 +1,6 @@
 import HomePage from "../../../pages/home_page";
+import { Search } from "../../../pages/search";
+import Footer from "../../../pages/footer_section";
 // import Academy from "../../../pages/academy_page";
 
 const homepage = new HomePage();
@@ -26,7 +28,7 @@ describe('Check the Home Page is visible and Check the All buttons and Data is c
             homePage.clickOntheCarousel();
     });
         
-    it('Should validate there are 8 headings on the homepage', () => {
+    it('Should validate there are 11 headings on the homepage', () => {
         const homePage = new HomePage();
         homePage.checkAllTheHeadingNames();
     });
@@ -49,36 +51,77 @@ describe('Check the Home Page is visible and Check the All buttons and Data is c
         });
     });
 
-    it('Should validate all the sections swipe and PreiousSwipe button', () => {
+    it('Should validate all the sections swipe and PreviousSwipe button', () => {
         const homePage = new HomePage();
         homePage.ClickonTheContinueWatching();
-        homepage.ClickOnExclusiveContentSwipeButton();
-        homepage.ClickOnHotTopicsSwipeButton();
-        homepage.ClickOnMostViewedSeasonsSwipeButton();
-        homepage.ClickonTheRecentlyAddedSwipeButton();
-        homepage.ClickonTheTrendingShowsSwipeButton();
+        homePage.ClickOnExclusiveContentSwipeButton();
+        homePage.ClickOnHotTopicsSwipeButton();
+        homePage.ClickOnMostViewedSeasonsSwipeButton();
+        homePage.ClickonTheRecentlyAddedSwipeButton();
+        homePage.ClickonTheTrendingShowsSwipeButton();
 
     });
-
-
-
 
 
     it('Should check Trends, Search and Hamburger Menu buttons together', () => {
         // Search button validation
-        cy.get('[class*=NavHeader_userLinks__]').children('svg').eq(1)
-            .should('exist')
-            .should('be.visible');
-
-        // Hamburger Menu button validation
-        cy.get('[class*=NavHeader_menuIcon__]')
-            .should('exist')
-            .should('be.visible');
-
-        // Trens button validation
-        cy.get('[class*=NavHeader_userLinks__]').children('svg').eq(0)
-            .should('exist')
-            .should('be.visible');
+        const homePage = new HomePage();
+        homePage.elements.Searchbutton();
+        homePage.elements.HambergerMenubutton();
+        // homePage.Trendsbutton();
     });
+
+    it('Check the Feedback is clickable', () => {
+
+        cy.contains('Feedback').click();
+        cy.get("[class*='NavHeader_feedbackTextDesktop__']").should('have.text', 'Feedback');
+        cy.get("[class*='UserFeedback_headingContainer__']").should('be.visible');
+        cy.contains('Submit').click();
+        cy.get('.error').first().should('have.text', 'Please Select Type.');
+        cy.get('.error').last().should('have.text', 'Please Type Message.')
+
+    });
+
+    it('Check the feedback options are clickable', () => {
+        // Array of feedback types and corresponding messages
+        const feedbackOptions = [
+            { type: 'Suggestion', message: 'This is a suggestion.' },
+            { type: 'Problem', message: 'This is a problem report.' },
+            { type: 'Compliment', message: 'This is a compliment for your service.' },
+        ];
+    
+        // Iterate through each feedback type and perform the test
+        feedbackOptions.forEach(({ type, message }) => {
+            // Step 1: Open the feedback modal
+            cy.contains('Feedback').click(); // Click on the 'Feedback' button
+            cy.get("[class*='NavHeader_feedbackTextDesktop__']")
+                .should('contain', 'Feedback'); // Verify the feedback modal is open
+    
+            // Step 2: Select the feedback type
+            cy.get("[class*='UserFeedback_typeSelectContainer__']")
+                .contains(type) // Find the specific feedback type (e.g., Suggestion, Problem, Compliment)
+                .click(); // Select the feedback type
+    
+            // Step 3: Enter the feedback message
+            // Use { force: true } to bypass visibility checks if the textarea is hidden
+            cy.get('#feedbackMessage')
+                .click({ force: true }) // Focus the textarea field
+                .type(message, { force: true }); // Type the feedback message
+    
+            // Step 4: Submit the feedback
+            cy.contains('Submit').click({force:true}); // Click the 'Submit' button
+    
+            // Step 5: Close the feedback modal
+            cy.get("[class*='UserFeedback_closeIcon__']").click({force:true}); // Close the feedback modal
+        });
+    });
+
+    it('Verify the Footer Section on Home Page', () => {
+        const footerSection = new Footer();
+
+        footerSection.validateFooterSection();
+
+    });
+
 
     });

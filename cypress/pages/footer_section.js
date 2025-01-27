@@ -6,7 +6,7 @@ class FooterSection {
     linkedInDocflixUrl = 'https://www.linkedin.com/company/docflix'
     instagramDocflixUrl = 'https://www.instagram.com/docflix_mankind/?hl=en'
     xDocflixUrl = 'https://x.com/i/flow/login?redirect_after_login=%2FDocflix_Mankind'
-    copyRightText = '© Mankind Pharma 2024';
+    copyRightText = '© Mankind Pharma 2025';
 
     element = {
 
@@ -16,8 +16,8 @@ class FooterSection {
         linkedInDocflixLink: () => cy.get('[title="Linkedin"]'),
         instagramDocflixLink: () => cy.get('[title="Instagram"]'),
         xDocflixLink: () => cy.get('[title="Twitter"]'),
-        copyRightText: () => cy.get('.FooterNew_desc__SQu5R'),
-        privacyPolicyLink: () => cy.get('a').contains('Privacy Policy')
+        copyRightText: () => cy.get("[class*='FooterNew_desc__']"),
+        privacyPolicyLink: () => cy.get("[class*='FooterNew_privacy__']")
 
     }
 
@@ -36,41 +36,49 @@ class FooterSection {
 
     validateFooterSection() {
         this.element.docflixLogoLink().last().click();
-
+    
         this.element.mankindLogoLink().parent().invoke('removeAttr', 'target').click();
         cy.origin('https://www.mankindpharma.com/', () => {
             cy.log('Mankind Website');
         });
-        cy.visit('/');
-
+        cy.go('back');
+    
         this.element.facebookDocflixLink().invoke('removeAttr', 'target').click();
         cy.origin(this.facebookDocflixUrl, () => {
             cy.log('Facebook Website');
         });
-        cy.visit('/');
-
+        cy.go('back');
+    
         this.element.linkedInDocflixLink().invoke('removeAttr', 'target').click();
+
         cy.origin(this.linkedInDocflixUrl, () => {
-            cy.log('Linkedin Website');
+            // Add meaningful interactions or assertions
+            cy.log('On LinkedIn Website');
+            cy.url().should('include', 'linkedin.com');
+            cy.get('body').should('exist'); // Example: Ensure the page loads
         });
+
+        // Return to the base application page if needed
         cy.visit('/');
 
+    
         this.element.instagramDocflixLink().invoke('removeAttr', 'target').click();
         cy.origin('https://instagram.com/', () => {
             cy.log('Instagram Website');
         });
-        cy.visit('/');
-
+        cy.go('back');
+    
         this.element.xDocflixLink().invoke('removeAttr', 'target').click();
         cy.origin('https://x.com/', () => {
             cy.log('X Website');
         });
-        cy.visit('/');
-
+        cy.go('back');
+    
         this.element.copyRightText().invoke('text').should('equal', this.copyRightText);
         this.element.privacyPolicyLink().invoke('removeAttr', 'target').click();
         cy.go('back');
     }
+    
 
 }
 export default FooterSection;
