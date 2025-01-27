@@ -11,7 +11,22 @@ class HomePage {
         carouselRight: () => cy.get('[class*=HomeCarouselVideo_carouselBtn__]').last(),
         carouselDotButton: () => cy.get('[class*=HomeCarouselVideo_carouselDot__]'),
         Swipebutton: () => cy.get("[class*='swiper-button-next']").first(),
-        PreviousSwipebutton: () => cy.get("[class*='swiper-button-next']").last()
+        PreviousSwipebutton: () => cy.get("[class*='swiper-button-next']").last(),
+        // Search button validation
+        Searchbutton:() => cy.get('[class*=NavHeader_userLinks__]').children('svg')
+            .should('exist')
+            .should('be.visible'),
+
+        // Hamburger Menu button validation
+        HambergerMenubutton: () =>  cy.get('[class*=NavHeader_menuIcon__]')
+            .should('exist')
+            .should('be.visible'),
+
+        // Trends button validation
+    //     Trendsbutton: () => cy.get('[class*=NavHeader_userLinks__]').children('svg').eq(0)
+    //         .should('exist')
+    //         .should('be.visible')
+
     }
 
     clickOntheCarousel() {
@@ -23,7 +38,7 @@ class HomePage {
 
     checkAllTheHeadingNames() {
 
-        this.elements.headingName().should('have.length', 8);
+        this.elements.headingName().should('have.length', 11);
 
     }
 
