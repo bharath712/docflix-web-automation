@@ -1,9 +1,10 @@
 import HomePage from "../../../pages/home_page";
 import { Search } from "../../../pages/search";
 import Footer from "../../../pages/footer_section";
+import HeaderSection from "../../../pages/header_section";
 // import Academy from "../../../pages/academy_page";
 
-const homepage = new HomePage();
+// const homePage = new HomePage();
 
 describe('Check the Home Page is visible and Check the All buttons and Data is correct', () => {
 
@@ -13,7 +14,7 @@ describe('Check the Home Page is visible and Check the All buttons and Data is c
 
         cy.UncaughtException();
 
-        cy.session('loginWithMobileNumber', () => {
+        cy.session('HomePageLogin', () => {
             cy.visitHomePage('9991004781', '4781');
         }, {
             cacheAcrossSpecs: true
@@ -24,50 +25,57 @@ describe('Check the Home Page is visible and Check the All buttons and Data is c
     });
 
     it('Should navigate the carousel using left and right buttons', () => {
-            const homePage = new HomePage();
-            homePage.clickOntheCarousel();
+            const homepage = new HomePage();
+            homepage.clickOntheCarousel();
     });
+
+    it('Check the Header Section is clickable and redirecting', () => {
+        const headersection = new HeaderSection();
+        headersection.clickOnHeaderLinks();
+
+    });
+
         
     it('Should validate there are 11 headings on the homepage', () => {
-        const homePage = new HomePage();
-        homePage.checkAllTheHeadingNames();
+        const homepage = new HomePage();
+        homepage.checkAllTheHeadingNames();
     });
 
     it('Should validate specific headings on the homepage', () => {
-        const homePage = new HomePage();
-        homePage.checkTheOurExpertHeader();
-        homePage.checkTheDocumentariesHeader();
-        homePage.checkTheContinueWatchingHeader();
-        homePage.checkTheTrendingShowsHeader();
-        homePage.checkTheRecentlyAddedHeader();
+        const homepage = new HomePage();
+        homepage.checkTheOurExpertHeader();
+        homepage.checkTheDocumentariesHeader();
+        homepage.checkTheContinueWatchingHeader();
+        homepage.checkTheTrendingShowsHeader();
+        homepage.checkTheRecentlyAddedHeader();
     });
 
 
     it('Should validate dynamic headings on the homepage', () => {
-        const homePage = new HomePage();
+        const homepage = new HomePage();
         const headings = ['Our Experts', 'Documentaries', 'Continue Watching', 'Trending Shows', 'Recently Added'];
         headings.forEach((heading) => {
-            homePage.checkTheHeadingsonHomePage(heading);
+            homepage.checkTheHeadingsonHomePage(heading);
         });
     });
 
     it('Should validate all the sections swipe and PreviousSwipe button', () => {
-        const homePage = new HomePage();
-        homePage.ClickonTheContinueWatching();
-        homePage.ClickOnExclusiveContentSwipeButton();
-        homePage.ClickOnHotTopicsSwipeButton();
-        homePage.ClickOnMostViewedSeasonsSwipeButton();
-        homePage.ClickonTheRecentlyAddedSwipeButton();
-        homePage.ClickonTheTrendingShowsSwipeButton();
+        const homepage = new HomePage();
+        homepage.ClickonTheContinueWatching();
+        homepage.ClickOnExclusiveContentSwipeButton();
+        homepage.ClickOnHotTopicsSwipeButton();
+        homepage.ClickOnMostViewedSeasonsSwipeButton();
+        homepage.ClickonTheRecentlyAddedSwipeButton();
+        homepage.ClickonTheTrendingShowsSwipeButton();
 
     });
 
 
     it('Should check Trends, Search and Hamburger Menu buttons together', () => {
         // Search button validation
-        const homePage = new HomePage();
-        homePage.elements.Searchbutton();
-        homePage.elements.HambergerMenubutton();
+        const homepage = new HomePage();
+        homepage.elements.Searchbutton();
+        homepage.elements.HambergerMenubutton();
         // homePage.Trendsbutton();
     });
 
