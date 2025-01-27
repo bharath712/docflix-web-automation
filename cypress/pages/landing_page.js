@@ -15,31 +15,31 @@ class LandingPage {
         enterNowButton: () => cy.contains('ENTER NOW').first(),
 
         // Scroll button Web Element
-        scrollButton: () => cy.get('.LandingPage_scroll-down-desktop__dZNGe'),
+        scrollButton: () => cy.get("[class*='LandingPage_scroll-down__']"),
 
         // Watch Now Only on Docflix Web Elements
         watchNowOnlyOnDocflixHeading: () => cy.get('h2').contains('Watch now, Only on Docflix'),
-        watchNowOnlyOnDocflixVideos: () => cy.get('.ComingSoonSection_card__zTAbR'),
+        watchNowOnlyOnDocflixVideos: () => cy.get("[class*='ComingSoonSection_card__']"),
 
         // Our Expert Section Web Elements
         ourExpertHeading: () => cy.get('h2').contains('Our Experts'),
-        speakersWebElement: () => cy.get('.styles_speakersWrapper__DOPgA').children(),
-        speakerNameElement: () => cy.get('.styles_name__Qp638'),
-        speakerDescriptionElement: () => cy.get('.styles_infoList__vQLVc'),
-        speakerArrowElement: () => cy.get('.styles_viewInfoBtn__wivVE'),
-        speakerAboutElement: () => cy.get('.styles_header__76AtR'),
-        speakerCrossIcon: () => cy.get('img[alt="close"]'),
+        speakersWebElement: () => cy.get("[class*='styles_speakersWrapper__']").children(),
+        speakerNameElement: () => cy.get("[class*='styles_name__']"),
+        speakerDescriptionElement: () => cy.get("[class*='styles_infoList__']"),
+        speakerArrowElement: () => cy.get("[class*='styles_viewInfoBtn__']"),
+        speakerAboutElement: () => cy.get("[class*='styles_header__']"),
+        speakerCrossIcon: () => cy.get("[class*='styles_closeIcon__']"),
 
         //  WHY DOCFLIX
         whyDocflixHeading: () => cy.get('h2').contains('Why Docflix?'),
-        whyDocflixSubHeading: () => cy.get('[class="LandingPage_subHeading__jNs+p"]', { force: true }),
-        whyDocflixCard: () => cy.get('[class="AboutCard_container__2+16P"]'),
-        StoryHeader:()=> cy.get('div.AboutCard_heading__7UMwS').eq(0),
-        reliabilityHeader:()=> cy.get('div.AboutCard_heading__7UMwS').eq(1),
-        convenienceHeader:()=> cy.get('div.AboutCard_heading__7UMwS').eq(2),
-        storyDesc:()=> cy.get('[class="AboutCard_content__WFEu-"]').eq(0),
-        reliabiltyDesc:()=> cy.get('[class="AboutCard_content__WFEu-"]').eq(1),
-        convenienceDesc:()=>cy.get('[class="AboutCard_content__WFEu-"]').eq(2)
+        whyDocflixSubHeading: () => cy.get("[class*='LandingPage_subHeading__']", { force: true }),
+        whyDocflixCard: () => cy.get("[class*='AboutCard_container__']"),
+        StoryHeader:()=> cy.get("[class*='AboutCard_heading__']").eq(0),
+        reliabilityHeader:()=> cy.get("[class*='AboutCard_heading__']").eq(1),
+        convenienceHeader:()=> cy.get("[class*='AboutCard_heading__']").eq(2),
+        storyDesc:()=> cy.get("[class*='AboutCard_content__']").eq(0),
+        reliabiltyDesc:()=> cy.get("[class*='AboutCard_content__']").eq(1),
+        convenienceDesc:()=>cy.get("[class*='AboutCard_content__']").eq(2)
 
     }
 
@@ -62,7 +62,7 @@ class LandingPage {
 
         cy.log('Validating Watch Now Only On Docflix is visible and Videos are clickable')
         this.elements.watchNowOnlyOnDocflixHeading().should('be.visible');
-        this.elements.watchNowOnlyOnDocflixVideos().should('have.lengthOf', 10);
+        this.elements.watchNowOnlyOnDocflixVideos().should('have.lengthOf', 9);
         this.elements.watchNowOnlyOnDocflixVideos().first().click();
 
     }

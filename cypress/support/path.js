@@ -1,7 +1,7 @@
 const urlpath = {
 
     homeUrl: '/home',
-    videosUrl: '/videos',
+    videoUrl: '/video',
     academyUrl: '/academy',
     webinarUrl: '/webinar',
     myNotesUrl: '/notes',
