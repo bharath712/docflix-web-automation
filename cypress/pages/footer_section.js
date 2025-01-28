@@ -58,8 +58,7 @@ class FooterSection {
             cy.get('body').should('exist'); // Example: Ensure the page loads
         });
 
-        // Return to the base application page if needed
-        cy.visit('/');
+        cy.go('back');
 
     
         this.element.instagramDocflixLink().invoke('removeAttr', 'target').click();
