@@ -23,9 +23,10 @@
     "papaparse": "^5.4.1"
   },
   "devDependencies": {
-    "cypress": "^13.15.0",
+    "cypress": "^14.0.0",
     "cypress-if": "^1.12.1",
     "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress-shadow-dom": "^1.4.1",
     "cypress-xpath": "^2.0.1"
   }
 }
