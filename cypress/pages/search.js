@@ -24,7 +24,7 @@ class Search {
 
     // Method to click on the search button
     clickOnSearchButton() {
-        this.elements.searchInput().click();
+        this.elements.searchInput().click();    // Click on the search icon    
     }
 
     // Method to interact with and validate each show in the "Best Shows" section
