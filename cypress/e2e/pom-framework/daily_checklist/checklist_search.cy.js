@@ -66,5 +66,8 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
         // testSearchFromCsv('video_content.csv');
 
     });
+    it('should validate Academy, Series, and Videos content types', () => {
+        search.verifyContentTypesWithSearchContainer();
+    });
 
 });

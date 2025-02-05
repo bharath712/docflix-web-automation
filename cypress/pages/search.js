@@ -7,7 +7,7 @@ class Search {
 
     // Define selectors as methods inside an `elements` object for better readability and reusability
     elements = {
-        searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg'), // Locator for the search icon
+        searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg').eq(1), // Locator for the search icon
         bestShowTitleText: () => cy.get('div[class*="NewSearchModal_showsTitle__"]').contains('Best Shows'), // Locator for the "Best Shows" title
         bestShowsGridView: () => cy.get('div[class*="NewSearchModal_showsContainer__"]'), // Locator for the grid of best shows
         SearchVideos: () => cy.xpath("//input[@placeholder='Search Videos...']"), // Locator for the search input box
@@ -15,7 +15,11 @@ class Search {
         VerifySearchName: () => cy.xpath("//div[contains(@class, 'NewHits_card')]"), // Locator for verifying search results
         VerificationcodeInput: () => cy.get("#privateCodeAcademy"), // Locator for the private code input box
         SubmitVerificationcodeInput: () => cy.get("[class*='btn PrivateVideoVerificationModal_submit-btn__']"), // Locator for the verification code submit button
-        CancelSearchbutton: () => cy.get("img[class*='NewSearchModal_close__']") // Locator for the cancel button in search modal
+        CancelSearchbutton: () => cy.get("img[class*='NewSearchModal_close__']"), // Locator for the cancel button in search modal
+        VideoTitle: () => cy.get("[class*='NewHits_topContainer__']"),
+        SearchContainer:() => cy.get("[class*='NewHits_topContainer__']"),
+        ArrowLocator: () => cy.get("[class*='NewHits_arrowIcon__']")
+
     };
 
     // Method to click on the search button
@@ -75,7 +79,55 @@ class Search {
             this.elements.CancelSearchbutton().click();
         });
     }
-}
+
+
+    verifyContentTypesWithSearchContainer() {
+        const contentTypes = ['Series', 'Videos', 'Academy']; // Content types to verify
+        cy.log("Opening search bar...");
+        this.elements.searchInput().click(); // Step 1: Click on the search bar
+    
+        contentTypes.forEach((contentType) => {
+            cy.log(`Applying filter for: ${contentType}`);
+    
+            // Step 2: Apply filter checkbox
+            cy.get("[class*='FilterCompo_filters__']")
+                .contains(contentType)
+                .parent()
+                .find('input[type="checkbox"]')
+                .check({ force: true });
+    
+            cy.wait(1000); // 🔹 Ensure UI updates
+    
+            // Step 3: Verify that the correct top container appears
+            cy.log(`Verifying presence of ${contentType} in the correct container...`);
+    
+            cy.get('div[class*="NewHits_topContainer__"]', { timeout: 20000 })
+                .should('exist')
+                .and('be.visible')
+                .each(($container) => {
+                    // ✅ Verify only the first matching container for this content type
+                    if ($container.text().includes(contentType)) {
+                        cy.wrap($container).should('contain.text', contentType);
+                        return false; // Stop checking further containers
+                    }
+                });
+    
+            // Step 4: Click the toggle button for the current content type
+            cy.log(`Clicking toggle button for: ${contentType}`);
+            cy.get("img[class*='NewHits_arrowIcon__']")
+                .should('exist')
+                .and('be.visible')
+                .first()
+                .click({ force: true });
+    
+            cy.log(`${contentType} verification and toggle button click completed.`);
+        });
+    }
+    
+    
+       
+    
+}    
 
 // Function to read and parse a CSV file
 const readCsvFile = (csvFileName) => {
