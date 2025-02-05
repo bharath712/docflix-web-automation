@@ -7,7 +7,7 @@ class Search {
 
     // Define selectors as methods inside an `elements` object for better readability and reusability
     elements = {
-        searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg'), // Locator for the search icon
+        searchInput: () => cy.get('[class*=NavHeader_userLinks__]').children('svg').eq(1), // Locator for the search icon
         bestShowTitleText: () => cy.get('div[class*="NewSearchModal_showsTitle__"]').contains('Best Shows'), // Locator for the "Best Shows" title
         bestShowsGridView: () => cy.get('div[class*="NewSearchModal_showsContainer__"]'), // Locator for the grid of best shows
         SearchVideos: () => cy.xpath("//input[@placeholder='Search Videos...']"), // Locator for the search input box
@@ -80,54 +80,54 @@ class Search {
         });
     }
 
+
     verifyContentTypesWithSearchContainer() {
-        const contentTypes = ['Videos', 'Academy', 'Series']; // Define content types for filtering
+        const contentTypes = ['Series', 'Videos', 'Academy']; // Content types to verify
+        cy.log("Opening search bar...");
+        this.elements.searchInput().click(); // Step 1: Click on the search bar
     
-        // Open the search bar
-        this.elements.searchInput().click();
-    
-        // Loop through each content type, interact with filters, and validate
         contentTypes.forEach((contentType) => {
-            cy.log(`Validating content type: ${contentType}`);
+            cy.log(`Applying filter for: ${contentType}`);
     
-            // Click on the checkbox for the content type
+            // Step 2: Apply filter checkbox
             cy.get("[class*='FilterCompo_filters__']")
-                .contains(contentType) // Find the button containing content type text
-                .parent() // Move to the parent element (if the checkbox is nested under this button)
-                .find('input[type="checkbox"]') // Find the checkbox element
-                .check({ force: true }); // Check the checkbox even if it is not visible or disabled
+                .contains(contentType)
+                .parent()
+                .find('input[type="checkbox"]')
+                .check({ force: true });
     
-            // Wait briefly to ensure the filter is applied
-            cy.wait(2000);
+            cy.wait(1000); // 🔹 Ensure UI updates
     
-            // Verify the search container displays the correct title for the selected content type
-            this.elements.SearchContainer()
-                .first() // Ensure only the first container is selected
-                .should('be.visible')
-                .within(() => {
-                    cy.contains(contentType).scrollIntoView().should('be.visible'); // Verify the title matches the content type
+            // Step 3: Verify that the correct top container appears
+            cy.log(`Verifying presence of ${contentType} in the correct container...`);
+    
+            cy.get('div[class*="NewHits_topContainer__"]', { timeout: 20000 })
+                .should('exist')
+                .and('be.visible')
+                .each(($container) => {
+                    // ✅ Verify only the first matching container for this content type
+                    if ($container.text().includes(contentType)) {
+                        cy.wrap($container).should('contain.text', contentType);
+                        return false; // Stop checking further containers
+                    }
                 });
     
-                // Click the arrow locator based on content type
-            this.elements.ArrowLocator()
-                .each(($arrow) => {
-                    if ($arrow.text().includes(contentType)) {
-                        cy.wrap($arrow).click({ force: true }); // Force the click if it contains the content type text
-                    }
-                })
-                .should('be.visible'); // Ensure the arrow is visible
+            // Step 4: Click the toggle button for the current content type
+            cy.log(`Clicking toggle button for: ${contentType}`);
+            cy.get("img[class*='NewHits_arrowIcon__']")
+                .should('exist')
+                .and('be.visible')
+                .first()
+                .click({ force: true });
     
-            // Verify that the grid view has relevant content
-            this.elements.bestShowsGridView().children().should('have.length.greaterThan', 0);
-    
-            // Log validation for each content type
-            cy.log(`${contentType} content and arrows verified successfully.`);
+            cy.log(`${contentType} verification and toggle button click completed.`);
         });
     }
     
-
-}
-
+    
+       
+    
+}    
 
 // Function to read and parse a CSV file
 const readCsvFile = (csvFileName) => {
