@@ -18,8 +18,8 @@ describe('Trends Page Automation', () => {
     
         });
 
-        it('Check the Search is opening and login with mobile number is visible', () => {
-            search.clickOnTrendsButton(); // Click on the search button
+        it('Check the Trends is opening and login with mobile number is visible', () => {
+            trendspage.clickOnTrendsButton(); // Click on the search button
         });
     
     
