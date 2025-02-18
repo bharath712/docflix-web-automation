@@ -19,11 +19,12 @@ describe('Trends Page Automation', () => {
         });
 
         it('Check the Trends is opening and login with mobile number is visible', () => {
-            trendspage.clickOnTrendsButton(); // Click on the search button
+            trendspage.clickOnTrendsButton(); // Click on the trends button
         });
     
     
         it('Verify page headings', () => {
+            trendspage.clickOnTrendsButton(); // Click on the trends button
             trendspage.verifyHeading('h3.Trends_selectInfo__', 'Select a disease to view the trends');
             trendspage.verifyHeading('h2.Trends_selectionInfo__', 'Top 50 Diseases');
         });
