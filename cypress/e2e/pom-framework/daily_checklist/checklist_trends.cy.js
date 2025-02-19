@@ -25,14 +25,15 @@ describe('Trends Page Automation', () => {
     
         it('Verify page headings', () => {
             trendspage.clickOnTrendsButton(); // Click on the trends button
-            trendspage.verifyHeading('h3.Trends_selectInfo__', 'Select a disease to view the trends');
-            trendspage.verifyHeading('h2.Trends_selectionInfo__', 'Top 50 Diseases');
+            trendspage.verifyHeading('h2[class^="Trends_selectInfo__"]', 'Select a disease to view the trends');
+            trendspage.verifyHeading('h3[class^="Trends_selectionInfo__"]', 'Top 50 Diseases');
         });
     
         it('Verify and interact with the disease dropdown', () => {
+            trendspage.clickOnTrendsButton(); // Click on the trends button
             const diseaseName = Cypress.env('DISEASE_NAME') || 'Diabetes'; // Parameterized selection
-            trendspage.verifyDropdown('.CustomDropDown_container__');
-            trendspage.selectDisease(diseaseName);
+            trendspage.verifyDropdown("div[class*='CustomDropDown_container__']");
+            trendspage.selectAllDiseasesAndVerify(); // Select and verify all diseases
         });
     });
 });
