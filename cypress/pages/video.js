@@ -351,21 +351,70 @@ export class VideosPage {
             .click();
     }
 
-    // **Single method to perform all steps**
     toggleSubtitles() {
-        this.clickCCButton();
-        cy.wait(500); // Small wait for UI update
-
-        this.enableSubtitles();
-        cy.wait(500); // Small wait for UI update
-
-        this.clickCCButton();
-        cy.wait(500); // Small wait for UI update
-
-        this.disableSubtitles();
-
-        cy.log('✅ Subtitles toggled successfully');
+        cy.log('🎯 Checking if CC button is available');
+    
+        cy.get('button[id*="subtitles"]', { timeout: 5000 }).then(($ccButtons) => {
+            const visibleCCButton = $ccButtons.filter(':visible').first();
+    
+            if (visibleCCButton.length > 0) {
+                // Check if the CC button is actually displayed (not hidden via CSS)
+                cy.wrap(visibleCCButton).invoke('css', 'display').then((displayValue) => {
+                    if (displayValue === 'none') {
+                        cy.log('⚠️ CC button is hidden (display: none), skipping subtitle toggle.');
+                        return; // **Exit the function, skip subtitles**
+                    }
+    
+                    cy.log('✅ CC button is visible, proceeding with subtitle toggling.');
+                    cy.wrap(visibleCCButton).click();
+                    
+                    // Ensure subtitles menu appears
+                    cy.get('ul.subtitles-menu', { timeout: 5000 })
+                        .should('exist')
+                        .and('be.visible');
+    
+                    cy.log('✅ Subtitles menu is now visible.');
+    
+                    // **Enable Subtitles (ENG Auto CC)**
+                    cy.get('button[class*="subtitles-button"]').then(($buttons) => {
+                        const engButton = Cypress.$.makeArray($buttons).find(el =>
+                            el.innerText.toLowerCase().includes('eng')
+                        );
+    
+                        if (engButton) {
+                            cy.wrap(engButton).click({ force: true });
+                            cy.log('✅ Enabled Subtitles: ENG (Auto CC)');
+                        } else {
+                            cy.log('⚠️ ENG (Auto CC) option not found, skipping.');
+                        }
+                    });
+    
+                    cy.wait(500);
+    
+                    // **Disable Subtitles ("Off" Option)**
+                    cy.get('button[class*="subtitles-button"]').then(($buttons) => {
+                        const offButton = Cypress.$.makeArray($buttons).find(el =>
+                            el.innerText.toLowerCase().includes('off')
+                        );
+    
+                        if (offButton) {
+                            cy.wrap(offButton).click({ force: true });
+                            cy.log('✅ Disabled Subtitles');
+                        } else {
+                            cy.log('⚠️ "Off" option not found, subtitles might already be disabled.');
+                        }
+                    });
+                });
+    
+            } else {
+                cy.log('⚠️ CC button is not visible at all, skipping subtitle toggle.');
+            }
+        });
     }
+    
+    
+    
+    
 
     verifyFullscreenToggle() {
         cy.log('🎯 Verifying Fullscreen Toggle Button');

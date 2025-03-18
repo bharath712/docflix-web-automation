@@ -26,7 +26,7 @@ describe('Videos Page Checklist', () => {
     //     videosPage.verifyVideosPageTitle();
     // });
 
-    // it('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
+    // it.only('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
     //     videosPage.navigateToVideosPage();
     //     videosPage.verifyTagsVisibility([
     //         'Ready Reckoner',
@@ -60,10 +60,10 @@ describe('Videos Page Checklist', () => {
     // });
 
 
-    // it('Should verify videos are playable and controls work', () => {
-    //     videosPage.navigateToVideosPage();
-    //     videosPage.verifyVideoPlayback();
-    // });
+    it('Should verify videos are playable and controls work', () => {
+        videosPage.navigateToVideosPage();
+        videosPage.verifyVideoPlayback();
+    });
 
     it('Should verify the Share button is visible and clickable for each video', () => {
         videosPage.navigateToVideosPage();
