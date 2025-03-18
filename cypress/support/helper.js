@@ -1,4 +1,13 @@
-export const overlaypopupmodel = () => cy.contains('No thanks');
+export const overlaypopupmodel = () => {
+    cy.get('body').then(($body) => {
+        if ($body.find('button:contains("No thanks")').length > 0) {
+            cy.contains('No thanks', { timeout: 5000 }).click({ force: true });
+            cy.log("✅ 'No thanks' button found and clicked.");
+        } else {
+            cy.log("ℹ️ 'No thanks' button not found, skipping.");
+        }
+    });
+};
 export const enterNowButton = () => cy.contains('ENTER NOW');
 export const enterMobileNumber = () => cy.get('#phone');
 export const clickOnLoginSubmitButton = () => cy.contains('Submit');

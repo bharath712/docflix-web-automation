@@ -107,7 +107,7 @@ class RegistrationPage {
 
     verifyRegisterNowPage() {
 
-        overlaypopupmodel().click({ force: true});
+        overlaypopupmodel();
         enterNowButton().click({ force: true });
         this.elements.registerNowLink().children().click({ force: true });
         this.elements.registerNowHeading().should('be.visible').and('have.text', 'REGISTER NOW');
@@ -120,7 +120,7 @@ class RegistrationPage {
     gotoRegisterNowPage() {
 
         
-        overlaypopupmodel().click({ force: true});
+        overlaypopupmodel();
         enterNowButton().click();
         
         this.elements.registerNowLink().click();

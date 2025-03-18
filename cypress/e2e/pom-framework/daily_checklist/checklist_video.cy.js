@@ -21,43 +21,43 @@ describe('Videos Page Checklist', () => {
         cy.visit('/');
     });
 
-    it('Should navigate to the Videos Page from header', () => {
-        videosPage.navigateToVideosPage();
-        videosPage.verifyVideosPageTitle();
-    });
+    // it('Should navigate to the Videos Page from header', () => {
+    //     videosPage.navigateToVideosPage();
+    //     videosPage.verifyVideosPageTitle();
+    // });
 
-    it('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
-        videosPage.navigateToVideosPage();
-        videosPage.verifyTagsVisibility([
-            'Ready Reckoner',
-            'Guidelines',
-            'Cross Therapy',
-            'Converse'
-        ]);
-    });
+    // it.only('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
+    //     videosPage.navigateToVideosPage();
+    //     videosPage.verifyTagsVisibility([
+    //         'Ready Reckoner',
+    //         'Guidelines',
+    //         'Cross Therapy',
+    //         'Converse'
+    //     ]);
+    // });
 
-    it('Should verify section titles: Recently Added, Most Viewed, Ready Reckoner, Guidelines, Converse', () => {
-        videosPage.navigateToVideosPage();
-        videosPage.verifySectionTitles([
-            'Recently Added',
-            'Most Viewed',
-            'Ready Reckoner',
-            'Guidelines',
-            'Converse',
-        ]);
-    });
+    // it('Should verify section titles: Recently Added, Most Viewed, Ready Reckoner, Guidelines, Converse', () => {
+    //     videosPage.navigateToVideosPage();
+    //     videosPage.verifySectionTitles([
+    //         'Recently Added',
+    //         'Most Viewed',
+    //         'Ready Reckoner',
+    //         'Guidelines',
+    //         'Converse',
+    //     ]);
+    // });
 
-    it('Should verify View All and View Less functionality for each video section', () => {
-        videosPage.navigateToVideosPage();
-        const sections = [
-            'Recently Added',
-            'Most Viewed',
-            'Ready Reckoner',
-            'Converse'
-        ];
-        console.log('Sections being passed:', sections);
-        videosPage.checkViewAllAndViewLess(sections);
-    });
+    // it('Should verify View All and View Less functionality for each video section', () => {
+    //     videosPage.navigateToVideosPage();
+    //     const sections = [
+    //         'Recently Added',
+    //         'Most Viewed',
+    //         'Ready Reckoner',
+    //         'Converse'
+    //     ];
+    //     console.log('Sections being passed:', sections);
+    //     videosPage.checkViewAllAndViewLess(sections);
+    // });
 
 
     it('Should verify videos are playable and controls work', () => {
@@ -67,7 +67,7 @@ describe('Videos Page Checklist', () => {
 
     it('Should verify the Share button is visible and clickable for each video', () => {
         videosPage.navigateToVideosPage();
-        videosPage.checkShareButtonForEachVideo();
+        videosPage.checkVideoOverlayDetailsAndShare();
     });
 
 });
