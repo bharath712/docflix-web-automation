@@ -430,7 +430,7 @@ export class VideosPage {
         cy.log('✅ Entered Fullscreen Mode');
 
         // Wait for UI to update
-        cy.wait(1000);
+        cy.wait(2000);
 
 
 
@@ -442,7 +442,7 @@ export class VideosPage {
         });
 
         // Wait & log success
-        cy.wait(1000);
+        cy.wait(2000);
         cy.log('✅ Exited Fullscreen Mode programmatically');
 
         // Verify Fullscreen Mode has exited
