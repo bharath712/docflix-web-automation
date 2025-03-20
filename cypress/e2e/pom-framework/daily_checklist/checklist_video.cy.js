@@ -26,7 +26,7 @@ describe('Videos Page Checklist', () => {
         videosPage.verifyVideosPageTitle();
     });
 
-    it.only('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
+    it('Should display all video tags: Ready Reckoner, Guidelines, Cross Therapy, Converse', () => {
         videosPage.navigateToVideosPage();
         videosPage.verifyTagsVisibility([
             'Ready Reckoner',
