@@ -12,7 +12,7 @@ describe.only('Check the Login Page is working and OTP is getting', () => {
 
     it('Check the Website is opening and login with mobile number is visible', () => {
 
-        overlaypopupmodel().click();
+        overlaypopupmodel();
         enterNowButton().click();
         enterMobileNumber().type(MobileNumber);
         clickOnLoginSubmitButton().click();
