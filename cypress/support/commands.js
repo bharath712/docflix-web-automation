@@ -117,7 +117,7 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
     }
 
     cy.get('[type="checkbox"]').check();
-    cy.contains('Submit').click();
+    // cy.contains('Submit').click();
 
 });
 
