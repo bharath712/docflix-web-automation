@@ -20,7 +20,7 @@ export class TrendsPage {
             .should('contain.text', 'Try this :');
         cy.log("✅ Verified suggestion text contains 'Try this :'.");
 
-        cy.get("div[class*='Trends_suggestionItem__K6qCB']")
+        cy.get("div[class*='Trends_suggestionItem__']")
             .should('have.length', 5);
         cy.log("✅ Verified 5 suggestion items are present.");
     }
@@ -115,7 +115,7 @@ export class TrendsPage {
         cy.log(`✅ Verified 'Interest Over Time' text for: ${diseaseName}`);
 
         // Click on Question Mark button (Interest Over Time)
-        cy.get("div[class*='Trends_infoPopupButton__hemeY']").eq(0)
+        cy.get("div[class*='Trends_infoPopupButton__']").eq(0)
             .should('exist')
             .and('be.visible')
             .click();
@@ -146,7 +146,7 @@ export class TrendsPage {
         cy.log(`✅ Verified 'Interest by Subregion' text for: ${diseaseName}`);
 
         // Click on Question Mark button (Interest by Subregion)
-        cy.get("div[class*='Trends_infoPopupButton__hemeY']").eq(1)
+        cy.get("div[class*='Trends_infoPopupButton__']").eq(1)
             .should('exist')
             .and('be.visible')
             .click();
