@@ -6,7 +6,7 @@ class Profile {
     elements = {
 
         profileHamburger: () => cy.get('[class*=NavHeader_menuIcon__]'),
-        editProfileBtn: () => cy.get('[class*=NavHeader_editBtn__]'),
+        editProfileBtn: () => cy.get('[class*=NavHeader_editBtn__]').contains(/^Edit Profile$/),
         menuCard: () => cy.get('div[class="NavHeader_routeBox__+9Cjc"]'),
         homeBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(0),
         myNotesBtn: () => cy.get('[class*=NavHeader_routesSection__]').children().eq(1),
