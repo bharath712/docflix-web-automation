@@ -7,12 +7,13 @@ describe('All Pages Check', () => {
     beforeEach(() => {
 
         cy.UncaughtException();
-        cy.session('loginwithMN', () => {
-            cy.visitHomePage('9991004781', '4781');
+        cy.session('PagesLogin', () => {
+            // Use the visitHomePage command to log in and cache the session
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
         }, {
             cacheAcrossSpecs: true
-        })
-
+        });
+        
         cy.visit('/');
 
     });

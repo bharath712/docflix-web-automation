@@ -8,12 +8,13 @@ describe('Trends Page Automation', () => {
         beforeEach(() => {
 
             cy.UncaughtException();
-            cy.session('TrendswithMN', () => {
-                cy.visitHomePage('9991004781', '4781');
-            }, {
-                cacheAcrossSpecs: true
-            })
-    
+            cy.session('TrendsLogin', () => {
+            // Use the visitHomePage command to log in and cache the session
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
+        }, {
+            cacheAcrossSpecs: true
+        });
+        
             cy.visit('/');
     
         });

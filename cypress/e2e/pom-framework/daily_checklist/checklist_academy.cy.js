@@ -10,14 +10,14 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
 
         cy.UncaughtException();
 
-        cy.session('loginWithMobileNumber', () => {
-            cy.visitHomePage('9991004781', '4781');
+        cy.session('AcademyLogin', () => {
+            // Use the visitHomePage command to log in and cache the session
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
         }, {
             cacheAcrossSpecs: true
-        })
-
-        cy.visit('/academy');
-
+        });
+        // cy.visitAcademyPage('9991004781', '4781'); // ✅ session is now cached
+        cy.visit('/academy'); // Navigate to the Academy page
     });
 
 
@@ -35,7 +35,7 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
     });
 
     it('check the Text Icon is visible', () => {
-        
+
         academy.CheckTheTextIconIsVisible();
 
     });
@@ -52,7 +52,7 @@ describe('Check the Academy Page is visible and Check the All buttons and Data i
 
     });
 
-    
+
 
     it('Logout from the Application', () => {
 

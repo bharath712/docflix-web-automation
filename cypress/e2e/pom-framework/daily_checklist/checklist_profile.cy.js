@@ -10,11 +10,13 @@ describe('Profile Page Automation', () => {
     beforeEach(() => {
 
         cy.UncaughtException();
-        cy.session('loginWithMobNum', () => {
-            cy.visitHomePage('9991004781', '4781');
+        cy.session('ProfileLogin', () => {
+            // Use the visitHomePage command to log in and cache the session
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
         }, {
             cacheAcrossSpecs: true
-        })
+        });
+        
         cy.visit('/');
 
     });

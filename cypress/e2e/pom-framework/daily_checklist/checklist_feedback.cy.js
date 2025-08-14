@@ -4,14 +4,12 @@ describe('Feedback Button', () => {
 
         cy.UncaughtException();
         cy.session('FeedbackLogin', () => {
-
-            cy.visitHomePage('9991004781', '4781');
-
-        }), {
-
+            // Use the visitHomePage command to log in and cache the session
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
+        }, {
             cacheAcrossSpecs: true
-        }
-
+        });
+        
         cy.visit('/');
 
     });

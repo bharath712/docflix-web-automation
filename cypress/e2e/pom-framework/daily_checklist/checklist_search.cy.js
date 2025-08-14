@@ -13,13 +13,13 @@ describe('Check the Search Page is visible and Check the All buttons and Data is
         // Clear all previously saved sessions
         // cy.session.clearAllSavedSessions();
 
-        // Use Cypress session management to cache the login session across specs
-        cy.session('loginWithOTPMobilenumber', () => {
-            cy.visitHomePage('9991004781', '4781'); // Replace with appropriate login credentials
+        cy.session('SearchLogin', () => {
+            // Use the visitHomePage command to log in and cache the session
+            cy.visitHomePage('9991004781', '4781'); // Replace with actual credentials
         }, {
             cacheAcrossSpecs: true
         });
-
+        
         // Navigate to the home page
         cy.visit('/');
     });
