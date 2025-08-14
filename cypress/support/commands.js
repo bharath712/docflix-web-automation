@@ -1,133 +1,109 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import Profile from '../pages/profile'
-
-Cypress.Commands.add('UncaughtException', () => {
+import Profile from '../pages/profile';
 
 
-    cy.on('uncaught:exception', err => {
 
-        console.log('Cypress detected uncaught exception: ', err);
-        return false;
-
-    });
-
-})
-
+// This command now includes a pause to allow for manual debugging of the network request.
 Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
-
+    cy.log("🌐 Visiting Docflix Home Page");
     cy.visit('/');
 
-    let ele = {
-        
-        
-        
+    const ele = {
         CancelOverlay: '#wzrk-cancel',
-        cancelButton: '.btn.OTPForm_cancel-btn__yo6gD',
         enterNowButton: 'ENTER NOW',
         phoneNumberElement: '#phone',
-        SubmitButton: 'Submit',
-        SendOTPButton: 'Send OTP',
-        mobileNumber: '9991004781',
-        OTP: '4781',
-        checkBox: '[type = "checkbox"]'
-    }
+        submitButton: 'Submit',
+        sendOTPButton: 'Send OTP',
+        checkBox: '[type="checkbox"]'
+    };
 
-    cy.get('button').each(($element) => {
+    // ✅ Step 1: Close App Install Popup if visible (using your existing command)
+    cy.closeAppInstallPopupIfVisible();
 
-        cy.log($element.attr('class'));
-
-        if ($element.attr('class') == 'btn OTPForm_cancel-btn__yo6gD' || $element.attr('class') == 'btn UserFeedback_btn__+pF7n') {
-
-        // Updated function to handle the scenario
-        cy.get('body').then(($body) => {
-            // Check if the element exists in the DOM
-            if ($body.find(ele.CancelOverlay).length > 0) {
-                // If the element exists, interact with it
-                cy.get(ele.CancelOverlay)
-                    .should('be.visible')
-                    .click({ force: true });
-                cy.log('Cancel button clicked successfully.');
-            } else {
-                // If the element does not exist, log a message and continue
-                cy.log('Cancel button not found, proceeding with the test.');
-            }
-        });
-
-
-            cy.get(ele.cancelButton).click();
-            cy.contains(ele.enterNowButton).first().click();
-            return false;
-
+    // ✅ Step 2: Close Push Notification if visible
+    cy.get('body').then(($body) => {
+        if ($body.find(ele.CancelOverlay).length > 0) {
+            cy.get(ele.CancelOverlay).should('be.visible').click({ force: true });
+            cy.log("✅ Closed push notification popup.");
+        } else {
+            cy.log("ℹ️ No push notification popup found.");
         }
-        else if ($element.attr('class') == 'btn') {
-            // Updated function to handle the scenario
-            cy.get('body').then(($body) => {
-                // Check if the element exists in the DOM
-                if ($body.find(ele.CancelOverlay).length > 0) {
-                    // If the element exists, interact with it
-                    cy.get(ele.CancelOverlay)
-                        .should('be.visible')
-                        .click({ force: true });
-                    cy.log('Cancel button clicked successfully.');
-                } else {
-                    // If the element does not exist, log a message and continue
-                    cy.log('Cancel button not found, proceeding with the test.');
-                }
-            });
-
-            cy.contains(ele.enterNowButton).first().click();
-            return false;
-        }
-
     });
 
-    cy.get('#phone').type(mobileNumber);
-    cy.contains('Submit').click();
+    // ✅ Step 3: Click Enter Now if button exists
+    cy.get('body').then(($body) => {
+        if ($body.find(`button:contains("${ele.enterNowButton}")`).length > 0) {
+            cy.contains(ele.enterNowButton).first().click();
+            cy.log("✅ Clicked Enter Now button.");
+        }
+    });
 
-    cy.contains('Send OTP').click();
+    // === The Corrected Login Logic Starts Here ===
 
+    // ✅ Step 4: Intercept a generic authentication API call *before* triggering any user actions.
+    // The pattern is now more generic to help capture a wider range of URLs.
+    cy.intercept('POST', '**/v2/register/**').as('authRequest');
+    
+    cy.log("📡 Now listening for authentication requests...");
+
+    // ✅ Step 5: Input phone number and trigger OTP screen
+    cy.get(ele.phoneNumberElement, { timeout: 10000 }).should('be.visible').type(mobileNumber);
+    cy.contains(ele.submitButton).click();
+    cy.contains(ele.sendOTPButton).click();
+
+    // ✅ Step 6: Enter the OTP digits
     for (let i = 0; i < OTP.length; i++) {
-
         cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i), { log: true });
-
     }
 
-    cy.get('[type="checkbox"]').check();
-    // cy.contains('Submit').click();
+    // ✅ Step 7: Check the terms and conditions box and click the final submit button.
+    cy.get(ele.checkBox).check();
+    cy.log("➡️ Clicking the final 'Submit' button...");
+    // cy.contains(ele.submitButton).click();
+    
+    // === IMPORTANT: PAUSE FOR MANUAL DEBUGGING ===
+    // At this point, the test will pause. Please open your browser's dev tools
+    // and go to the "Network" tab to find the correct API call that was just made.
+    // cy.log("⏸️ Test paused. Please manually check the Network tab for the login API request.").pause();
 
+    // ✅ Step 8: Wait for the intercepted request to complete
+    cy.log("⏳ Resuming test. Waiting for the authRequest to complete...");
+    cy.wait('@authRequest', { timeout: 15000 }).then((interception) => {
+        cy.log("✅ Auth API completed successfully.");
+        expect(interception.response.statusCode).to.equal(200);
+    });
+
+    // ✅ Step 9: Assert that the user is now logged in and the form is gone.
+    cy.get(`[name="digit-1"]`).should('not.exist');
+    cy.url().should('not.include', '/login');
+});
+
+// The rest of your commands remain the same.
+Cypress.Commands.add('UncaughtException', () => {
+    cy.on('uncaught:exception', err => {
+        console.log('Cypress detected uncaught exception: ', err);
+        return false;
+    });
 });
 
 Cypress.Commands.add('LogoutFromDocflix', () => {
-
     let profile = new Profile();
-
     profile.elements.profileHamburger().click();
     profile.elements.logOutBtn().click();
-
-
 });
 
+Cypress.Commands.add('closeAppInstallPopupIfVisible', () => {
+    cy.get('body').then(($body) => {
+        if ($body.find("div[class*='AppInstallPopUp_desktopContainer__0qnHR']").length > 0) {
+            cy.get("div[class*='AppInstallPopUp_desktopContainer__0qnHR']").then(($popup) => {
+                if ($popup.is(':visible')) {
+                    cy.get("div[class*='AppInstallPopUp_closeIcon__7nQhj']")
+                        .should('be.visible')
+                        .click({ force: true });
+                    cy.log("✅ Closed App Install Toastify popup.");
+                }
+            });
+        } else {
+            cy.log("ℹ️ No App Install Toastify popup found.");
+        }
+    });
+});

@@ -2,7 +2,7 @@ describe('Dynamic locators for Upcoming and Past tabs on Webinar page', () => {
 
     beforeEach(() => {
         cy.UncaughtException();
-        cy.session('loginWithMobOTP', () => {
+        cy.session('WebinarLogin', () => {
             cy.visitHomePage('9991004781', '4781');
         }, {
             cacheAcrossSpecs: true

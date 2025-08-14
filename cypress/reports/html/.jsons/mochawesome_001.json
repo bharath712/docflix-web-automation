@@ -1,0 +1,115 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-08-13T10:22:55.548Z",
+    "end": "2025-08-13T10:23:16.850Z",
+    "duration": 21302,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d6274092-099c-4441-9f3d-a3a289965406",
+      "title": "",
+      "fullFile": "cypress\\e2e\\pom-framework\\msmodel_api\\predict.cy.js",
+      "file": "cypress\\e2e\\pom-framework\\msmodel_api\\predict.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e3f98fc8-97ee-443e-b18f-1923449fb700",
+          "title": "Check the MS is Generating as per the given Test data",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Check the test data with response in json",
+              "fullTitle": "Check the MS is Generating as per the given Test data Check the test data with response in json",
+              "timedOut": null,
+              "duration": 10235,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": "[\n  {\n    \"title\": \"cypress-mochawesome-reporter-videos-failed\",\n    \"value\": \"cypress\\\\e2e\\\\pom-framework\\\\msmodel_api\\\\predict.cy.js\"\n  },\n  {\n    \"title\": \"cypress-mochawesome-reporter-screenshots\",\n    \"value\": [\n      [\n        \"\\\\msmodel_api\\\\predict.cy.js\\\\Check the MS is Generating as per the given Test data -- Check the test data with response in json (failed).png\"\n      ],\n      [\n        \"\\\\msmodel_api\\\\predict.cy.js\\\\Check the MS is Generating as per the given Test data -- Check the test data with response in json (failed) (attempt 2).png\"\n      ]\n    ]\n  }\n]",
+              "code": "cy.readFile('/Users/bharath/Downloads/1500 New Data.csv').then(neatCsv).then(data => {\n  data.forEach((td, index) => {\n    cy.api({\n      method: 'POST',\n      failOnStatusCode: false,\n      url: 'https://newdev.msmodel.onefin.app/predict',\n      failOnStatusCode: false,\n      headers: {\n        'x-api-key': token\n      },\n      body: {\n        \"input_text\": td.text_data\n      }\n    }).then(response => {\n      if (response.status == 200) {\n        let rb = response.body;\n        response.body.sr = td.sr_no;\n        response.body.user_name = td.user_name;\n        response.body.input_text = td.text_data;\n        responseData.res.push(rb);\n        cy.writeFile('cypress/fixtures/modelresponse1.json', responseData);\n      } else {\n        let rb = response.body;\n        response.body.sr = td.sr_no;\n        response.body.user_name = td.user_name;\n        response.body.input_text = td.text_data;\n        responseData.err.push(rb);\n        cy.writeFile('cypress/fixtures/modelresponse1.json', responseData);\n      }\n    });\n  });\n});",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 10000ms: `cy.readFile(\"/Users/bharath/Downloads/1500 New Data.csv\")` failed because the file does not exist at the following path:\n\n`C:\\Users\\bharath\\Downloads\\1500 New Data.csv`\n\nhttps://on.cypress.io/readfile",
+                "estack": "AssertionError: Timed out retrying after 10000ms: `cy.readFile(\"/Users/bharath/Downloads/1500 New Data.csv\")` failed because the file does not exist at the following path:\n\n`C:\\Users\\bharath\\Downloads\\1500 New Data.csv`\n\nhttps://on.cypress.io/readfile\n    at Context.eval (webpack://pomframeworkcypress/./cypress/e2e/pom-framework/msmodel_api/predict.cy.js:38:11)",
+                "diff": null
+              },
+              "uuid": "50e9f845-0eb5-45a7-98ab-d1bdf42bce66",
+              "parentUUID": "e3f98fc8-97ee-443e-b18f-1923449fb700",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "50e9f845-0eb5-45a7-98ab-d1bdf42bce66"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 10235,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "charts": true,
+        "reportPageTitle": "Docflix Checklist Report",
+        "inlineAssets": true,
+        "saveAllAttempts": false,
+        "videoOnFailOnly": true,
+        "embeddedScreenshots": true,
+        "overwrite": false,
+        "html": false,
+        "json": true,
+        "reportDir": "cypress\\reports\\html\\.jsons"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
