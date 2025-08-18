@@ -19,7 +19,7 @@ class Profile {
         feedbackBtn: () => cy.get('[class*=NavHeader_txt__]').contains('Feedback'),
         closeBtn: () => cy.get('.btn').contains('Close'),
         logOutBtn: () => cy.get('.btn').contains('Log out'),
-        announcementCloseBtn: () => cy.get('[class*=AnouncementBar_closeBtn__]'),
+        announcementCloseBtn: () => cy.get('[class*=AnouncementBar_closeBtnDesktop__]'),
         myProfile: () => cy.get('[class*=EditProfile_heading__]').contains('My Profile'),
         profileCrossBtn: () => cy.get('[class*=EditProfile_closeBtn__]'),
         labelFirstName: () => cy.get('label[for="firstName"]'),
@@ -70,7 +70,7 @@ class Profile {
     
         // Check if announcement close button exists and is visible before clicking
         cy.get('body').then($body => {
-            if ($body.find('[class*=AnouncementBar_closeBtn__]').length > 0) {
+            if ($body.find('[class*=AnouncementBar_closeBtnDesktop__]').length > 0) {
                 this.elements.announcementCloseBtn().should('be.visible').click();
             }
         });
