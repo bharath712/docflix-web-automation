@@ -31,8 +31,8 @@ class HomePage {
 
     clickOntheCarousel() {
 
-        this.elements.carouselRight().click();
-        this.elements.carouselLeft().click();
+        this.elements.carouselRight().scrollIntoView().click({force: true});
+        this.elements.carouselLeft().scrollIntoView().click({force: true});
 
     }
 
