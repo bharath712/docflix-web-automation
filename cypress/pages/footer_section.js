@@ -6,7 +6,7 @@ class FooterSection {
     linkedInDocflixUrl = 'https://www.linkedin.com/company/docflix'
     instagramDocflixUrl = 'https://www.instagram.com/docflix_mankind/?hl=en'
     xDocflixUrl = 'https://x.com/i/flow/login?redirect_after_login=%2FDocflix_Mankind'
-    copyRightText = '© Mankind Pharma 2025';
+    copyRightText = '© Mankind Pharma 2026';
 
     element = {
 
