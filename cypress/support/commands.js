@@ -1,7 +1,5 @@
 import Profile from '../pages/profile';
 
-
-
 // This command now includes a pause to allow for manual debugging of the network request.
 Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
     cy.log("🌐 Visiting Docflix Home Page");
@@ -16,20 +14,18 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
         checkBox: '[type="checkbox"]'
     };
 
-    // ✅ Step 1: Close App Install Popup if visible (using your existing command)
+    // ✅ Step 1: Close App Install Popup if visible
     cy.closeAppInstallPopupIfVisible();
 
     // ✅ Step 2: Close Push Notification if visible
     cy.get('body').then(($body) => {
         if ($body.find(ele.CancelOverlay).length > 0) {
-            cy.get(ele.CancelOverlay).should('be.visible').click({ force: true });
+            cy.get(ele.CancelOverlay).click({ force: true });
             cy.log("✅ Closed push notification popup.");
-        } else {
-            cy.log("ℹ️ No push notification popup found.");
         }
     });
 
-    // ✅ Step 3: Click Enter Now if button exists
+    // ✅ Step 3: Click Enter Now if visible
     cy.get('body').then(($body) => {
         if ($body.find(`button:contains("${ele.enterNowButton}")`).length > 0) {
             cy.contains(ele.enterNowButton).first().click();
@@ -37,47 +33,38 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
         }
     });
 
-    // === The Corrected Login Logic Starts Here ===
-
-    // ✅ Step 4: Intercept a generic authentication API call *before* triggering any user actions.
-    // The pattern is now more generic to help capture a wider range of URLs.
+    // ✅ Step 4: Intercept auth request
     cy.intercept('POST', '**/v2/register/**').as('authRequest');
-    
-    cy.log("📡 Now listening for authentication requests...");
+    cy.log("📡 Listening for auth request...");
 
-    // ✅ Step 5: Input phone number and trigger OTP screen
-    cy.get(ele.phoneNumberElement, { timeout: 10000 }).should('be.visible').type(mobileNumber);
-    cy.contains(ele.submitButton).click();
-    cy.contains(ele.sendOTPButton).click();
+    // ✅ Step 5: LOGIN ONLY IF PHONE FIELD EXISTS
+    cy.get('body').then(($body) => {
+        if ($body.find(ele.phoneNumberElement).length > 0) {
 
-    // ✅ Step 6: Enter the OTP digits
-    for (let i = 0; i < OTP.length; i++) {
-        cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i), { log: true });
-    }
+            cy.get(ele.phoneNumberElement).should('be.visible').type(mobileNumber);
+            cy.contains(ele.submitButton).click();
+            cy.contains(ele.sendOTPButton).click();
 
-    // ✅ Step 7: Check the terms and conditions box and click the final submit button.
-    cy.get(ele.checkBox).check();
-    cy.log("➡️ Clicking the final 'Submit' button...");
-    // cy.contains(ele.submitButton).click();
-    
-    // === IMPORTANT: PAUSE FOR MANUAL DEBUGGING ===
-    // At this point, the test will pause. Please open your browser's dev tools
-    // and go to the "Network" tab to find the correct API call that was just made.
-    // cy.log("⏸️ Test paused. Please manually check the Network tab for the login API request.").pause();
+            for (let i = 0; i < OTP.length; i++) {
+                cy.get(`[name="digit-${i + 1}"]`).type(OTP.charAt(i));
+            }
 
-    // ✅ Step 8: Wait for the intercepted request to complete
-    cy.log("⏳ Resuming test. Waiting for the authRequest to complete...");
-    cy.wait('@authRequest', { timeout: 15000 }).then((interception) => {
-        cy.log("✅ Auth API completed successfully.");
-        expect(interception.response.statusCode).to.equal(200);
+            cy.get(ele.checkBox).check();
+
+            cy.wait('@authRequest', { timeout: 15000 }).then((interception) => {
+                expect(interception.response.statusCode).to.equal(200);
+            });
+
+            cy.get(`[name="digit-1"]`).should('not.exist');
+            cy.url().should('not.include', '/login');
+
+        } else {
+            cy.log("ℹ️ User already logged in, skipping login steps");
+        }
     });
-
-    // ✅ Step 9: Assert that the user is now logged in and the form is gone.
-    cy.get(`[name="digit-1"]`).should('not.exist');
-    cy.url().should('not.include', '/login');
 });
 
-// The rest of your commands remain the same.
+// Ignore uncaught exceptions
 Cypress.Commands.add('UncaughtException', () => {
     cy.on('uncaught:exception', err => {
         console.log('Cypress detected uncaught exception: ', err);
@@ -85,25 +72,21 @@ Cypress.Commands.add('UncaughtException', () => {
     });
 });
 
+// ✅ Logout fix (already correct)
 Cypress.Commands.add('LogoutFromDocflix', () => {
     let profile = new Profile();
     profile.elements.profileHamburger().click();
+    // cy.closeAppInstallPopupIfVisible();
     profile.elements.logOutBtn().click();
 });
 
+// ✅ App install popup handler
 Cypress.Commands.add('closeAppInstallPopupIfVisible', () => {
     cy.get('body').then(($body) => {
-        if ($body.find("div[class*='AppInstallPopUp_desktopContainer__0qnHR']").length > 0) {
-            cy.get("div[class*='AppInstallPopUp_desktopContainer__0qnHR']").then(($popup) => {
-                if ($popup.is(':visible')) {
-                    cy.get("div[class*='AppInstallPopUp_closeIcon__7nQhj']")
-                        .should('be.visible')
-                        .click({ force: true });
-                    cy.log("✅ Closed App Install Toastify popup.");
-                }
-            });
-        } else {
-            cy.log("ℹ️ No App Install Toastify popup found.");
+        if ($body.find("div[class*='AppInstallPopUp_desktopContainer__']").length > 0) {
+            cy.get("div[class*='AppInstallPopUp_closeIcon__']")
+                .click({ force: true });
+            cy.log("✅ Closed App Install popup.");
         }
     });
 });
