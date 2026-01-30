@@ -37,7 +37,7 @@ Cypress.Commands.add('visitHomePage', (mobileNumber, OTP) => {
         }
     });
 
-    // === The Corrected Login Logic Starts Here ===
+    
 
     // ✅ Step 4: Intercept a generic authentication API call *before* triggering any user actions.
     // The pattern is now more generic to help capture a wider range of URLs.
