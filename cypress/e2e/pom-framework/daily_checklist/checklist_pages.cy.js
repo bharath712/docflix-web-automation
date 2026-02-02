@@ -65,7 +65,7 @@ describe('All Pages Check', () => {
 
         cy.visit('/');
         profile.elements.profileHamburger().click();
-        profile.elements.logOutBtn().click();
+        profile.clickLogoutSafely();
 
     });
 
