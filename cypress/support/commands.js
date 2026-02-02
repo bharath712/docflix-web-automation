@@ -88,7 +88,7 @@ Cypress.Commands.add('UncaughtException', () => {
 Cypress.Commands.add('LogoutFromDocflix', () => {
     let profile = new Profile();
     profile.elements.profileHamburger().click();
-    profile.elements.logOutBtn().click();
+    profile.clickLogoutSafely();
 });
 
 Cypress.Commands.add('closeAppInstallPopupIfVisible', () => {
