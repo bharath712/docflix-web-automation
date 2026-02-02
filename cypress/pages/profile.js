@@ -121,8 +121,24 @@ class Profile {
     }
 
     clickOnLogoutButton() {
-
-        this.elements.logoutButtonOnProfile().click();
+        // Remove any blocking QR/AppInstall popup if present
+        cy.get('body').then(($body) => {
+            // Remove both the image elements and the wrapper div
+            const $qr = $body.find(
+                'img[alt="Docflix QR Downloader"], ' +
+                'img[src*="qr_with_logo"], ' +
+                '.AppInstallPopUp_qr__peEFJ, ' +
+                '.AppInstallPopUp_box__IHwsl, ' +
+                '[class*="AppInstallPopUp"]'
+            );
+            if ($qr.length) {
+                $qr.remove();
+                cy.log('Removed blocking AppInstall/QR popup');
+            }
+        }).then(() => {
+            // Now click the logout button
+            this.elements.logoutButtonOnProfile().should('be.visible').click();
+        });
     }
 
     clickLogoutSafely() {
